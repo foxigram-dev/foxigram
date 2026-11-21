@@ -113,22 +113,39 @@
   .auth-tabs { display:flex; background:rgba(255,255,255,.06); padding:4px; border-radius:16px; margin-bottom:14px; }
   .auth-tab { flex:1; padding:8px; border-radius:12px; font-size:13px; font-weight:600; color:var(--mut); }
   .auth-tab.active { background:rgba(255,255,255,.16); color:var(--txt); }  .mob-nav { display:none; }
-  @media (max-width: 768px) {
-    header { padding:0 10px; height:52px; }
+   @media (max-width: 900px) {
+    html, body { width:100vw; height:100dvh; overflow:hidden; margin:0; padding:0; }
+    header { height:auto; flex-wrap:wrap; padding:6px 10px; gap:6px; flex-shrink:0; }
+    header > div:first-child { font-size:16px; }
     .head-mid { display:none; }
-    header .pill { padding:6px 9px; font-size:12px; gap:4px; }
-    .wrap { padding:8px 8px 64px; }
-    .sidebar, .main, .profile { width:100% !important; display:none; border-radius:20px; }
-    body.mob-chats .sidebar { display:flex; }
-    body.mob-chat .main { display:flex; }
-    body.mob-prof .profile { display:flex; }
-    .mob-nav { display:flex; position:fixed; bottom:0; left:0; right:0; height:56px; background:rgba(12,12,16,.96); border-top:1px solid var(--brd); z-index:80; padding:6px 10px; gap:8px; }
-    .mob-btn { flex:1; border-radius:14px; font-size:12px; font-weight:700; color:var(--mut); display:flex; align-items:center; justify-content:center; gap:5px; }
-    .mob-btn.active { background:rgba(255,255,255,.12); color:var(--txt); }
+    header > div:last-child { width:100%; display:grid; grid-template-columns:repeat(5,1fr); gap:4px; }
+    header .pill { padding:5px 2px; font-size:10.5px; gap:2px; justify-content:center; border-radius:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .wrap { flex:1; width:100%; height:100%; padding:6px 6px 62px; display:flex; flex-direction:column; overflow:hidden; }
+    .sidebar, .main, .profile, .view { width:100% !important; height:100% !important; flex:1 !important; display:none; border-radius:18px; }
+    body.mob-chats .sidebar { display:flex; flex-direction:column; }
+    body.mob-chat .main { display:flex; flex-direction:column; }
+    body.mob-prof .profile { display:flex; flex-direction:column; overflow-y:auto; }
+    body.mob-view .view[style*="block"], body.mob-view .view[style*="flex"] { display:block !important; overflow-y:auto; }
+    .mob-nav { display:flex; position:fixed; bottom:0; left:0; right:0; height:54px; background:rgba(12,12,16,.98); border-top:1px solid var(--brd); z-index:80; padding:5px 10px; gap:6px; }
+    .mob-btn { flex:1; border-radius:12px; font-size:12px; font-weight:700; color:var(--mut); display:flex; align-items:center; justify-content:center; gap:5px; }
+    .mob-btn.active { background:rgba(255,255,255,.15); color:var(--txt); }
+    .chat-head { padding:0 12px; height:46px; flex-shrink:0; }
+    #c-title { font-size:14px !important; }
+    #c-sub { font-size:10px !important; }
+    .stories { padding:8px 12px; gap:10px; }
+    .st-ring { width:42px; height:42px; }
+    .msgs { padding:12px; gap:8px; }
     .msg-row { max-width:92%; }
-    .bar { padding:8px 10px; gap:6px; }
-    .bar input[type="text"] { padding:9px 12px; font-size:13px; }
+    .msg { padding:9px 12px; border-radius:16px; }
+    .bar { padding:6px 8px; gap:5px; flex-shrink:0; }
+    .bar input[type="text"], input, select { font-size:15px; }
+    .bar input[type="text"] { padding:8px 10px; min-width:0; }
+    .bar .pill { padding:8px 10px !important; }
+    .bar .btn-main { padding:8px 12px; font-size:12px; }
+    .shop-grid { grid-template-columns:1fr; }
+    .m-box { padding:16px; border-radius:22px; width:92%; }
   }
+
 
 </style>
 </head>
@@ -799,17 +816,18 @@ document.getElementById('m-stop').onclick=()=>{aud.pause();eq.classList.remove('
 drawProfile();drawChats();drawMsgs();drawShop();drawStories();openAuth();
 syncCloud(false);
 setInterval(()=>syncCloud(false),3000);function setMobTab(t){
-  document.body.classList.remove('mob-chats','mob-chat','mob-prof');
+  document.body.classList.remove('mob-chats','mob-chat','mob-prof','mob-view');
   document.body.classList.add('mob-'+t);
   document.querySelectorAll('.mob-btn').forEach(b=>b.classList.toggle('active',b.dataset.mv===t));
 }
 setMobTab('chats');
 document.querySelectorAll('.mob-btn').forEach(b=>b.onclick=()=>setMobTab(b.dataset.mv));
 document.getElementById('chat-list').addEventListener('click',e=>{if(e.target.closest('.chat-item'))setMobTab('chat');});
-document.getElementById('b-shop').addEventListener('click',()=>setMobTab('chat'));
-document.getElementById('b-top').addEventListener('click',()=>setMobTab('chat'));
-document.getElementById('b-bal').addEventListener('click',()=>setMobTab('chat'));
-
+document.getElementById('b-shop').addEventListener('click',()=>setMobTab('view'));
+document.getElementById('b-top').addEventListener('click',()=>setMobTab('view'));
+document.getElementById('b-bal').addEventListener('click',()=>setMobTab('view'));
+document.getElementById('b-back1').addEventListener('click',()=>setMobTab('chat'));
+document.getElementById('b-back2').addEventListener('click',()=>setMobTab('chat'));
 </script>
 </body>
 </html>
