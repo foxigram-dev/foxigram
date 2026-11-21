@@ -112,7 +112,24 @@
   .slot-btn { background:rgba(255,255,255,.06); border:1px solid var(--brd); padding:7px 4px; border-radius:12px; font-size:11px; font-weight:600; }
   .auth-tabs { display:flex; background:rgba(255,255,255,.06); padding:4px; border-radius:16px; margin-bottom:14px; }
   .auth-tab { flex:1; padding:8px; border-radius:12px; font-size:13px; font-weight:600; color:var(--mut); }
-  .auth-tab.active { background:rgba(255,255,255,.16); color:var(--txt); }
+  .auth-tab.active { background:rgba(255,255,255,.16); color:var(--txt); }  .mob-nav { display:none; }
+  @media (max-width: 768px) {
+    header { padding:0 10px; height:52px; }
+    .head-mid { display:none; }
+    header .pill { padding:6px 9px; font-size:12px; gap:4px; }
+    .wrap { padding:8px 8px 64px; }
+    .sidebar, .main, .profile { width:100% !important; display:none; border-radius:20px; }
+    body.mob-chats .sidebar { display:flex; }
+    body.mob-chat .main { display:flex; }
+    body.mob-prof .profile { display:flex; }
+    .mob-nav { display:flex; position:fixed; bottom:0; left:0; right:0; height:56px; background:rgba(12,12,16,.96); border-top:1px solid var(--brd); z-index:80; padding:6px 10px; gap:8px; }
+    .mob-btn { flex:1; border-radius:14px; font-size:12px; font-weight:700; color:var(--mut); display:flex; align-items:center; justify-content:center; gap:5px; }
+    .mob-btn.active { background:rgba(255,255,255,.12); color:var(--txt); }
+    .msg-row { max-width:92%; }
+    .bar { padding:8px 10px; gap:6px; }
+    .bar input[type="text"] { padding:9px 12px; font-size:13px; }
+  }
+
 </style>
 </head>
 <body>
@@ -203,7 +220,12 @@
 <div class="modal" id="m-ban"><div class="m-box"><button type="button" id="m-close4" style="position:absolute;top:16px;right:18px;font-size:18px;color:var(--mut);">✕</button><h3>Выбор баннера</h3><div class="ban-grid" id="ban-list"></div><label class="btn-main" style="display:block;cursor:pointer;">Загрузить свой фон<input type="file" id="ban-file" accept="image/*" style="display:none;"></label></div></div>
 <div class="modal" id="m-auth"><div class="fox-bg" id="fox-bg"></div><div class="m-box"><div style="font-size:36px;margin-bottom:6px;">🦊</div><h3 style="margin-bottom:14px;">Foxigram ID</h3><div class="auth-tabs"><button type="button" class="auth-tab active" id="tab-reg">📝 Регистрация</button><button type="button" class="auth-tab" id="tab-log">🔑 Вход</button></div><input type="text" id="auth-user" placeholder="Юзернейм (от 5 символов)" style="width:100%;margin-bottom:10px;"><input type="password" id="auth-pass" placeholder="Пароль (англ. от 6 символов)" style="width:100%;margin-bottom:10px;"><div id="auth-err" style="color:#F87171;font-size:12px;margin-bottom:10px;min-height:16px;"></div><button type="button" class="btn-main" id="auth-go">✨ Создать аккаунт (500 Pts)</button></div></div>
 <div class="modal" id="m-story"><div class="m-box" id="st-card" style="min-height:340px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,#1E1B4B,#09090B);background-size:cover;background-position:center;"><div style="display:flex;justify-content:space-between;align-items:center;"><span id="st-author" style="font-size:13px;font-weight:700;background:rgba(0,0,0,.55);padding:4px 10px;border-radius:99px;">@fox</span><button type="button" id="m-close6" style="font-size:18px;background:rgba(0,0,0,.55);width:30px;height:30px;border-radius:50%;">✕</button></div><div id="st-text" style="font-size:18px;font-weight:700;text-shadow:0 2px 10px #000;padding:20px 10px;">Добро пожаловать в Foxigram Stories! 🦊</div><div id="st-new-box" style="display:none;flex-direction:column;gap:8px;"><input type="text" id="st-inp" placeholder="Текст истории..."><label class="pill" style="justify-content:center;cursor:pointer;">📷 Фото для истории<input type="file" id="st-file" accept="image/*" style="display:none;"></label><button type="button" class="btn-main" id="st-post">Опубликовать историю</button></div></div></div>
-<audio id="aud"></audio>
+<audio id="aud"></audio><nav class="mob-nav" id="mob-nav">
+  <button type="button" class="mob-btn active" data-mv="chats">💬 Чаты</button>
+  <button type="button" class="mob-btn" data-mv="chat">✉️ Переписка</button>
+  <button type="button" class="mob-btn" data-mv="prof">🦊 Профиль</button>
+</nav>
+
 <script>
 const ITEMS=[
   {t:"Cyber Fox",i:"🦊",c:"#F59E0B,#78350F",p:1500,m:55},{t:"Astral Pepe",i:"🐸",c:"#10B981,#064E3B",p:1200,m:99},{t:"Belov Cap",i:"🧢",c:"#3B82F6,#1E3A8A",p:950,m:150},
@@ -484,7 +506,7 @@ function drawMsgs(){
     if(senderObj&&senderObj.avaImg){av.style.backgroundImage='url('+senderObj.avaImg+')';}else{av.textContent=senderObj?senderObj.ava:(m.s==='@FoxBot'?'🤖':'🦊');}
     const d=document.createElement('div');d.className='msg';
     const safeT=m.t?m.t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
-    const txt=safeT?safeT.replace(/\|\|(.*?)\|\|/g,'<span class="spoiler" onclick="this.classList.toggle(\'open\')">$1</span>'):'';
+    const txt=safeT?safeT.replace(/\|\|(.*?)\|\|/g,'<span class="spoiler" onclick="this.classList.toggle(`open`)">$1</span>'):'';
     const payHtml=m.pay?'<div class="pay-card"><div style="font-size:11px;color:var(--gold);font-weight:700;">💸 ПЕРЕВОД POINTS</div><div style="font-size:16px;font-weight:800;margin:2px 0;">+'+m.pay.amt.toLocaleString()+' Pts</div><div style="font-size:11px;color:var(--mut);">Получатель: '+m.pay.to+'</div></div>':'';
     d.innerHTML='<div style="font-size:12px;color:var(--mut);margin-bottom:4px;"><span class="sender-link">'+m.s+'</span> '+(m.v?'<span class="badge">✓</span>':'')+' • '+m.n+' • '+m.time+'</div>'+(txt?'<div style="font-size:14px;line-height:1.45;">'+txt+'</div>':'')+payHtml+(m.img?'<img class="msg-img" src="'+m.img+'">':'')+'<div class="reacts"></div>';
     d.querySelector('.sender-link').onclick=openSender;
@@ -776,7 +798,18 @@ document.getElementById('m-stop').onclick=()=>{aud.pause();eq.classList.remove('
 
 drawProfile();drawChats();drawMsgs();drawShop();drawStories();openAuth();
 syncCloud(false);
-setInterval(()=>syncCloud(false),3000);
+setInterval(()=>syncCloud(false),3000);function setMobTab(t){
+  document.body.classList.remove('mob-chats','mob-chat','mob-prof');
+  document.body.classList.add('mob-'+t);
+  document.querySelectorAll('.mob-btn').forEach(b=>b.classList.toggle('active',b.dataset.mv===t));
+}
+setMobTab('chats');
+document.querySelectorAll('.mob-btn').forEach(b=>b.onclick=()=>setMobTab(b.dataset.mv));
+document.getElementById('chat-list').addEventListener('click',e=>{if(e.target.closest('.chat-item'))setMobTab('chat');});
+document.getElementById('b-shop').addEventListener('click',()=>setMobTab('chat'));
+document.getElementById('b-top').addEventListener('click',()=>setMobTab('chat'));
+document.getElementById('b-bal').addEventListener('click',()=>setMobTab('chat'));
+
 </script>
 </body>
 </html>
