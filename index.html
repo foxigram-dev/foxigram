@@ -131,7 +131,30 @@
   .act-mini:hover { color:var(--txt); background:rgba(255,255,255,.1); }
   .pay-card { margin-top:6px; background:linear-gradient(135deg,rgba(194,165,116,.16),rgba(130,108,72,.2)); border:1px solid rgba(194,165,116,.38); border-radius:14px; padding:10px 13px; }
   .pay-card.rag { background:linear-gradient(135deg,rgba(132,165,194,.16),rgba(78,105,130,.22)); border-color:rgba(132,165,194,.42); }
-  .pay-card.biz-ad { background:linear-gradient(135deg,rgba(122,168,142,.16),rgba(72,110,88,.22)); border-color:rgba(122,168,142,.42); }
+    .pay-card.biz-ad { background:linear-gradient(135deg,rgba(122,168,142,.16),rgba(72,110,88,.22)); border-color:rgba(122,168,142,.42); }
+  .eft-gift-card { margin-top:6px; width:228px; max-width:100%; border-radius:20px; border:1px solid rgba(255,255,255,.18); padding:16px 14px 14px; text-align:center; position:relative; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.45); }
+  .eft-gift-card > *:not(.eft-pat):not(.gift-ribbon) { position:relative; z-index:1; }
+  .gift-ribbon { position:absolute; top:14px; right:-28px; width:108px; background:rgba(0,0,0,.38); backdrop-filter:blur(4px); border-top:1px solid rgba(255,255,255,.22); border-bottom:1px solid rgba(255,255,255,.22); color:#F8FAFC; font-size:9.5px; font-weight:800; letter-spacing:.5px; text-transform:lowercase; padding:3px 0; transform:rotate(42deg); z-index:2; pointer-events:none; }
+  .gift-specs { margin:9px 0 11px; display:flex; flex-direction:column; gap:3px; font-size:11.5px; }
+  .gift-specs div { display:flex; justify-content:center; gap:6px; }
+  .gift-specs span { color:rgba(255,255,255,.68); }
+  .gift-specs strong { color:#FFFFFF; font-weight:700; }
+  .gift-view-btn { width:100%; padding:8px 12px; border-radius:12px; background:rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.2); color:#FFFFFF; font-size:12.5px; font-weight:700; }
+  .gift-view-btn:hover { background:rgba(0,0,0,.48); transform:translateY(-1px); }
+
+  .eft-gift-card { margin-top:6px; width:228px; max-width:100%; border-radius:20px; border:1px solid rgba(255,255,255,.18); padding:16px 14px 14px; text-align:center; position:relative; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,.45); }
+  .eft-gift-card > *:not(.eft-pat):not(.gift-ribbon) { position:relative; z-index:1; }
+  .gift-ribbon { position:absolute; top:14px; right:-28px; width:108px; background:rgba(0,0,0,.38); backdrop-filter:blur(4px); border-top:1px solid rgba(255,255,255,.22); border-bottom:1px solid rgba(255,255,255,.22); color:#F8FAFC; font-size:9.5px; font-weight:800; letter-spacing:.5px; text-transform:lowercase; padding:3px 0; transform:rotate(42deg); z-index:2; pointer-events:none; }
+  .gift-specs { margin:9px 0 11px; display:flex; flex-direction:column; gap:3px; font-size:11.5px; }
+  .gift-specs div { display:flex; justify-content:center; gap:6px; }
+  .gift-specs span { color:rgba(255,255,255,.68); }
+  .gift-specs strong { color:#FFFFFF; font-weight:700; }
+  .gift-view-btn { width:100%; padding:8px 12px; border-radius:12px; background:rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.2); color:#FFFFFF; font-size:12.5px; font-weight:700; }
+  .gift-view-btn:hover { background:rgba(0,0,0,.48); transform:translateY(-1px); }
+  .gift-specs strong { color:#FFFFFF; font-weight:700; }
+  .gift-view-btn { width:100%; padding:8px 12px; border-radius:12px; background:rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.2); color:#FFFFFF; font-size:12.5px; font-weight:700; }
+  .gift-view-btn:hover { background:rgba(0,0,0,.48); transform:translateY(-1px); }
+ background:linear-gradient(135deg,rgba(122,168,142,.16),rgba(72,110,88,.22)); border-color:rgba(122,168,142,.42); }
   .voice-card { margin-top:4px; display:flex; align-items:center; gap:10px; padding:7px 10px; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid var(--brd); min-width:190px; }
   .v-play { width:30px; height:30px; border-radius:50%; background:var(--accent); color:#101317; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
   .v-waves { display:flex; align-items:center; gap:2.5px; height:18px; flex:1; }
@@ -1366,7 +1389,10 @@ function drawProfile(){
     });
   }else{ex.style.display='none';}
 
-  document.getElementById('r-num').onclick=()=>openAssetModal(u,'num',u.num,isMe);
+    const isAnonNum=u.num&&u.num.startsWith('+555');
+  document.getElementById('r-num').style.cursor=isAnonNum?'pointer':'default';
+  document.getElementById('r-num').onclick=isAnonNum?(()=>openAssetModal(u,'num',u.num,isMe)):null;
+
   const isMainTagColl=Boolean((u.assetMeta&&u.assetMeta[u.tag])||SHOP_TAGS.some(x=>x.t===u.tag)||AUCTIONS.some(x=>    x.val===u.tag)||['@fox','@foxigram','@ceo','@boss'].includes(u.tag));
   const pTagEl=document.getElementById('p-tag');
   pTagEl.style.color=isMainTagColl?'var(--accent)':'var(--txt)';
@@ -1641,11 +1667,16 @@ function drawMsgs(){
         return '<button type="button" class="poll-opt" data-oi="'+oi+'"><div class="poll-fill" style="width:'+pct+'%;"></div><span>'+(voted?'✓ ':'')+o.t+'</span><span>'+pct+'% ('+cnt+')</span></button>';
       }).join('')+'</div>';
     }
+      if(m.eftGift){
+      const g=m.eftGift;
+      extraHtml+='<div class="eft-gift-card" style="background:'+g.bg+';">'+patHtml(g.pat)+'<div class="gift-ribbon">подарок</div><div style="margin:2px auto 6px;">'+eftArt(g.artKey,68)+'</div><div style="font-size:13.5px;font-weight:800;color:#fff;">Подарок от '+g.from+'</div><div style="font-size:11.5px;color:rgba(255,255,255,.85);margin-top:2px;">'+g.title+' '+g.ser+'</div><div class="gift-specs"><div><span>Редкость</span><strong>'+g.rarity+'</strong></div><div><span>Фон</span><strong>'+g.bgName+'</strong></div><div><span>Узор</span><strong>'+g.patName+'</strong></div></div><button type="button" class="gift-view-btn">Посмотреть</button></div>';
+    }
     if(m.bizAd){
       extraHtml+='<div class="pay-card biz-ad"><div style="font-size:10.5px;color:#9AC4AC;font-weight:800;">РЕКЛАМА • FOXIGRAM BUSINESS</div><div style="font-size:13.5px;font-weight:700;margin:3px 0;">'+m.bizAd.title+'</div><div style="font-size:11.5px;color:var(--mut);">Автор: '+m.bizAd.author+'</div></div>';
     }
-    if(m.pay){
-      extraHtml+=m.pay.cur==='RAG'
+
+          if(m.pay){
+extraHtml+=m.pay.cur==='RAG'
         ?'<div class="pay-card rag"><div style="font-size:11px;color:var(--accent);font-weight:700;">ПЕРЕВОД RAG</div><div style="font-size:15px;font-weight:800;margin:2px 0;display:flex;align-items:center;gap:4px;">+'+m.pay.amt.toLocaleString()+' '+SVG_DROP+'</div><div style="font-size:11px;color:var(--mut);">Получатель: '+m.pay.to+'</div></div>'
         :'<div class="pay-card"><div style="font-size:11px;color:var(--gold);font-weight:700;">ПЕРЕВОД POINTS</div><div style="font-size:15px;font-weight:800;margin:2px 0;display:flex;align-items:center;gap:4px;">+'+m.pay.amt.toLocaleString()+' '+SVG_COIN+'</div><div style="font-size:11px;color:var(--mut);">Получатель: '+m.pay.to+'</div></div>';
     }
@@ -1683,7 +1714,21 @@ function drawMsgs(){
       saveState();drawMsgs();
     });
 
-    const dc=d.querySelector('.drop-claim');
+        const gvb=d.querySelector('.gift-view-btn');
+    if(gvb&&m.eftGift){
+      gvb.onclick=()=>{
+        const g=m.eftGift;
+        const mc=document.getElementById('m-card');
+        mc.style.background=g.bg;mc.innerHTML=patHtml(g.pat)+'<span style="position:relative;z-index:1;">'+eftArt(g.artKey,62)+'</span>';
+        document.getElementById('m-title').textContent=g.title;
+        document.getElementById('m-ser').textContent=g.rarity+' • '+g.ser+' • '+g.price+' Points';
+        document.getElementById('m-hash').textContent=g.hash;
+        document.getElementById('m-hist').textContent='Подарен от '+g.from+' для '+g.to+(g.note?' («'+g.note+'»)':'');
+        document.getElementById('m-own-acts').style.display='none';
+        document.getElementById('m-eft').style.display='flex';
+      };
+    }
+const dc=d.querySelector('.drop-claim');
     if(dc){
       dc.onclick=()=>{
         if(!m.drop.claimed)m.drop.claimed=[];
@@ -1888,20 +1933,53 @@ function send(extra={}){
   }
   saveState();drawMsgs();drawProfile();
 }
+function sendGiftCardToChat(fromU,toU,e,note=''){
+  const bgNames=['Графитовый янтарь','Глубокий изумруд','Северный сапфир','Ночной аметист','Тёплая бронза'];
+  const patNames=['Звёздная пыль','Астральные грани','Королевский орнамент','Мистический узор'];
+  const bgN=e.upg?'Улучшенный градиент':bgNames[e.title.length%bgNames.length];
+  const patN=patNames[e.title.charCodeAt(0)%patNames.length];
+  const rar=e.lim?'Лимитированный (1/15)':(e.upg?'Улучшенный EFT':'Коллекционный');
+  const cleanTo=toU.tag.replace(/^@/,'');
+  const dmId='dm_'+cleanTo;
+  if(!st.chats.find(x=>x.id===dmId)){
+    st.chats.unshift({id:dmId,name:toU.display+' ('+toU.tag+')',type:'private',icon:toU.ava,avaImg:toU.avaImg,own:'self',pin:'',boosts:0});
+  }
+  if(!st.msgs[dmId])st.msgs[dmId]=[];
+  const giftObj={from:fromU.tag,to:toU.tag,title:e.title,artKey:e.artKey,ser:e.ser,bg:e.bg,pat:e.pat,price:e.price,hash:e.hash,rarity:rar,bgName:bgN,patName:patN,note};
+  st.msgs[dmId].push({id:'mg'+Date.now()+Math.random(),s:fromU.tag,v:fromU.ver,vc:fromU.verColor,n:fromU.num,t:note||'',eftGift:giftObj,img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0,read:false});
+  if(!toU.unread)toU.unread={};
+  toU.unread[dmId]=(toU.unread[dmId]||0)+1;
+}
+
 function drawShop(){
   const sg=document.getElementById('shop-grid');sg.innerHTML='';
   if(st.shopTab==='eft'){
     st.u.efts.forEach(e=>{
       const d=document.createElement('div');d.className='s-card';d.style.background=e.bg;
-      d.innerHTML=patHtml(e.pat)+'<div><div style="font-size:10px;color:rgba(255,255,255,.78);font-weight:700;">'+(e.lim?'★ ЛИМИТИРОВАННОЕ • ':'')+e.ser+'</div><div style="margin:4px 0;">'+eftArt(e.artKey,46)+'</div><div style="font-weight:700;">'+e.title+'</div></div><button type="button" class="'+(e.owned?'pill':'btn-main')+'">'+(e.owned?'Открыто ✓':('Купить ('+e.price+' Pts)'))+'</button>';
-      d.querySelector('button').onclick=()=>{
+      d.innerHTML=patHtml(e.pat)+'<div><div style="font-size:10px;color:rgba(255,255,255,.78);font-weight:700;">'+(e.lim?'★ ЛИМИТИРОВАННОЕ • ':'')+e.ser+'</div><div style="margin:4px 0;">'+eftArt(e.artKey,46)+'</div><div style="font-weight:700;">'+e.title+'</div></div><div style="display:flex;gap:6px;"><button type="button" class="'+(e.owned?'pill':'btn-main')+' b-buy-eft" style="flex:1;padding:9px 8px;font-size:12px;">'+(e.owned?'Открыто ✓':('Купить ('+e.price+')'))+'</button><button type="button" class="pill b-gift-shop" style="padding:9px 10px;font-size:12px;background:rgba(0,0,0,.32);border-color:rgba(255,255,255,.22);" title="Подарить игроку">Подарить</button></div>';
+      d.querySelector('.b-buy-eft').onclick=()=>{
         if(e.owned)return alert('Уже в коллекции!');
         if(st.u.pts<e.price)return alert('Недостаточно Points!');
         spendPts(st.u,e.price);e.owned=true;e.hist='Приобретён '+st.u.tag;
         st.viewU=null;saveState();drawProfile();drawShop();alert('EFT «'+e.title+'» ('+e.ser+') добавлен в профиль!');
       };
+      d.querySelector('.b-gift-shop').onclick=()=>{
+        if(st.u.pts<e.price)return alert('Недостаточно Points для покупки в подарок! Нужно '+e.price+' Points.');
+        const raw=prompt('Кому подарить «'+e.title+'» за '+e.price+' Points? Введите @юзернейм:');
+        if(!raw||!raw.trim())return;
+        const target=findUserByTag(raw.trim().startsWith('@')?raw.trim():'@'+raw.trim());
+        if(!target||target===st.u)return alert('Пользователь '+raw+' не найден!');
+        const note=prompt('Подпись к подарку (необязательно):','')||'';
+        spendPts(st.u,e.price);
+        const giftedEft={...e,hash:hash(),hist:'Подарен от '+st.u.tag+(note?' («'+note+'»)':''),owned:true,safe:false};
+        target.efts.unshift(giftedEft);
+        sendGiftCardToChat(st.u,target,giftedEft,note.trim());
+        walletNotify(target.tag,'Вам подарили EFT «'+e.title+'» ('+e.ser+') от '+st.u.tag+'!');
+        saveState();drawProfile();drawChats();alert('Подарок «'+e.title+'» отправлен '+target.tag+' с красивой карточкой в личном чате!');
+      };
       sg.appendChild(d);
     });
+
   }else if(st.shopTab==='frames'){
     AVA_FRAMES.forEach(fr=>{
       const ow=(st.u.frames||[]).includes(fr.id),act=(st.u.frame===fr.id);
@@ -2691,7 +2769,8 @@ document.getElementById('m-gift').onclick=()=>{
   if(!target||target===st.u)return alert('Пользователь '+toTag+' не найден.');
   target.efts.unshift({...e,hist:'Подарен от '+st.u.tag+(note?' («'+note+'»)':''),owned:true});
   e.owned=false;st.u.banSlots=st.u.banSlots.map(x=>x===e.artKey?null:x);document.getElementById('gift-to').value='';
-  walletNotify(target.tag,'Вам подарили EFT «'+e.title+'» от '+st.u.tag);
+    sendGiftCardToChat(st.u,target,e,note);
+walletNotify(target.tag,'Вам подарили EFT «'+e.title+'» от '+st.u.tag);
   saveState();document.getElementById('m-eft').style.display='none';drawProfile();drawShop();alert('Подарок отправлен '+target.tag);
 };
 
