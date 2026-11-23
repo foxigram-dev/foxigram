@@ -69,12 +69,14 @@
   .dr-item { width:100%; padding:10px 14px; border-radius:14px; display:flex; align-items:center; gap:12px; font-size:13.5px; font-weight:600; color:var(--txt); text-align:left; }
   .dr-item:hover { background:rgba(255,255,255,.06); transform:translateX(3px); }
   .dr-item.active { background:var(--pill-bg); color:var(--accent); }
-  .dr-item.admin-btn { color:#D69CA4; background:rgba(194,124,134,.08); border:1px solid rgba(194,124,134,.2); margin-top:auto; }
+  .dr-cloud { margin-top:auto; padding:8px 14px; font-size:11px; color:var(--mut); display:flex; align-items:center; gap:7px; }
+  .dr-cloud i { width:7px; height:7px; border-radius:50%; background:#7AA88E; display:inline-block; box-shadow:0 0 8px rgba(122,168,142,.6); }
+  .dr-item.admin-btn { color:#D69CA4; background:rgba(194,124,134,.08); border:1px solid rgba(194,124,134,.2); margin-top:6px; }
   .dr-sep { height:1px; background:var(--brd); margin:7px 6px; }
   .wrap { display:flex; flex:1; min-height:0; overflow:hidden; padding:10px; gap:10px; }
   .box { background:var(--card); border:1px solid var(--brd); border-radius:22px; display:flex; flex-direction:column; overflow:hidden; backdrop-filter:blur(12px); animation:panelIn .35s cubic-bezier(.22,1,.36,1); }
   @keyframes panelIn { from{opacity:0;transform:translateY(6px) scale(.99)} to{opacity:1;transform:none} }
-  .sidebar { width:275px; flex-shrink:0; } .main { flex:1; min-width:0; } .profile { width:365px; flex-shrink:0; overflow-y:auto; }
+  .sidebar { width:275px; flex-shrink:0; } .main { flex:1; min-width:0; position:relative; } .profile { width:365px; flex-shrink:0; overflow-y:auto; }
 
   .stories { display:flex; gap:10px; padding:10px 12px; border-bottom:1px solid var(--brd); overflow-x:auto; flex-shrink:0; background:rgba(255,255,255,.012); }
   .stories::-webkit-scrollbar { height:0; }
@@ -101,7 +103,14 @@
   .chat-head { height:54px; padding:0 16px; border-bottom:1px solid var(--brd); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; gap:8px; background:rgba(18,20,26,.65); }
   .pin-bar { background:rgba(132,165,194,.09); border-bottom:1px solid rgba(132,165,194,.18); padding:7px 16px; font-size:12px; display:none; align-items:center; justify-content:space-between; cursor:pointer; animation:fadeSlide .25s ease; }
   @keyframes fadeSlide { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:none} }
-  .msgs { flex:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:10px; background:var(--chat-wp); transition:background .4s ease; }
+  .msgs { flex:1; overflow-y:auto; padding:16px 18px; display:flex; flex-direction:column; gap:10px; background:var(--chat-wp); transition:background .4s ease; position:relative; }
+  .empty-card { margin:auto; max-width:290px; background:rgba(22,25,32,.86); border:1px solid var(--brd); border-radius:24px; padding:22px 20px; text-align:center; backdrop-filter:blur(12px); animation:msgPop .35s ease; }
+  .empty-mascot { font-size:58px; margin:12px auto 4px; display:inline-block; cursor:pointer; animation:waveBob 2.6s ease-in-out infinite; transition:transform .2s; }
+  .empty-mascot:hover { transform:scale(1.12); }
+  @keyframes waveBob { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-6px) rotate(5deg)} }
+  .scroll-down-btn { position:absolute; right:18px; bottom:74px; width:38px; height:38px; border-radius:50%; background:rgba(24,28,36,.92); border:1px solid rgba(255,255,255,.16); color:var(--txt); display:none; align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(0,0,0,.55); z-index:15; }
+  .scroll-down-btn:hover { border-color:var(--accent); transform:translateY(-2px); }
+
   .msg-row { display:flex; align-items:flex-end; gap:9px; max-width:82%; animation:msgPop .28s cubic-bezier(.22,1,.36,1); }
   @keyframes msgPop { from{opacity:0;transform:translateY(10px) scale(.97)} to{opacity:1;transform:none} }
   .msg-row.mine { align-self:flex-end; flex-direction:row-reverse; }
@@ -109,6 +118,13 @@
   .msg { background:rgba(28,32,40,.88); border:1px solid var(--brd); padding:10px 14px; border-radius:18px; border-bottom-left-radius:5px; backdrop-filter:blur(8px); position:relative; }
   .msg-row.mine .msg { border-bottom-left-radius:18px; border-bottom-right-radius:5px; background:rgba(42,52,66,.88); border-color:rgba(132,165,194,.22); }
   .reply-box { border-left:2.5px solid var(--accent); background:rgba(255,255,255,.05); padding:5px 9px; border-radius:8px; margin-bottom:6px; font-size:11.5px; color:var(--mut); }
+  .mention-link { color:var(--accent); font-weight:700; cursor:pointer; }
+  .mention-link:hover { text-decoration:underline; }
+  .poll-box { margin-top:7px; display:flex; flex-direction:column; gap:6px; min-width:210px; }
+  .poll-opt { position:relative; overflow:hidden; border-radius:11px; border:1px solid var(--brd); background:rgba(255,255,255,.035); padding:8px 11px; text-align:left; font-size:12.5px; font-weight:600; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .poll-opt:hover { border-color:var(--accent); }
+  .poll-fill { position:absolute; left:0; top:0; bottom:0; background:rgba(132,165,194,.22); transition:width .4s ease; z-index:0; }
+  .poll-opt span { position:relative; z-index:1; }
   .msg-acts { display:none; gap:4px; margin-top:6px; border-top:1px solid var(--brd); padding-top:5px; }
   .msg:hover .msg-acts { display:flex; flex-wrap:wrap; }
   .act-mini { font-size:10.5px; color:var(--mut); padding:2px 7px; border-radius:8px; background:rgba(255,255,255,.04); }
@@ -142,24 +158,36 @@
   .emo-btn { width:34px; height:34px; border-radius:10px; font-size:18px; display:flex; align-items:center; justify-content:center; }
   .emo-btn:hover { background:rgba(255,255,255,.1); }
 
-  /* Увеличенные кликабельные EFT на баннере с лёгким парением вверх-вниз */
+  /* Анимации векторных EFT и развевающегося пиратского флага */
+  .eft-svg { display:inline-flex; align-items:center; justify-content:center; animation:eftPulse 3.8s ease-in-out infinite; }
+  .eft-svg svg { width:100%; height:100%; filter:drop-shadow(0 4px 10px rgba(0,0,0,.45)); }
+  @keyframes eftPulse { 0%,100%{transform:scale(1) rotate(0deg)} 50%{transform:scale(1.06) rotate(2.5deg)} }
+  .flag-wave { animation:flagFlutter 2.4s ease-in-out infinite; transform-origin:left center; }
+  @keyframes flagFlutter { 0%,100%{transform:skewY(0deg) scaleX(1)} 50%{transform:skewY(-3deg) scaleX(.96)} }
+
   .banner { height:136px; background:linear-gradient(135deg,#202530,#111318); background-size:cover; background-position:center; position:relative; display:flex; align-items:flex-end; justify-content:center; flex-shrink:0; }
-  .b-eft { position:absolute; width:34px; height:34px; border-radius:50%; background:rgba(16,18,23,.76); border:1px solid rgba(255,255,255,.22); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; font-size:17px; box-shadow:0 5px 14px rgba(0,0,0,.48); cursor:pointer; z-index:3; animation:gentleFloat 3.6s ease-in-out infinite; transition:border-color .2s, background .2s; }
+  .b-eft { position:absolute; width:36px; height:36px; border-radius:50%; background:rgba(16,18,23,.78); border:1px solid rgba(255,255,255,.22); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:6px; box-shadow:0 5px 14px rgba(0,0,0,.48); cursor:pointer; z-index:3; animation:gentleFloat 3.6s ease-in-out infinite; transition:border-color .2s, background .2s; }
   .b-eft:hover { border-color:var(--accent); background:rgba(30,36,48,.92); }
   .b-s0 { top:14px; left:28px; } .b-s1 { top:54px; left:12px; animation-delay:.6s; } .b-s2 { top:92px; left:36px; animation-delay:1.2s; }
   .b-s3 { top:14px; right:28px; animation-delay:.3s; } .b-s4 { top:54px; right:12px; animation-delay:.9s; } .b-s5 { top:92px; right:36px; animation-delay:1.5s; }
   @keyframes gentleFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
 
-  .p-ava { width:82px; height:82px; border-radius:50%; background:#161920; border:3px solid var(--bg); display:flex; align-items:center; justify-content:center; font-size:32px; transform:translateY(38px); overflow:hidden; background-size:cover; background-position:center; box-shadow:0 10px 28px rgba(0,0,0,.55); z-index:2; cursor:pointer; }
+  /* 4 аккуратные рамки аватара */
+  .p-ava { width:82px; height:82px; border-radius:50%; background:#161920; border:3px solid var(--bg); display:flex; align-items:center; justify-content:center; font-size:32px; transform:translateY(38px); overflow:hidden; background-size:cover; background-position:center; box-shadow:0 10px 28px rgba(0,0,0,.55); z-index:2; cursor:pointer; transition:box-shadow .3s ease; }
   .p-ava.has-story { box-shadow:0 0 0 3px var(--bg), 0 0 0 5px var(--accent), 0 10px 28px rgba(0,0,0,.55); }
+  .fr-silver { box-shadow:0 0 0 2.5px #111317, 0 0 0 4.5px #B6C2CF, 0 0 16px rgba(182,194,207,.35) !important; }
+  .fr-gold { box-shadow:0 0 0 2.5px #111317, 0 0 0 4.5px #C8AD7F, 0 0 16px rgba(200,173,127,.35) !important; }
+  .fr-lunar { box-shadow:0 0 0 2.5px #111317, 0 0 0 4.5px #9F93C4, 0 0 16px rgba(159,147,196,.35) !important; }
+  .fr-sage { box-shadow:0 0 0 2.5px #111317, 0 0 0 4.5px #7FA892, 0 0 16px rgba(127,168,146,.35) !important; }
+
   .back-me { position:absolute; top:10px; left:10px; background:rgba(15,17,22,.72); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.16); padding:5px 11px; border-radius:99px; font-size:11px; font-weight:600; z-index:5; display:none; align-items:center; gap:5px; }
   .badge { display:inline-flex; align-items:center; justify-content:center; width:16px; height:16px; background:#7EA4C2; color:#0E1217; border-radius:50%; font-size:10px; font-weight:900; flex-shrink:0; }
   .badge.pink { background:#C48EA4; color:#140E12; }
   .badge.red { background:#C27882; color:#140C0E; }
-  .lvl-pill { background:rgba(255,255,255,.06); border:1px solid var(--brd); color:var(--txt); padding:2px 9px; border-radius:99px; font-size:11px; font-weight:700; }
-  .prem-pill { background:linear-gradient(135deg,#B86B77,#9E525E); color:#F8FAFC; padding:2px 9px; border-radius:99px; font-size:10px; font-weight:800; letter-spacing:.5px; display:none; }
-  .biz-pill { background:linear-gradient(135deg,#6E9E82,#4E7A61); color:#F8FAFC; padding:2px 9px; border-radius:99px; font-size:10px; font-weight:800; letter-spacing:.5px; display:none; }
-  .ach-strip { display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,.045); border:1px solid var(--brd); padding:3px 10px; border-radius:99px; font-size:11px; margin-top:6px; color:var(--mut); }
+  .lvl-pill { background:rgba(255,255,255,.06); border:1px solid var(--brd); color:var(--txt); padding:2px 9px; border-radius:99px; font-size:11px; font-weight:700; cursor:pointer; }
+  .lvl-pill:hover { border-color:var(--accent); color:var(--accent); }
+    .prem-pill { background:linear-gradient(135deg,#B86B77,#9E525E); color:#F8FAFC; padding:1.5px 6px; border-radius:99px; font-size:9px; font-weight:800; letter-spacing:.4px; display:none; cursor:pointer; }
+  .biz-pill { background:linear-gradient(135deg,#6E9E82,#4E7A61); color:#F8FAFC; padding:1.5px 6px; border-radius:99px; font-size:9px; font-weight:800; letter-spacing:.4px; display:none; cursor:pointer; }
   .prof-pills { display:flex; align-items:center; justify-content:center; gap:8px; padding:12px 14px 4px; flex-wrap:wrap; }
   .tg-cap { background:var(--pill-bg); border:1px solid rgba(132,165,194,.22); color:var(--txt); padding:6px 12px; border-radius:99px; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:6px; max-width:100%; transition:all .2s ease; }
   .tg-cap:hover { background:rgba(132,165,194,.22); transform:translateY(-1px); }
@@ -289,7 +317,9 @@
   <button type="button" class="dr-item" id="dr-vault"><svg class="ico" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>Ежедневный сейф</button>
   <button type="button" class="dr-item" id="dr-lock" style="display:none;"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Заблокировать (PIN)</button>
   <div class="dr-sep"></div>
+  <button type="button" class="dr-item" id="dr-about"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>О проекте</button>
   <button type="button" class="dr-item" data-nav="set"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
+  <div class="dr-cloud"><i></i><span>Облако синхронизировано • Foxigram 2.0</span></div>
   <button type="button" class="dr-item admin-btn" id="dr-admin" data-nav="admin" style="display:none;"><svg class="ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Панель администратора</button>
 </aside>
 
@@ -300,7 +330,6 @@
     <div class="tabs"><button type="button" class="tab active" data-f="all">Все</button><button type="button" class="tab" data-f="group">Группы</button><button type="button" class="tab" data-f="channel">Каналы</button><button type="button" class="tab" id="b-new">+ Чат</button></div>
     <div class="list" id="chat-list"></div>
   </div>
-
   <div class="box main" id="v-chat">
     <div class="chat-head">
       <div id="c-head-info" style="min-width:0;cursor:pointer;flex:1;" title="Информация о чате / канале">
@@ -310,6 +339,7 @@
       <div style="display:flex;gap:5px;flex-shrink:0;align-items:center;">
         <select id="sup-ticket-sel" style="display:none;padding:5px 9px;font-size:11.5px;border-radius:10px;"></select>
         <button type="button" class="pill" id="b-sub-head" style="display:none;font-size:11.5px;padding:5px 10px;">Подписаться</button>
+        <button type="button" class="pill" id="b-poll" style="display:none;font-size:11.5px;padding:5px 9px;" title="Создать опрос"><svg class="ico-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></button>
         <button type="button" class="pill" id="b-boost" style="display:none;font-size:11.5px;padding:5px 10px;"><svg class="ico-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span id="c-boosts">0</span></button>
         <button type="button" class="pill" id="b-csearch" style="font-size:11.5px;padding:5px 9px;" title="Поиск по чату"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
         <button type="button" class="pill" id="b-mute-chat" style="font-size:11.5px;padding:5px 9px;" title="Звук чата"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
@@ -323,6 +353,7 @@
     </div>
     <div class="pin-bar" id="pin-bar"><span><svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg> <strong id="pin-txt">Закреплённое сообщение</strong></span><span style="color:var(--mut);font-size:11px;">✕</span></div>
     <div class="msgs" id="msgs"></div>
+    <button type="button" class="scroll-down-btn" id="b-scrolldown" title="Вниз"><svg class="ico" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
     <div id="wallet-quick" style="display:none;padding:8px 14px;border-top:1px solid var(--brd);gap:6px;flex-wrap:wrap;background:rgba(132,165,194,.06);">
       <button type="button" class="pill rag" id="w-check-rag">Создать чек RAG</button>
       <button type="button" class="pill gold" id="w-check-pts">Создать чек Points</button>
@@ -337,15 +368,16 @@
         <button type="button" class="pill" id="b-delay" style="padding:9px;" title="Отложенная отправка"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></button>
         <div class="rec-pill" id="rec-pill"><span class="rec-dot"></span><span>Запись голоса: <strong id="rec-sec">0:00</strong></span></div>
         <input type="text" id="inp" placeholder="Сообщение...">
-          <button type="button" class="pill" id="b-mic" style="padding:9px;" title="Голосовое сообщение"><svg class="ico" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
+        <button type="button" class="pill" id="b-mic" style="padding:9px;" title="Голосовое сообщение"><svg class="ico" viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></button>
         <button type="button" class="btn-main" style="width:auto;padding:10px 15px;" id="b-send"><svg class="ico" style="stroke:#101317;" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
       </div>
     </div>
   </div>
-<div class="box view" id="v-shop">
+  <div class="box view" id="v-shop">
     <div style="display:flex;justify-content:space-between;align-items:center;"><h2>Магазин Foxigram</h2><button type="button" class="pill" id="b-back1">← Назад</button></div>
     <div class="shop-tabs">
       <button type="button" class="s-tab active" data-st="eft">Коллекция EFT</button>
+      <button type="button" class="s-tab" data-st="frames">Рамки аватара</button>
       <button type="button" class="s-tab" data-st="prem">Premium</button>
       <button type="button" class="s-tab" data-st="biz">Foxigram Business</button>
     </div>
@@ -388,8 +420,10 @@
     <div style="display:flex;justify-content:space-between;align-items:center;"><h2>Настройки</h2><button type="button" class="pill" id="b-back4">← Назад</button></div>
 
     <div class="set-sec">
-      <div class="set-title"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Профиль и личный канал</div>
+      <div class="set-title"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Профиль, имя и юзернейм</div>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+        <button type="button" class="pill" style="justify-content:center;padding:10px;" id="s-name">Сменить имя</button>
+        <button type="button" class="pill" style="justify-content:center;padding:10px;" id="s-tag">Сменить @юзернейм</button>
         <button type="button" class="pill" style="justify-content:center;padding:10px;" id="s-ava">Сменить аватар</button>
         <button type="button" class="pill" style="justify-content:center;padding:10px;" id="s-ban">Сменить баннер</button>
         <button type="button" class="pill" style="justify-content:center;padding:10px;" id="s-num">Сменить номер +555</button>
@@ -431,6 +465,7 @@
 
     <div class="set-sec">
       <div class="set-title"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Конфиденциальность и PIN-код</div>
+      <button type="button" class="pill" style="width:100%;justify-content:center;padding:10px;margin-bottom:12px;" id="b-toggle-ghost">Режим «Невидимка» (Premium): Выключен</button>
       <div style="font-size:12px;color:var(--mut);margin-bottom:6px;">Резервная электронная почта:</div>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <input type="email" id="priv-email" placeholder="name@example.com" style="flex:1;min-width:0;">
@@ -470,12 +505,16 @@
         <button type="button" class="pill" id="adm-give-prem">Выдать Premium</button>
         <button type="button" class="pill biz" id="adm-give-biz">Выдать Business</button>
       </div>
-      <div style="font-size:12px;color:var(--mut);margin-bottom:6px;">Верификация (цвет галочки):</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;">
+      <div style="font-size:12px;color:var(--mut);margin-bottom:6px;">Верификация (цвет галочки и организация):</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px;">
         <button type="button" class="pill" style="justify-content:center;" id="adm-v-blue"><span class="badge">✓</span> Синяя</button>
         <button type="button" class="pill" style="justify-content:center;" id="adm-v-pink"><span class="badge pink">✓</span> Розовая</button>
         <button type="button" class="pill" style="justify-content:center;" id="adm-v-red"><span class="badge red">✓</span> Красная</button>
         <button type="button" class="pill" style="justify-content:center;" id="adm-v-off">Снять</button>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input type="text" id="adm-org-in" placeholder="Организация (например CEO или Media)" style="flex:1;min-width:0;">
+        <button type="button" class="pill" id="adm-org-set">Подтвердить</button>
       </div>
       <div style="font-size:12px;color:var(--mut);margin-bottom:6px;">Ограничения и модерация:</div>
       <div class="adm-grid">
@@ -495,9 +534,8 @@
       <div class="p-ava" id="p-ava" title="Нажмите для просмотра истории">F</div>
     </div>
     <div style="margin-top:44px;text-align:center;padding:0 16px;">
-      <div style="font-size:19.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px;"><span id="p-name">Fox</span><span id="p-ver" class="badge">✓</span><span id="p-emo"></span></div>
-      <div style="font-size:12px;color:#8BB8A8;margin-top:5px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;"><span id="p-status-txt">● в сети</span><span class="lvl-pill" id="p-lvl">Ур. 1</span><span class="prem-pill" id="p-prem">PREMIUM</span><span class="biz-pill" id="p-biz">BUSINESS</span></div>
-      <div id="p-achs-wrap" style="display:none;"><div class="ach-strip" id="p-achs"></div></div>
+      <div style="font-size:19.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px;"><span id="p-name">Fox</span><span id="p-ver" class="badge">✓</span><span id="p-emo" style="display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;"></span></div>
+      <div style="font-size:12px;color:#8BB8A8;margin-top:5px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;"><span id="p-status-txt">● в сети</span><button type="button" class="lvl-pill" id="p-lvl" title="Прогресс уровня">Ур. 1</button><span class="prem-pill" id="p-prem">PREM</span><span class="biz-pill" id="p-biz">BUZ</span></div>
     </div>
 
     <div class="prof-pills">
@@ -522,23 +560,53 @@
     </div>
 
     <div class="info">
-      <div class="row" id="r-chan" style="display:none;background:rgba(132,165,194,.06);"><div style="font-size:13px;font-weight:700;color:var(--accent);" id="p-chan-name">Личный канал</div><div style="font-size:11px;color:var(--mut);" id="p-chan-sub">Открыть канал ›</div></div>
+            <div class="row" id="r-chan" style="display:none;align-items:center;gap:11px;background:rgba(132,165,194,.07);border-bottom:1px solid rgba(132,165,194,.16);">
+        <div class="ava" id="p-chan-ava" style="width:42px;height:42px;border-radius:50%;font-size:18px;border:1.5px solid var(--accent);">📢</div>
+        <div style="min-width:0;flex:1;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
+            <span style="font-size:13.5px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="p-chan-name">Личный канал</span>
+            <span style="font-size:11px;color:var(--accent);font-weight:600;flex-shrink:0;" id="p-chan-subs">0 подп.</span>
+          </div>
+          <div style="font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;" id="p-chan-last">Открыть канал</div>
+        </div>
+        <span style="color:var(--accent);font-size:16px;font-weight:700;">›</span>
+      </div>
       <div class="row" id="r-num"><div style="font-size:13.5px;font-weight:600;" id="p-num">+8 900 000-00</div><div style="font-size:11px;color:var(--mut);" id="p-num-lbl">Обыкновенный номер</div></div>
       <div class="row" id="r-tag"><div style="font-size:13.5px;color:var(--accent);font-weight:700;" id="p-tag">@user</div><div class="extra-tags" id="p-extra"></div><div style="font-size:11px;color:var(--mut);margin-top:2px;">Имя пользователя</div></div>
       <div class="row"><div style="font-size:13.5px;line-height:1.4;" id="p-bio">Пользователь Foxigram</div><div style="font-size:11px;color:var(--mut);">О себе</div></div>
+      <div class="row" id="r-ceo-ver" style="display:none;align-items:center;gap:10px;cursor:default;"><svg class="ico" style="width:19px;height:19px;stroke:var(--accent);" viewBox="0 0 24 24"><path d="M4 3l4 5h8l4-5 1 9-9 9-9-9 1-9z"/><path d="M9 13l1.5 1.5"/><path d="M15 13l-1.5 1.5"/></svg><div style="font-size:12px;color:var(--mut);line-height:1.35;" id="p-org-txt">Данный пользователь верифицирован организацией «CEO»</div></div>
     </div>
     <div style="padding:2px 16px 10px;font-size:11.5px;font-weight:700;color:var(--mut);letter-spacing:.4px;">КОЛЛЕКЦИЯ EFT (<span id="e-cnt">0</span>)</div>
     <div class="grid" id="e-grid"></div>
   </div>
 </div>
-<div class="modal" id="m-eft"><div class="m-box"><button type="button" id="m-close1" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="m-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:44px;position:relative;overflow:hidden;"></div><h3 id="m-title">Cyber Fox</h3><div id="m-ser" style="font-size:12px;color:var(--gold);margin:4px 0 10px;">#1/55</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="m-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш</div></div><div class="row"><div id="m-hist" style="font-size:12px;">Выпущен в сети Foxigram</div><div style="font-size:10.5px;color:var(--mut);">История владения</div></div></div><div id="m-own-acts"><div style="font-size:11px;color:var(--mut);margin-bottom:4px;">Закрепить на баннер (6 слотов):</div><div class="slot-grid" id="slot-grid"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="justify-content:center;" id="m-status">В статус</button><button type="button" class="pill" style="justify-content:center;" id="m-equip">На баннер</button><button type="button" class="pill" style="justify-content:center;" id="m-upg">Апгрейд (300)</button><button type="button" class="pill" style="justify-content:center;" id="m-safe">Замок защиты</button><button type="button" class="pill" style="justify-content:center;" id="m-sell">Скупка 60%</button><button type="button" class="pill rag" style="justify-content:center;" id="m-p2p-btn">На P2P-маркет</button></div><div style="display:flex;gap:6px;"><input type="text" id="gift-to" placeholder="@тег и подпись..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="m-gift">Подарить</button></div></div></div></div>
+<!-- Модальное окно EFT -->
+<div class="modal" id="m-eft"><div class="m-box"><button type="button" id="m-close1" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="m-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;padding:14px;position:relative;overflow:hidden;"></div><h3 id="m-title">Cyber Fox</h3><div id="m-ser" style="font-size:12px;color:var(--gold);margin:4px 0 10px;">#1/55</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="m-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш</div></div><div class="row"><div id="m-hist" style="font-size:12px;">Выпущен в сети Foxigram</div><div style="font-size:10.5px;color:var(--mut);">История владения</div></div></div><div id="m-own-acts"><div style="font-size:11px;color:var(--mut);margin-bottom:4px;">Закрепить на баннер (6 слотов):</div><div class="slot-grid" id="slot-grid"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="justify-content:center;" id="m-status">В статус</button><button type="button" class="pill" style="justify-content:center;" id="m-equip">На баннер</button><button type="button" class="pill" style="justify-content:center;" id="m-upg">Апгрейд (300)</button><button type="button" class="pill" style="justify-content:center;" id="m-safe">Замок защиты</button><button type="button" class="pill" style="justify-content:center;" id="m-sell">Скупка 60%</button><button type="button" class="pill rag" style="justify-content:center;" id="m-p2p-btn">На P2P-маркет</button></div><div style="display:flex;gap:6px;"><input type="text" id="gift-to" placeholder="@тег и подпись..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="m-gift">Подарить</button></div></div></div></div>
 
+<!-- Коллекционная карточка анонимного номера +555 (с развевающимся пиратским флагом) и редкого юзернейма -->
+<div class="modal" id="m-asset"><div class="m-box"><button type="button" id="m-close-as" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="as-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#252B36,#13161C);border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;"></div><h3 id="as-title">Анонимный номер телефона</h3><div id="as-val" style="font-size:16px;font-weight:800;color:var(--accent);margin:4px 0 2px;">+555 555-55</div><div id="as-price" style="font-size:12px;color:var(--gold);margin-bottom:10px;">Оценка: 500 RAG</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="as-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш актива</div></div><div class="row"><div id="as-hist" style="font-size:12px;">Зарегистрирован в сети Dragment</div><div style="font-size:10.5px;color:var(--mut);">Статус владения</div></div></div><div style="display:flex;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="flex:1;justify-content:center;" id="as-copy">Скопировать</button><button type="button" class="pill rag" style="flex:1;justify-content:center;display:none;" id="as-make-main">Сделать основным</button></div><div id="as-gift-box" style="display:none;border-top:1px solid var(--brd);padding-top:10px;"><div style="font-size:11px;color:var(--mut);margin-bottom:6px;">Безопасная передача в подарок (зачисление через 24 часа):</div><div style="display:flex;gap:6px;"><input type="text" id="as-gift-to" placeholder="Введите @юзернейм..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="as-gift-go">Подарить</button></div></div></div></div>
+
+<!-- Карточка прогресса уровня (1–150) -->
+<div class="modal" id="m-lvl"><div class="m-box" style="max-width:360px;"><button type="button" id="m-close-lvl" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:18px;background:var(--pill-bg);border:1px solid rgba(132,165,194,.3);color:var(--accent);font-size:20px;font-weight:800;margin-bottom:8px;" id="lvl-num-big">1</div><h3 id="lvl-title">Уровень 1 из 150</h3><p id="lvl-rem" style="font-size:12.5px;color:var(--accent);font-weight:600;margin:6px 0 10px;">До следующего уровня осталось потратить: 1 000 Points</p><div style="height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-bottom:12px;"><div id="lvl-bar" style="height:100%;width:0%;background:var(--accent);border-radius:99px;transition:width .35s ease;"></div></div><div style="font-size:12px;color:var(--mut);line-height:1.45;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--brd);padding:11px 13px;border-radius:14px;"><strong>Как повышать уровень:</strong><br>Уровень растёт автоматически при трате Points на покупку EFT, рамок аватара, подписок Premium и Business, апгрейды и обмен на RAG в Dragment.</div></div></div>
+
+<!-- Окно «О проекте» -->
+<div class="modal" id="m-about"><div class="m-box" style="max-width:380px;"><button type="button" id="m-close-ab" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div style="width:58px;height:58px;margin:0 auto 10px;border-radius:18px;background:var(--pill-bg);border:1px solid rgba(132,165,194,.3);display:flex;align-items:center;justify-content:center;"><svg class="ico" style="width:28px;height:28px;stroke:var(--accent);" viewBox="0 0 24 24"><path d="M4 3l4 5h8l4-5 1 9-9 9-9-9 1-9z"/><path d="M9 13l1.5 1.5"/><path d="M15 13l-1.5 1.5"/></svg></div><h3 style="font-size:19px;">Foxigram 2.0</h3><div style="font-size:11.5px;color:var(--accent);font-weight:700;margin:3px 0 10px;">Независимая анонимная сеть</div><p style="font-size:12.5px;color:var(--mut);line-height:1.5;margin-bottom:14px;">Закрытый мессенджер нового поколения без привязки к SIM-карте — с собственной биржей цифровых активов Dragment, коллекцией EFT, каналами, опросами и облачной синхронизацией.</p><a href="https://t.me/foxigramdev" target="_blank" rel="noopener" class="btn-main" style="text-decoration:none;margin-bottom:8px;"><svg class="ico-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Официальный Telegram (@foxigramdev)</a><button type="button" class="pill" style="width:100%;justify-content:center;padding:10px;" id="ab-open-fox">Открыть Портал Fox в сети</button></div></div>
+
+<!-- Создание опроса -->
+<div class="modal" id="m-poll"><div class="m-box" style="max-width:370px;"><button type="button" id="m-close-pl" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3 style="margin-bottom:12px;">Создать опрос</h3><input type="text" id="pl-q" placeholder="Вопрос опроса..." style="width:100%;margin-bottom:8px;"><input type="text" id="pl-o1" placeholder="Вариант 1" style="width:100%;margin-bottom:7px;"><input type="text" id="pl-o2" placeholder="Вариант 2" style="width:100%;margin-bottom:7px;"><input type="text" id="pl-o3" placeholder="Вариант 3 (необязательно)" style="width:100%;margin-bottom:12px;"><button type="button" class="btn-main" id="pl-post">Опубликовать опрос</button></div></div>
+
+<!-- Пересылка сообщения в выбранный чат -->
+<div class="modal" id="m-fwd"><div class="m-box" style="max-width:360px;"><button type="button" id="m-close-fwd" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3 style="margin-bottom:10px;">Переслать сообщение</h3><div id="fwd-list" style="display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;text-align:left;"></div></div></div>
+<!-- Создание чата / канала -->
 <div class="modal" id="m-new"><div class="m-box"><button type="button" id="m-close2" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3 style="margin-bottom:14px;">Создать чат или канал</h3><input type="text" id="n-name" placeholder="Название..." style="width:100%;margin-bottom:9px;"><input type="text" id="n-desc" placeholder="Описание..." style="width:100%;margin-bottom:9px;"><input type="text" id="n-code" maxlength="5" placeholder="Тег поиска (например #FOX1)" style="width:100%;margin-bottom:9px;"><select id="n-type" style="width:100%;margin-bottom:14px;"><option value="group">Группа</option><option value="channel">Канал</option></select><button type="button" class="btn-main" id="n-ok">Создать</button></div></div>
 
+<!-- Меню канала / группы (кастомизация и подписчики) -->
 <div class="modal" id="m-chan"><div class="m-box"><button type="button" id="m-close-ch" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div class="p-ava" id="ch-m-ava" style="transform:none;margin:0 auto 10px;width:72px;height:72px;">📢</div><h3 id="ch-m-name">Канал</h3><div id="ch-m-meta" style="font-size:12px;color:var(--accent);margin:4px 0 8px;">#XXXX • 0 подписчиков</div><p id="ch-m-desc" style="font-size:12.5px;color:var(--mut);margin-bottom:14px;">Описание</p><button type="button" class="btn-main" id="ch-m-sub" style="margin-bottom:10px;">Подписаться</button><div id="ch-own-box" style="display:none;text-align:left;border-top:1px solid var(--brd);padding-top:12px;"><div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:8px;">Настройки владельца</div><input type="text" id="ch-ed-name" placeholder="Новое название" style="width:100%;margin-bottom:7px;"><input type="text" id="ch-ed-desc" placeholder="Описание канала" style="width:100%;margin-bottom:7px;"><input type="text" id="ch-ed-code" maxlength="5" placeholder="Тег #XXXX" style="width:100%;margin-bottom:7px;"><div style="display:flex;gap:6px;margin-bottom:8px;"><input type="number" id="ch-ed-fee" placeholder="Платный вход (0 = беспл.)" style="flex:1;"><select id="ch-ed-cur"><option value="RAG">RAG</option><option value="PTS">Points</option></select></div><label class="pill" style="width:100%;justify-content:center;padding:9px;margin-bottom:8px;cursor:pointer;">Загрузить аватарку канала<input type="file" id="ch-ed-file" accept=".jpg,.jpeg,.jfif,.png,.webp,image/*" style="display:none;"></label><button type="button" class="btn-main" id="ch-ed-save">Сохранить изменения</button></div></div></div>
 
+<!-- Выставление лота на P2P-маркет Dragment -->
 <div class="modal" id="m-p2p"><div class="m-box"><button type="button" id="m-close-p2p" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3 style="margin-bottom:12px;">Выставить лот в Dragment</h3><select id="p2p-kind" style="width:100%;margin-bottom:9px;"><option value="eft">Подарок EFT</option><option value="tag">Коллекционный юзернейм</option><option value="num">Анонимный номер +555</option></select><select id="p2p-item" style="width:100%;margin-bottom:9px;"></select><input type="number" id="p2p-price" placeholder="Цена в RAG (например 250)" style="width:100%;margin-bottom:14px;"><button type="button" class="btn-main" id="p2p-post">Опубликовать на P2P-маркете</button></div></div>
 
+<!-- Аватар / Баннер / Регистрация / Stories / PIN-экран -->
 <div class="modal" id="m-ava"><div class="m-box"><button type="button" id="m-close3" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3>Смена аватара</h3><div class="ava-grid" id="ava-list"></div><label class="btn-main" style="display:flex;cursor:pointer;">Загрузить фото (JPG, JFIF, PNG)<input type="file" id="ava-file" accept=".jpg,.jpeg,.jfif,.png,.webp,image/*" style="display:none;"></label></div></div>
 <div class="modal" id="m-ban"><div class="m-box"><button type="button" id="m-close4" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3>Смена баннера</h3><div class="ban-grid" id="ban-list"></div><label class="btn-main" style="display:flex;cursor:pointer;">Загрузить фон (JPG, JFIF, PNG)<input type="file" id="ban-file" accept=".jpg,.jpeg,.jfif,.png,.webp,image/*" style="display:none;"></label></div></div>
 
@@ -575,7 +643,53 @@ const SVG_COIN='<svg class="ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" 
 const SVG_FILE='<svg class="ico" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>';
 const SVG_PLAY='<svg class="ico-sm" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>';
 const SVG_PAUSE='<svg class="ico-sm" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+const SVG_EYE='<svg class="ico-sm" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
 
+/* Анимированный цветной пиратский флаг для анонимных номеров +555 */
+const PIRATE_FLAG_SVG=`<span class="eft-svg" style="width:58px;height:58px;"><svg viewBox="0 0 64 64"><defs><linearGradient id="pf-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2D333F"/><stop offset="100%" stop-color="#14171D"/></linearGradient></defs><rect x="10" y="8" width="3.5" height="48" rx="1.8" fill="#C8AD7F"/><g class="flag-wave"><path d="M14 11 Q28 7 40 12 T56 11 L56 36 Q42 39 28 34 T14 36 Z" fill="url(#pf-g)" stroke="#84A5C2" stroke-width="1.2"/><circle cx="35" cy="21" r="5.5" fill="#E6E9EF"/><rect x="32.5" y="25" width="5" height="3.2" rx="1" fill="#E6E9EF"/><circle cx="33.2" cy="20.5" r="1.1" fill="#14171D"/><circle cx="36.8" cy="20.5" r="1.1" fill="#14171D"/><line x1="27" y1="30" x2="43" y2="27" stroke="#C8AD7F" stroke-width="1.8" stroke-linecap="round"/><line x1="27" y1="27" x2="43" y2="30" stroke="#C8AD7F" stroke-width="1.8" stroke-linecap="round"/></g></svg></span>`;
+
+/* Генератор 55 уникальных многослойных цветных векторных EFT */
+function eftArt(key,size=38){
+  const pal={
+    fox:['#F29F58','#B85D28','#FFF3E0'],pepe:['#6BCB77','#2E7D32','#E8F5E9'],cap:['#5C9CE6','#27496D','#E3F2FD'],
+    peach:['#FF9A8B','#FF6A88','#FFF0F3'],star:['#FFD93D','#D48C1C','#FFFDE7'],skull:['#B39DDB','#5E35B1','#EDE7F6'],
+    rose:['#F06292','#880E4F','#FCE4EC'],ring:['#80DEEA','#00838F','#E0F7FA'],diam:['#64B5F6','#1565C0','#E3F2FD'],
+    watch:['#B0BEC5','#455A64','#ECEFF1'],lolpop:['#F48FB1','#AD1457','#FCE4EC'],cigar:['#D7A86E','#6D4C41','#FFF8E1'],
+    potion:['#CE93D8','#6A1B9A','#F3E5F5'],heart:['#FF758F','#A4133C','#FFF0F3'],crown:['#FFD166','#B5831B','#FFF8E1'],
+    mask:['#9FA8DA','#283593','#E8EAF6'],planet:['#4DB6AC','#00695C','#E0F2F1'],key:['#CFD8DC','#546E7A','#ECEFF1'],
+    sword:['#EF9A9A','#B71C1C','#FFEBEE'],cube:['#81D4FA','#0277BD','#E1F5FE'],flame:['#FFAB91','#D84315','#FBE9E7'],
+    compass:['#A5D6A7','#2E7D32','#E8F5E9'],katana:['#E57373','#8E0000','#FFEBEE'],scarab:['#4DD0E1','#006064','#E0F7FA'],
+    phoenix:['#FFB74D','#E65100','#FFF3E0'],panther:['#90CAF9','#1A237E','#E8EAF6'],cassette:['#CE93D8','#4A148C','#F3E5F5'],
+    pill:['#81C784','#1B5E20','#E8F5E9'],glass:['#FFE082','#FF8F00','#FFF8E1'],core:['#80CBC4','#004D40','#E0F2F1'],
+    lim1:['#FF8A65','#BF360C','#FFF3E0'],lim2:['#7986CB','#1A237E','#E8EAF6'],lim3:['#4FC3F7','#01579B','#E1F5FE'],
+    lim4:['#AED581','#33691E','#F1F8E9'],lim5:['#FFD54F','#FF6F00','#FFF8E1'],lim6:['#F06292','#880E4F','#FCE4EC'],
+    lim7:['#4DB6AC','#004D40','#E0F2F1'],lim8:['#BA68C8','#4A148C','#F3E5F5'],lim9:['#90A4AE','#263238','#ECEFF1'],
+    lim10:['#FFB74D','#E65100','#FFF3E0'],num555:['#D4B475','#6E5528','#FFF8E1']
+  };
+  let c1='#84A5C2',c2='#2C3E50',c3='#E6E9EF',shape='gem';
+  if(key&&key.startsWith('gen_')){
+    const n=parseInt(key.split('_')[1],10)||1;
+    const hues=[205,165,35,265,340,190,145,25,285,220,50,315,175,15];
+    const h=hues[(n-1)%hues.length];
+    c1=`hsl(${h},58%,64%)`;c2=`hsl(${h},45%,28%)`;c3=`hsl(${h},80%,90%)`;shape='fox';
+  }else if(pal[key]){
+    [c1,c2,c3]=pal[key];shape=key;
+  }
+  const uid='g'+Math.random().toString(36).slice(2,7);
+  let inner=`<polygon points="32,6 54,24 32,58 10,24" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><polygon points="32,6 43,24 32,58 21,24" fill="${c3}" opacity=".25"/><circle cx="26" cy="20" r="3" fill="#fff" opacity=".75"/>`;
+  if(shape==='fox')inner=`<path d="M12 10 L23 23 L41 23 L52 10 L55 34 L32 56 L9 34 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><path d="M16 32 L32 54 L48 32 L32 39 Z" fill="${c3}" opacity=".85"/><circle cx="24" cy="31" r="2.4" fill="#111317"/><circle cx="40" cy="31" r="2.4" fill="#111317"/><circle cx="32" cy="45" r="2.6" fill="#111317"/>`;
+  else if(shape==='crown'||shape==='lim5')inner=`<path d="M10 46 L14 20 L25 32 L32 14 L39 32 L50 20 L54 46 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5" stroke-linejoin="round"/><rect x="11" y="47" width="42" height="6" rx="3" fill="${c3}"/><circle cx="32" cy="35" r="3.2" fill="#FF5252"/><circle cx="20" cy="38" r="2.2" fill="#40C4FF"/><circle cx="44" cy="38" r="2.2" fill="#69F0AE"/>`;
+  else if(shape==='planet'||shape==='lim3')inner=`<circle cx="32" cy="32" r="15" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><ellipse cx="32" cy="32" rx="26" ry="7" transform="rotate(-22 32 32)" fill="none" stroke="${c3}" stroke-width="2.4"/><circle cx="48" cy="18" r="2.5" fill="#fff"/>`;
+  else if(shape==='heart'||shape==='lim6')inner=`<path d="M32 54 C14 40 8 28 15 18 C21 10 29 14 32 21 C35 14 43 10 49 18 C56 28 50 40 32 54 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><path d="M20 20 Q23 16 26 20" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  else if(shape==='num555')inner=`<rect x="16" y="8" width="32" height="48" rx="8" fill="url(#${uid})" stroke="${c3}" stroke-width="1.8"/><rect x="20" y="14" width="24" height="32" rx="4" fill="#12151C"/><text x="32" y="33" text-anchor="middle" fill="${c3}" font-size="9" font-weight="800">+555</text><circle cx="32" cy="51" r="2" fill="${c3}"/>`;
+  else if(shape==='star'||shape==='phoenix'||shape==='lim1')inner=`<polygon points="32,6 39,23 58,24 43,36 48,54 32,44 16,54 21,36 6,24 25,23" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4" stroke-linejoin="round"/><circle cx="32" cy="31" r="5" fill="#fff" opacity=".55"/>`;
+  else if(shape==='watch'||shape==='glass'||shape==='lim9')inner=`<circle cx="32" cy="32" r="18" fill="url(#${uid})" stroke="${c3}" stroke-width="2"/><circle cx="32" cy="32" r="13" fill="#13161E"/><line x1="32" y1="32" x2="32" y2="23" stroke="${c3}" stroke-width="2.2" stroke-linecap="round"/><line x1="32" y1="32" x2="39" y2="35" stroke="${c1}" stroke-width="2" stroke-linecap="round"/>`;
+  else if(shape==='sword'||shape==='katana'||shape==='lim10')inner=`<path d="M46 10 L54 18 L24 48 L16 40 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><line x1="14" y1="36" x2="28" y2="50" stroke="${c3}" stroke-width="3" stroke-linecap="round"/><line x1="10" y1="54" x2="20" y2="44" stroke="${c1}" stroke-width="3.5" stroke-linecap="round"/>`;
+  else if(shape==='core'||shape==='ring'||shape==='lim7')inner=`<circle cx="32" cy="32" r="19" fill="none" stroke="url(#${uid})" stroke-width="4.5"/><circle cx="32" cy="32" r="11" fill="url(#${uid})"/><circle cx="32" cy="32" r="4.5" fill="#fff" opacity=".85"/>`;
+  else if(shape==='cube'||shape==='lim2'||shape==='lim8')inner=`<polygon points="32,8 52,20 52,44 32,56 12,44 12,20" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><polyline points="12,20 32,32 52,20" fill="none" stroke="${c3}" stroke-width="1.4"/><line x1="32" y1="32" x2="32" y2="56" stroke="${c3}" stroke-width="1.4"/>`;
+  else if(shape==='mask'||shape==='skull'||shape==='pepe')inner=`<rect x="13" y="13" width="38" height="38" rx="14" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><circle cx="24" cy="29" r="3.5" fill="#111317"/><circle cx="40" cy="29" r="3.5" fill="#111317"/><path d="M24 40 Q32 45 40 40" stroke="#111317" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+  return `<span class="eft-svg" style="width:${size}px;height:${size}px;"><svg viewBox="0 0 64 64"><defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs>${inner}</svg></span>`;
+}
 let sfxOn=(localStorage.getItem('foxigram_sfx')!=='0');
 let audioCtx=null;
 function playSfx(type='tap'){
@@ -603,19 +717,51 @@ function playSfx(type='tap'){
 }
 document.addEventListener('click',e=>{if(e.target.closest('button'))playSfx('tap');});
 
+/* 30 базовых коллекционных EFT + 10 эксклюзивных лимитированных EFT (тираж 15 штук каждая) */
 const ITEMS=[
-  {t:"Cyber Fox",i:"🦊",pat:"✦ • ◈",c:"#5C4938,#2B221B",p:1500,m:55},{t:"Astral Pepe",i:"🐸",pat:"❋ ◦ ✦",c:"#385247,#1B2822",p:1200,m:99},{t:"Belov Cap",i:"🧢",pat:"◈ • ✧",c:"#3A4C63,#1C2532",p:950,m:150},
-  {t:"Golden Peach",i:"🍑",pat:"✿ ◦ ✦",c:"#614249,#2E1E22",p:800,m:333},{t:"Crystal Star",i:"🌠",pat:"✧ ✦ •",c:"#5E5137,#2D261A",p:700,m:500},{t:"Neon Skull",i:"💀",pat:"◈ ❖ ◦",c:"#4A4261,#231F2F",p:650,m:666},
-  {t:"Precious Rose",i:"🥀",pat:"✿ • ✧",c:"#5E3B43,#2C1B1F",p:600,m:777},{t:"Phantom Ring",i:"💍",pat:"◎ ◦ ✦",c:"#375159,#1A262B",p:550,m:444},{t:"Dark Diamond",i:"💠",pat:"❖ ◈ •",c:"#394E5E,#1B252E",p:900,m:200},
-  {t:"Obsidian Watch",i:"⌚",pat:"◎ • ✧",c:"#42454D,#1E2024",p:500,m:1000},{t:"Cyber Lolpop",i:"🍭",pat:"✿ ✦ ◦",c:"#5C3F4E,#2B1D24",p:400,m:2500},{t:"Vintage Cigar",i:"🚬",pat:"◈ • ✦",c:"#594836,#292119",p:450,m:1500},
-  {t:"Magic Potion",i:"⚗️",pat:"✧ ◦ ❖",c:"#4C405E,#231D2C",p:480,m:1200},{t:"Electric Heart",i:"❤️‍🔥",pat:"✦ • ✿",c:"#5E3C3E,#2C1B1C",p:620,m:888},{t:"Royal Crown",i:"👑",pat:"❖ ✦ •",c:"#5C5035,#2B2518",p:1100,m:77},
-  {t:"Shadow Mask",i:"🎭",pat:"◈ ◦ ✧",c:"#41455E,#1E202C",p:520,m:999},{t:"Cosmic Helmet",i:"🪐",pat:"◎ ✦ •",c:"#38524F,#1A2726",p:580,m:750},{t:"Platinum Key",i:"🗝️",pat:"✧ • ◈",c:"#484E57,#22252A",p:490,m:1111},
-  {t:"Laser Sword",i:"⚔️",pat:"✦ ❖ ◦",c:"#5C3D44,#2B1C1F",p:670,m:555},{t:"Quantum Cube",i:"🧊",pat:"◈ • ◎",c:"#394D5C,#1B252C",p:530,m:800},{t:"Frozen Flame",i:"☄️",pat:"✧ ✦ •",c:"#5C4438,#2B1F19",p:740,m:420},
-  {t:"Void Compass",i:"🧭",pat:"◎ ◦ ✧",c:"#47523A,#21261B",p:420,m:2000},{t:"Cyber Katana",i:"🗡️",pat:"✦ • ◈",c:"#593B3B,#291B1B",p:690,m:500},{t:"Emerald Scarab",i:"🪲",pat:"❖ ◦ ✦",c:"#375245,#192720",p:460,m:1400},
-  {t:"Solar Phoenix",i:"🐦‍🔥",pat:"✦ ✧ •",c:"#5E4536,#2C2019",p:1300,m:33},{t:"Midnight Panther",i:"🐆",pat:"◈ • ❖",c:"#3E415C,#1D1E2B",p:850,m:250},{t:"Holo Cassette",i:"📼",pat:"◎ ✧ ◦",c:"#523E59,#261C29",p:390,m:3000},
-  {t:"Matrix Pill",i:"💊",pat:"• ✦ ◦",c:"#3B5242,#1B271F",p:440,m:1999},{t:"Infinity Glass",i:"⏳",pat:"✧ ◎ •",c:"#574D36,#282419",p:610,m:700},{t:"Genesis Core",i:"🧿",pat:"❖ ✦ ◈",c:"#594A35,#292218",p:1400,m:21}
+  {t:"Cyber Fox",k:"fox",pat:"✦ • ◈",c:"#5C4938,#2B221B",p:1500,m:55},{t:"Astral Pepe",k:"pepe",pat:"❋ ◦ ✦",c:"#385247,#1B2822",p:1200,m:99},{t:"Belov Cap",k:"cap",pat:"◈ • ✧",c:"#3A4C63,#1C2532",p:950,m:150},
+  {t:"Golden Peach",k:"peach",pat:"✿ ◦ ✦",c:"#614249,#2E1E22",p:800,m:333},{t:"Crystal Star",k:"star",pat:"✧ ✦ •",c:"#5E5137,#2D261A",p:700,m:500},{t:"Neon Skull",k:"skull",pat:"◈ ❖ ◦",c:"#4A4261,#231F2F",p:650,m:666},
+  {t:"Precious Rose",k:"rose",pat:"✿ • ✧",c:"#5E3B43,#2C1B1F",p:600,m:777},{t:"Phantom Ring",k:"ring",pat:"◎ ◦ ✦",c:"#375159,#1A262B",p:550,m:444},{t:"Dark Diamond",k:"diam",pat:"❖ ◈ •",c:"#394E5E,#1B252E",p:900,m:200},
+  {t:"Obsidian Watch",k:"watch",pat:"◎ • ✧",c:"#42454D,#1E2024",p:500,m:1000},{t:"Cyber Lolpop",k:"lolpop",pat:"✿ ✦ ◦",c:"#5C3F4E,#2B1D24",p:400,m:2500},{t:"Vintage Cigar",k:"cigar",pat:"◈ • ✦",c:"#594836,#292119",p:450,m:1500},
+  {t:"Magic Potion",k:"potion",pat:"✧ ◦ ❖",c:"#4C405E,#231D2C",p:480,m:1200},{t:"Electric Heart",k:"heart",pat:"✦ • ✿",c:"#5E3C3E,#2C1B1C",p:620,m:888},{t:"Royal Crown",k:"crown",pat:"❖ ✦ •",c:"#5C5035,#2B2518",p:1100,m:77},
+  {t:"Shadow Mask",k:"mask",pat:"◈ ◦ ✧",c:"#41455E,#1E202C",p:520,m:999},{t:"Cosmic Helmet",k:"planet",pat:"◎ ✦ •",c:"#38524F,#1A2726",p:580,m:750},{t:"Platinum Key",k:"key",pat:"✧ • ◈",c:"#484E57,#22252A",p:490,m:1111},
+  {t:"Laser Sword",k:"sword",pat:"✦ ❖ ◦",c:"#5C3D44,#2B1C1F",p:670,m:555},{t:"Quantum Cube",k:"cube",pat:"◈ • ◎",c:"#394D5C,#1B252C",p:530,m:800},{t:"Frozen Flame",k:"flame",pat:"✧ ✦ •",c:"#5C4438,#2B1F19",p:740,m:420},
+  {t:"Void Compass",k:"compass",pat:"◎ ◦ ✧",c:"#47523A,#21261B",p:420,m:2000},{t:"Cyber Katana",k:"katana",pat:"✦ • ◈",c:"#593B3B,#291B1B",p:690,m:500},{t:"Emerald Scarab",k:"scarab",pat:"❖ ◦ ✦",c:"#375245,#192720",p:460,m:1400},
+  {t:"Solar Phoenix",k:"phoenix",pat:"✦ ✧ •",c:"#5E4536,#2C2019",p:1300,m:33},{t:"Midnight Panther",k:"panther",pat:"◈ • ❖",c:"#3E415C,#1D1E2B",p:850,m:250},{t:"Holo Cassette",k:"cassette",pat:"◎ ✧ ◦",c:"#523E59,#261C29",p:390,m:3000},
+  {t:"Matrix Pill",k:"pill",pat:"• ✦ ◦",c:"#3B5242,#1B271F",p:440,m:1999},{t:"Infinity Glass",k:"glass",pat:"✧ ◎ •",c:"#574D36,#282419",p:610,m:700},{t:"Genesis Core",k:"core",pat:"❖ ✦ ◈",c:"#594A35,#292218",p:1400,m:21},
+
+  /* 10 эксклюзивных лимитированных EFT (тираж 15 штук каждая) */
+  {t:"Sovereign Star",k:"lim1",pat:"✦ ❖ ✦",c:"#633B2C,#291710",p:3500,m:15,lim:true},
+  {t:"Aether Tesseract",k:"lim2",pat:"◈ ◎ ◈",c:"#333D66,#161B30",p:3800,m:15,lim:true},
+  {t:"Celestial Orbit",k:"lim3",pat:"✧ ◦ ✦",c:"#284E63,#10232E",p:3600,m:15,lim:true},
+  {t:"Verdant Relic",k:"lim4",pat:"✿ ✦ ✿",c:"#3A572E,#182612",p:3400,m:15,lim:true},
+  {t:"Imperial Diadem",k:"lim5",pat:"❖ ◈ ❖",c:"#634E26,#2B210E",p:4500,m:15,lim:true},
+  {t:"Crimson Heartbeat",k:"lim6",pat:"✦ ♥ ✦",c:"#632B3E,#2B111A",p:3900,m:15,lim:true},
+  {t:"Abyssal Singularity",k:"lim7",pat:"◎ ❖ ◎",c:"#25524D,#0E2421",p:4200,m:15,lim:true},
+  {t:"Nebula Prism",k:"lim8",pat:"◈ ✦ ◈",c:"#4D2F5E,#211329",p:3700,m:15,lim:true},
+  {t:"Chronos Monolith",k:"lim9",pat:"✧ ◎ ✧",c:"#3A444D,#181D21",p:3300,m:15,lim:true},
+  {t:"Excalibur Edge",k:"lim10",pat:"✦ ◈ ✦",c:"#634229,#2B1B0F",p:4100,m:15,lim:true}
 ];
 
+const AVA_FRAMES=[
+  {id:'fr-silver',n:'Серебряное дыхание',p:1500,d:'Спокойный платиновый контур вокруг аватара'},
+  {id:'fr-gold',n:'Золотой обод',p:2500,d:'Тёплое золотистое свечение профиля'},
+  {id:'fr-lunar',n:'Лунный пульс',p:2000,d:'Мягкий аметистовый ореол в профиле'},
+  {id:'fr-sage',n:'Хвойный шёпот',p:1800,d:'Благородный изумрудно-шалфейный контур'}
+];
+
+/* Расчёт уровня 1–150 от потраченных Points (1->2 = 1000 Pts, далее +500 Pts за уровень) */
+function calcLevel(spent){
+  let lvl=1,rem=Math.max(0,spent||0),need=1000;
+  while(lvl<150&&rem>=need){rem-=need;lvl++;need+=500;}
+  return{lvl,rem,need,left:lvl>=150?0:(need-rem)};
+}
+function spendPts(u,amt){
+  if(!u||amt<=0)return;
+  u.pts=Math.max(0,(u.pts||0)-amt);
+  u.spentPts=(u.spentPts||0)+amt;
+  if(u.tag!=='@fox')u.lvl=calcLevel(u.spentPts).lvl;
+}
 const SHOP_TAGS=[
   {t:"@king",p:350},{t:"@lord",p:320},{t:"@gold",p:290},{t:"@wolf",p:260},{t:"@star",p:240},
   {t:"@dark",p:220},{t:"@fire",p:200},{t:"@zero",p:180},{t:"@moon",p:160},{t:"@aura",p:150},
@@ -633,6 +779,7 @@ const VIP_NUMS=[
   {n:"+555 404-04",p:455,d:"Не найдено"},{n:"+555 505-05",p:455,d:"Симметрия"},{n:"+555 707-07",p:455,d:"Агент"},
   {n:"+555 808-08",p:450,d:"Классика"},{n:"+555 909-09",p:450,d:"Баланс"}
 ];
+
 const RENT_CATALOG=[
   {id:'r1',kind:'tag',val:'@lord',d1:15,d3:40,d15:150},{id:'r2',kind:'tag',val:'@wolf',d1:12,d3:32,d15:120},
   {id:'r3',kind:'tag',val:'@aura',d1:8,d3:22,d15:85},{id:'r4',kind:'num',val:'+555 777-77',d1:30,d3:80,d15:320},
@@ -647,9 +794,9 @@ const AUCTIONS=[
 ];
 
 const PREM_PLANS=[
-  {t:"Foxigram Premium — 1 месяц",days:30,p:1500,d:"Статус PREMIUM + эксклюзивные эмодзи"},
-  {t:"Foxigram Premium — 3 месяца",days:90,p:3500,d:"Пакет на 90 дней + эксклюзивные эмодзи"},
-  {t:"Foxigram Premium — 12 месяцев",days:365,p:10000,d:"Годовой статус + эксклюзивные эмодзи"}
+  {t:"Foxigram Premium — 1 месяц",days:30,p:1500,d:"Статус PREMIUM + эксклюзивные эмодзи + режим «Невидимка»"},
+  {t:"Foxigram Premium — 3 месяца",days:90,p:3500,d:"Пакет на 90 дней + эксклюзивные эмодзи + режим «Невидимка»"},
+  {t:"Foxigram Premium — 12 месяцев",days:365,p:10000,d:"Годовой статус + эксклюзивные эмодзи + режим «Невидимка»"}
 ];
 
 const BIZ_PLANS=[
@@ -673,6 +820,7 @@ const BANNERS=[{n:"Графит",b:"linear-gradient(135deg,#252932,#12141A)"},{n
 const EMOJIS=['😀','😂','🥰','😎','🤩','🥳','😭','😡','🤯','🥶','🔥','❤️','💎','🦊','👑','⚡','🎉','🚀','👀','🤝'];
 const PREM_EMOJIS=['🦄','🛸','🐉','🎰','🪐'];
 const BIZ_EMOJIS=['💼','📈','🏛️','💳','🥂'];
+const MASCOTS=['🦊','🐺','🦝','🦉','🐉','🤖'];
 const hash=()=>'0x'+Array.from({length:24},()=>Math.floor(Math.random()*16).toString(16)).join('');
 const genCode=()=>'#'+Math.random().toString(36).substring(2,6).toUpperCase();
 const baseNum=()=>'+8 '+Math.floor(100+Math.random()*899)+' '+Math.floor(100+Math.random()*899)+'-'+Math.floor(10+Math.random()*89);
@@ -680,61 +828,63 @@ const patHtml=(p)=>'<div class="eft-pat">'+Array(14).fill(p||'✦ • ◈').join
 
 function makeUser(raw){
   const c=raw.replace(/^@/,'').toLowerCase(),bn=baseNum(),isFox=(c==='fox');
-  const efts=isFox?[{title:'+555 555-55',icon:'📱',pat:'◈ ✦ •',ser:'#1/1',bg:'linear-gradient(135deg,#5C4938,#2B221B)',price:5000,hash:hash(),hist:'Выпущен в сети Foxigram',owned:true,upg:false,safe:true}]:[];
-  for(let i=1;i<=14;i++)efts.push({title:'Genesis #'+i,icon:'🦊',pat:'✦ • ✧',ser:'#'+i+'/14',bg:'linear-gradient(135deg,#333842,#17191F)',price:1000,hash:hash(),hist:'Выпущен в сети Foxigram',owned:isFox,upg:false,safe:false});
+  const efts=isFox?[{title:'+555 555-55',artKey:'num555',pat:'◈ ✦ •',ser:'#1/1',bg:'linear-gradient(135deg,#5C4938,#2B221B)',price:5000,hash:hash(),hist:'Выпущен в сети Foxigram',owned:true,upg:false,safe:true,lim:true}]:[];
+  for(let i=1;i<=14;i++)efts.push({title:'Genesis #'+i,artKey:'gen_'+i,pat:'✦ • ✧',ser:'#'+i+'/14',bg:'linear-gradient(135deg,#333842,#17191F)',price:1000,hash:hash(),hist:'Выпущен в сети Foxigram',owned:isFox,upg:false,safe:false,lim:false});
   ITEMS.forEach(x=>{
     const num=isFox?1:(Math.floor(Math.random()*x.m)+1);
-    efts.push({title:x.t,icon:x.i,pat:x.pat,ser:'#'+num+'/'+x.m,bg:'linear-gradient(135deg,'+x.c+')',price:x.p,hash:hash(),hist:'Выпущен в сети Foxigram',owned:isFox,upg:false,safe:false});
+    efts.push({title:x.t,artKey:x.k,pat:x.pat,ser:'#'+num+'/'+x.m,bg:'linear-gradient(135deg,'+x.c+')',price:x.p,hash:hash(),hist:'Выпущен в сети Foxigram',owned:isFox,upg:false,safe:false,lim:!!x.lim});
   });
   return{
     display:isFox?'Fox':(c.charAt(0).toUpperCase()+c.slice(1)),tag:'@'+c,
     extraTags:isFox?['@foxigram','@ceo','@boss']:[],
-    ver:isFox,verColor:isFox?'blue':'',
+    ver:isFox,verColor:isFox?'blue':'',orgVer:isFox?'CEO':'',
     prem:isFox,premLabel:isFox?'Foxigram Premium — 12 месяцев':'',premUntil:isFox?Date.now()+365*864e5:0,
     biz:isFox,bizLabel:isFox?'Foxigram Business — 12 месяцев':'',bizUntil:isFox?Date.now()+365*864e5:0,
     bizGreet:isFox?'Здравствуйте! По вопросам рекламы и сотрудничества в Foxigram пишите сюда.':'',
-    lvl:isFox?631:1,base:bn,num:isFox?'+555 555-55':bn,nums:isFox?['+555 555-55']:[],
+    ghost:false,lvl:isFox?631:1,spentPts:0,
+    base:bn,num:isFox?'+555 555-55':bn,nums:isFox?['+555 555-55']:[],
+    assetMeta:{},pendingGifts:[],
     pts:isFox?100000:500,rag:isFox?5000:0,
     bio:isFox?'Создатель сети Foxigram.':'Пользователь Foxigram',
-    ava:'🦊',avaImg:'',ban:'linear-gradient(135deg,#252932,#12141A)',banImg:'',
-    efts,banSlots:isFox?['🦊','👑','💎','🐦‍🔥','🧿','🐸']:[null,null,null,null,null,null],
-    eq:null,status:isFox?'👑':'',mus:null,cnt:isFox?1:0,vaultDay:'',
+    ava:'🦊',avaImg:'',frame:'',frames:[],ban:'linear-gradient(135deg,#252932,#12141A)',banImg:'',
+    efts,banSlots:isFox?['fox','crown','diam','phoenix','core','pepe']:[null,null,null,null,null,null],
+    eq:null,status:isFox?'crown':'',mus:null,cnt:isFox?1:0,vaultDay:'',
     email:'',pin:'',myChan:isFox?'portalfox':'',subs:['global','support','wallet','foxbot','saved','news','portalfox'],
     mutedChats:[],unread:{},lastSeen:Date.now(),typingIn:'',rentals:[],
     blocked:[],muted:false,frozen:false,banned:false
   };
 }
 
-const SAVE_KEY='foxigram_v35_data';
+const SAVE_KEY='foxigram_v20_data';
 const SB_URL='https://'+'imldnyedpgwzthfjpimf'+'.supabase.co/rest/v1/foxigram_kv';
 const SB_KEY='sb_publishable_FE2Fgjc3a9f5BNtw5VHlVA_hamYZLZH';
 const SB_HDR={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'};
 let lastCloudHash='';
 const st={
   u:makeUser('guest'),viewU:null,cid:'global',flt:'all',shopTab:'eft',dragTab:'auc',sel:0,authMode:'reg',
-  replyTo:null,delaySec:0,cSearch:'',supUser:'',
+  replyTo:null,editIdx:null,fwdMsg:null,delaySec:0,cSearch:'',supUser:'',
   accounts:{fox:{pass:'',profile:makeUser('fox')}},
   chats:[
-    {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:1840,pin:'Добро пожаловать в Foxigram 3.5!',boosts:12},
-    {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:1612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 3.5, P2P-маркет, аренда и Foxigram Business.',boosts:48},
-    {id:'portalfox',name:'Портал Fox',type:'channel',icon:'🦊',avaImg:'',ver:true,vc:'red',own:'@fox',code:'#FOX0',desc:'Личный портал создателя: неофициально про жизнь, разработку и будущие планы.',subs:900,fee:0,feeCur:'RAG',pin:'Добро пожаловать в мой личный портал!',boosts:35},
+    {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:1840,pin:'Добро пожаловать в Foxigram 2.0!',boosts:12},
+    {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:1612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 2.0: 55 векторных EFT, опросы, система уровней и Dragment.',boosts:48},
+    {id:'portalfox',name:'Портал Fox',type:'channel',icon:'🦊',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#FOX0',desc:'Личный портал создателя: неофициально про жизнь, разработку и будущие планы.',subs:900,fee:0,feeCur:'RAG',pin:'Добро пожаловать в мой личный портал!',boosts:35},
     {id:'wallet',name:'Foxigram Wallet',type:'private',icon:'💳',avaImg:'',ver:true,vc:'red',own:'wallet',code:'#WLT0',desc:'Официальный кошелёк и уведомления о сделках.',pin:'',boosts:0},
     {id:'support',name:'Foxigram Support',type:'private',icon:'🛡️',avaImg:'',ver:true,vc:'blue',own:'support',code:'#SUP0',desc:'Официальная служба поддержки Foxigram.',pin:'',boosts:0},
     {id:'foxbot',name:'FoxBot • Игры',type:'private',icon:'🤖',avaImg:'',ver:true,vc:'blue',own:'bot',code:'#BOT0',desc:'Мини-игры на Points.',pin:'Напишите: кости или монетка (ставка 50 Points)',boosts:0},
     {id:'saved',name:'Избранное',type:'private',icon:'🔖',avaImg:'',own:'self',code:'#SAVE',desc:'Личное облачное хранилище.',pin:'',boosts:0}
   ],
   msgs:{
-    global:[{id:'m1',s:'@fox',v:true,vc:'red',n:'+555 555-55',t:'Добро пожаловать в Foxigram 3.5! Доступны P2P-маркет, аренда тегов, каналы по #XXXX и Foxigram Business.',img:'',time:'Сейчас',r:{'🔥':5,'🦊':8},com:[],don:0}],
-    news:[{id:'m2',s:'@fox',v:true,vc:'red',n:'+555 555-55',t:'Официальный релиз Foxigram 3.5: добавлен бот Foxigram Wallet, аренда номеров +555 и подписка Business.',img:'',time:'Сегодня',r:{'⚡':14},com:[],don:0}],
-    portalfox:[{id:'m3',s:'@fox',v:true,vc:'red',n:'+555 555-55',t:'Всем привет! Здесь буду делиться мыслями о разработке и тем, что остаётся за кадром.',img:'',time:'Сегодня',r:{'🦊':19},com:[],don:0}],
+    global:[{id:'m1',s:'@fox',v:true,vc:'blue',n:'+555 555-55',t:'Добро пожаловать в Foxigram 2.0! Доступны 10 лимитированных EFT (тираж 15 шт.), опросы, безопасная передача номеров и система уровней.',img:'',time:'Сейчас',r:{'🔥':5,'🦊':8},com:[],don:0,read:true}],
+    news:[{id:'m2',s:'@fox',v:true,vc:'blue',n:'+555 555-55',t:'Официальный релиз Foxigram 2.0: полный векторный редизайн EFT, опросы в каналах и режим Невидимка.',img:'',time:'Сегодня',r:{'⚡':14},com:[],don:0,views:['@fox']}],
+    portalfox:[{id:'m3',s:'@fox',v:true,vc:'blue',n:'+555 555-55',t:'Всем привет! Здесь делюсь новостями разработки и тем, что остаётся за кадром.',img:'',time:'Сегодня',r:{'🦊':19},com:[],don:0,views:['@fox']}],
     wallet:[{id:'m4',s:'@wallet',v:true,vc:'red',n:'WALLET',t:'Добро пожаловать в Foxigram Wallet! Здесь приходят уведомления о продажах на P2P-маркете, аренде и переводах.',img:'',time:'Сейчас',r:{},com:[],don:0}],
     support:[{id:'m5',s:'@support',v:true,vc:'blue',n:'SUPPORT',t:'Здравствуйте! Напишите ваш вопрос — администратор ответит вам лично в этом диалоге.',img:'',time:'Сейчас',r:{},com:[],don:0}],
     foxbot:[{id:'m6',s:'@FoxBot',v:true,vc:'blue',n:'BOT',t:'Привет! Напишите «кости» или «монетка», чтобы сыграть на 50 Points.',img:'',time:'Сейчас',r:{},com:[],don:0}],
     saved:[]
   },
   p2p:[],
-  ticker:['@fox открыл биржу P2P-маркета Dragment','Запущена аренда номеров +555 на 1, 3 и 15 дней'],
-  stories:[{tag:'@fox',name:'Fox',ava:'🦊',avaImg:'',prem:true,text:'Foxigram 3.5 уже в сети! Проверяйте P2P-маркет и аренду в Dragment.',img:'',bg:'linear-gradient(135deg,#252932,#12141A)'}]
+  ticker:['@fox выпустил 10 лимитированных EFT тиражом 15 штук в Магазине','Запущена безопасная передача номеров +555 с задержкой 24 часа'],
+  stories:[{tag:'@fox',name:'Fox',ava:'🦊',avaImg:'',prem:true,text:'Foxigram 2.0 уже в сети! Зацените 10 лимитированных EFT в Магазине.',img:'',bg:'linear-gradient(135deg,#252932,#12141A)'}]
 };
 
 function walletNotify(toTag,text){
@@ -744,26 +894,76 @@ function walletNotify(toTag,text){
   st.msgs[key].push({id:'m'+Date.now()+Math.random(),s:'@wallet',v:true,vc:'red',n:'WALLET',t:text,img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0});
 }
 
+function getAssetMeta(u,val,kind){
+  if(!u.assetMeta)u.assetMeta={};
+  const customPrices={'@fox':4120,'@foxigram':3119,'@ceo':11005,'@boss':1229,'+555 555-55':2500};
+  if(!u.assetMeta[val]){
+    const shopN=VIP_NUMS.find(x=>x.n===val);
+    const shopT=SHOP_TAGS.find(x=>x.t===val);
+    const pr=customPrices[val]||(shopN?shopN.p:(shopT?shopT.p:400));
+    u.assetMeta[val]={hash:hash(),price:pr,hist:'Зарегистрирован в сети Dragment',kind};
+  }else if(customPrices[val]){
+    u.assetMeta[val].price=customPrices[val];
+  }
+  return u.assetMeta[val];
+}
+
 function ensureDefaults(p){
   if(!p)return;
   const now=Date.now();
   if(typeof p.rag!=='number')p.rag=(p.tag==='@fox')?5000:0;
+  if(typeof p.spentPts!=='number')p.spentPts=0;
   if(!Array.isArray(p.blocked))p.blocked=[];
   if(!Array.isArray(p.subs))p.subs=['global','support','wallet','foxbot','saved','news','portalfox'];
   if(!Array.isArray(p.mutedChats))p.mutedChats=[];
   if(!p.unread||typeof p.unread!=='object')p.unread={};
   if(!Array.isArray(p.rentals))p.rentals=[];
+  if(!Array.isArray(p.pendingGifts))p.pendingGifts=[];
+  if(!Array.isArray(p.frames))p.frames=[];
+  if(typeof p.frame!=='string')p.frame='';
   if(typeof p.email!=='string')p.email='';
   if(typeof p.pin!=='string')p.pin='';
   if(typeof p.myChan!=='string')p.myChan=(p.tag==='@fox')?'portalfox':'';
   if(typeof p.bizGreet!=='string')p.bizGreet='';
-  if(p.premUntil&&p.premUntil<now&&p.tag!=='@fox'){p.prem=false;p.premUntil=0;}
+  if(typeof p.orgVer!=='string')p.orgVer=(p.tag==='@fox')?'CEO':'';
+  if(typeof p.ghost!=='boolean')p.ghost=false;
+  if(p.premUntil&&p.premUntil<now&&p.tag!=='@fox'){p.prem=false;p.premUntil=0;p.ghost=false;}
   if(p.bizUntil&&p.bizUntil<now&&p.tag!=='@fox'){p.biz=false;p.bizUntil=0;}
-  if(p.tag==='@fox'){p.biz=true;p.prem=true;p.ver=true;p.verColor='blue';}
+  if(!p.prem)p.ghost=false;
+  if(p.tag==='@fox'){p.biz=true;p.prem=true;p.ver=true;p.verColor='blue';if(!p.orgVer)p.orgVer='CEO';}
+  else{p.lvl=calcLevel(p.spentPts).lvl;}
+
+  if(Array.isArray(p.efts)){
+    p.efts.forEach(e=>{
+      if(!e.artKey){
+        if(e.title==='+555 555-55')e.artKey='num555';
+        else if(e.title.startsWith('Genesis #'))e.artKey='gen_'+e.title.replace('Genesis #','');
+        else{const f=ITEMS.find(x=>x.t===e.title);e.artKey=f?f.k:'fox';}
+      }
+      const fItem=ITEMS.find(x=>x.t===e.title);
+      if(fItem&&fItem.lim)e.lim=true;
+    });
+    ITEMS.forEach(x=>{
+      if(!p.efts.some(e=>e.title===x.t)){
+        const num=(p.tag==='@fox')?1:(Math.floor(Math.random()*x.m)+1);
+        p.efts.push({title:x.t,artKey:x.k,pat:x.pat,ser:'#'+num+'/'+x.m,bg:'linear-gradient(135deg,'+x.c+')',price:x.p,hash:hash(),hist:'Выпущен в сети Foxigram',owned:(p.tag==='@fox'),upg:false,safe:false,lim:!!x.lim});
+      }
+    });
+  }
+
+  p.pendingGifts=p.pendingGifts.filter(g=>{
+    if(g.deliverAt>now)return true;
+    if(g.kind==='tag'&&!p.extraTags.includes(g.val)&&p.tag!==g.val)p.extraTags.push(g.val);
+    if(g.kind==='num'&&!p.nums.includes(g.val)){p.nums.push(g.val);p.num=g.val;}
+    const m=getAssetMeta(p,g.val,g.kind);m.hist='Подарен от '+g.from;
+    walletNotify(p.tag,'Подарок '+g.val+' от '+g.from+' успешно зачислен на ваш аккаунт после 24-часовой проверки!');
+    return false;
+  });
+
   p.rentals=p.rentals.filter(r=>{
     if(r.until>now)return true;
     if(r.kind==='tag'){p.extraTags=p.extraTags.filter(t=>t!==r.val);if(p.tag===r.val)p.tag='@'+p.display.toLowerCase();}
-    if(r.kind==='num'){p.nums=p.nums.filter(n=>n!==r.val);if(p.num===r.val)p.num=p.nums[0]||p.base;}
+    if(r.kind==='num'){p.nums=p.nums.filter(n=>n!==r.val);if(p.num===r.val)p.num=p.nums||p.base;}
     walletNotify(p.tag,'Срок аренды актива '+r.val+' истёк.');
     return false;
   });
@@ -772,9 +972,9 @@ function ensureDefaults(p){
 
 function mergeBaseChats(){
   const base=[
-    {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:1840,pin:'Добро пожаловать в Foxigram 3.5!',boosts:12},
-    {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:1612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 3.5',boosts:48},
-    {id:'portalfox',name:'Портал Fox',type:'channel',icon:'🦊',avaImg:'',ver:true,vc:'red',own:'@fox',code:'#FOX0',desc:'Личный портал создателя: неофициально про жизнь, разработку и будущие планы.',subs:900,fee:0,feeCur:'RAG',pin:'Добро пожаловать в мой личный портал!',boosts:35},
+    {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:1840,pin:'Добро пожаловать в Foxigram 2.0!',boosts:12},
+    {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:1612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 2.0',boosts:48},
+    {id:'portalfox',name:'Портал Fox',type:'channel',icon:'🦊',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#FOX0',desc:'Личный портал создателя: неофициально про жизнь, разработку и будущие планы.',subs:900,fee:0,feeCur:'RAG',pin:'Добро пожаловать в мой личный портал!',boosts:35},
     {id:'wallet',name:'Foxigram Wallet',type:'private',icon:'💳',avaImg:'',ver:true,vc:'red',own:'wallet',code:'#WLT0',desc:'Официальный кошелёк и уведомления о сделках.',pin:'',boosts:0},
     {id:'support',name:'Foxigram Support',type:'private',icon:'🛡️',avaImg:'',ver:true,vc:'blue',own:'support',code:'#SUP0',desc:'Официальная служба поддержки Foxigram.',pin:'',boosts:0},
     {id:'foxbot',name:'FoxBot • Игры',type:'private',icon:'🤖',avaImg:'',ver:true,vc:'blue',own:'bot',code:'#BOT0',desc:'Мини-игры на Points.',pin:'Напишите: кости или монетка',boosts:0},
@@ -789,7 +989,7 @@ function mergeBaseChats(){
 }
 
 try{
-  const raw=localStorage.getItem(SAVE_KEY);
+  const raw=localStorage.getItem(SAVE_KEY)||localStorage.getItem('foxigram_v35_data');
   if(raw){
     const d=JSON.parse(raw);
     if(d.accounts){st.accounts=d.accounts;if(!st.accounts.fox)st.accounts.fox={pass:'',profile:makeUser('fox')};Object.values(st.accounts).forEach(a=>ensureDefaults(a.profile));}
@@ -852,10 +1052,11 @@ function findUserByTag(tag){
 
 function getLiveStatus(u){
   if(!u)return 'в сети';
+  if(u.ghost&&u!==st.u)return 'был(а) недавно';
   if(u.typingIn)return 'печатает...';
   const diff=Date.now()-(u.lastSeen||Date.now());
   if(diff<65000)return 'в сети';
-  if(diff<3600000)return 'был(а) недавно';
+  if(diff<604800000)return 'был(а) недавно';
   return 'был(а) давно';
 }
 
@@ -873,16 +1074,6 @@ function compressImg(file,maxW,cb){
     im.src=ev.target.result;
   };
   rd.readAsDataURL(file);
-}
-
-function getAchs(u){
-  const a=[];
-  if(u.ver)a.push('Создатель');
-  if(u.biz)a.push('Business');
-  if(u.cnt>=1)a.push('Активист');
-  if(u.efts.filter(x=>x.owned).length>=5)a.push('Коллекционер');
-  if(u.pts>=10000)a.push('Магнат');
-  return a;
 }
 
 function badgeCls(vc){ return vc==='pink'?'badge pink':(vc==='red'?'badge red':'badge'); }
@@ -934,9 +1125,9 @@ function openEftModal(u,idx,isMe){
   const e=u.efts.at(idx);if(!e)return;
   st.sel=idx;
   const mc=document.getElementById('m-card');
-  mc.style.background=e.bg;mc.innerHTML=patHtml(e.pat)+'<span style="position:relative;z-index:1;">'+e.icon+'</span>';
+  mc.style.background=e.bg;mc.innerHTML=patHtml(e.pat)+'<span style="position:relative;z-index:1;">'+eftArt(e.artKey,62)+'</span>';
   document.getElementById('m-title').textContent=e.title;
-  document.getElementById('m-ser').textContent=e.ser+' • '+e.price+' Points'+(e.safe?' • Защищён замком':'');
+  document.getElementById('m-ser').textContent=(e.lim?'Лимитированное издание • ':'')+e.ser+' • '+e.price+' Points'+(e.safe?' • Защищён замком':'');
   document.getElementById('m-hash').textContent=e.hash;document.getElementById('m-hist').textContent=e.hist;
   document.getElementById('m-own-acts').style.display=isMe?'block':'none';
   if(isMe){
@@ -944,12 +1135,63 @@ function openEftModal(u,idx,isMe){
     const sg=document.getElementById('slot-grid');sg.innerHTML='';
     ['Слева 1','Слева 2','Слева 3','Справа 1','Справа 2','Справа 3'].forEach((lbl,si)=>{
       const b=document.createElement('button');b.type='button';b.className='slot-btn';
-      const cur=st.u.banSlots.at(si);b.textContent=lbl+(cur?' ('+cur+')':'');
-      b.onclick=()=>{st.u.banSlots[si]=(cur===e.icon)?null:e.icon;saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
+      const cur=st.u.banSlots.at(si);b.textContent=lbl+(cur?' ✓':'');
+      b.onclick=()=>{st.u.banSlots[si]=(cur===e.artKey)?null:e.artKey;saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
       sg.appendChild(b);
     });
   }
   document.getElementById('m-eft').style.display='flex';
+}
+
+/* Коллекционная карточка анонимного номера +555 (с развевающимся пиратским флагом) и редкого юзернейма */
+function openAssetModal(u,kind,val,isMe){
+  const meta=getAssetMeta(u,val,kind);
+  const card=document.getElementById('as-card');
+  if(kind==='num'){
+    card.innerHTML=PIRATE_FLAG_SVG;
+    document.getElementById('as-title').textContent='Анонимный номер телефона';
+  }else{
+    card.innerHTML='<span class="eft-svg" style="width:54px;height:54px;font-size:34px;font-weight:800;color:var(--accent);">@</span>';
+    document.getElementById('as-title').textContent='Коллекционный юзернейм';
+  }
+  document.getElementById('as-val').textContent=val;
+  document.getElementById('as-price').textContent='Оценка: '+meta.price.toLocaleString()+' RAG';
+  document.getElementById('as-hash').textContent=meta.hash;
+  document.getElementById('as-hist').textContent=meta.hist;
+  document.getElementById('as-copy').onclick=()=>{navigator.clipboard.writeText(val);alert('Скопировано: '+val);};
+
+  const mm=document.getElementById('as-make-main');
+  if(isMe&&kind==='tag'&&u.tag!==val){
+    mm.style.display='inline-flex';
+    mm.onclick=()=>{
+      const old=u.tag;u.tag=val;u.extraTags=u.extraTags.map(x=>x===val?old:x);
+      saveState();document.getElementById('m-asset').style.display='none';drawProfile();drawMsgs();
+    };
+  }else{mm.style.display='none';}
+
+  const gb=document.getElementById('as-gift-box');
+  const canGift=isMe&&((kind==='num'&&val.startsWith('+555'))||(kind==='tag'&&u.extraTags.includes(val)));
+  gb.style.display=canGift?'block':'none';
+  if(canGift){
+    document.getElementById('as-gift-to').value='';
+    document.getElementById('as-gift-go').onclick=()=>{
+      const raw=document.getElementById('as-gift-to').value.trim();
+      const target=findUserByTag(raw.startsWith('@')?raw:'@'+raw);
+      if(!target||target===st.u)return alert('Пользователь '+raw+' не найден!');
+      if(kind==='num'){st.u.nums=st.u.nums.filter(x=>x!==val);if(st.u.num===val)st.u.num=st.u.nums||st.u.base;}
+      else{st.u.extraTags=st.u.extraTags.filter(x=>x!==val);}
+      if(!Array.isArray(target.pendingGifts))target.pendingGifts=[];
+      const deliverAt=Date.now()+864e5;
+      target.pendingGifts.push({kind,val,from:st.u.tag,deliverAt});
+      walletNotify(target.tag,'Вам отправлен в подарок '+val+' от '+st.u.tag+'. В целях безопасности предмет будет зачислен через 24 часа.');
+      const dmId='dm_'+target.tag.replace('@','');
+      if(!st.msgs[dmId])st.msgs[dmId]=[];
+      st.msgs[dmId].push({id:'mg'+Date.now(),s:st.u.tag,v:st.u.ver,vc:st.u.verColor,n:st.u.num,t:'Отправил(а) вам в подарок '+val+'! В целях безопасности актив придет через 24 часа.',img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0,read:false});
+      saveState();document.getElementById('m-asset').style.display='none';drawProfile();
+      alert('Подарок '+val+' отправлен пользователю '+target.tag+' и придёт ему через 24 часа.');
+    };
+  }
+  document.getElementById('m-asset').style.display='flex';
 }
 function drawProfile(){
   ensureDefaults(st.u);
@@ -975,6 +1217,12 @@ function drawProfile(){
   document.getElementById('biz-greet-in').value=st.u.bizGreet||'';
   document.getElementById('priv-email').value=st.u.email||'';
 
+  const ghBtn=document.getElementById('b-toggle-ghost');
+  if(ghBtn){
+    ghBtn.style.opacity=st.u.prem?'1':'0.55';
+    ghBtn.textContent='Режим «Невидимка» (Premium): '+(st.u.ghost?'Включён':'Выключен');
+  }
+
   const chSel=document.getElementById('s-my-chan');
   if(chSel){
     const myChans=st.chats.filter(c=>c.type==='channel'&&c.own===st.u.tag);
@@ -983,28 +1231,42 @@ function drawProfile(){
 
   const linkedCh=u.myChan?st.chats.find(c=>c.id===u.myChan):null;
   const rChan=document.getElementById('r-chan');
-  if(linkedCh){
-    rChan.style.display='block';
-    document.getElementById('p-chan-name').textContent='Личный канал: '+linkedCh.name;
-    document.getElementById('p-chan-sub').textContent=(linkedCh.subs||0).toLocaleString()+' подписчиков • Открыть канал ›';
+    if(linkedCh){
+    rChan.style.display='flex';
+    const ca=document.getElementById('p-chan-ava');
+    if(linkedCh.avaImg){ca.textContent='';ca.style.backgroundImage='url('+linkedCh.avaImg+')';}
+    else{ca.style.backgroundImage='';ca.textContent=linkedCh.icon||'📢';}
+    document.getElementById('p-chan-name').textContent=linkedCh.name;
+    document.getElementById('p-chan-subs').textContent=(linkedCh.subs||0).toLocaleString()+' подп.';
+    const chMsgs=st.msgs[linkedCh.id]||[];
+    const lastPost=chMsgs.length?chMsgs[chMsgs.length-1]:null;
+    document.getElementById('p-chan-last').textContent=lastPost?(lastPost.t||'Медиа-пост'):(linkedCh.desc||'Открыть канал');
     rChan.onclick=()=>{st.cid=linkedCh.id;showView('chat');setMobTab('chat');drawChats();drawMsgs();};
   }else{rChan.style.display='none';}
 
+
   for(let i=0;i<6;i++){
-    const el=document.getElementById('bs-'+i),ico=u.banSlots.at(i);
-    el.textContent=ico||'';el.style.display=ico?'flex':'none';
-    el.onclick=ico?()=>{const idx=u.efts.findIndex(x=>x.icon===ico&&x.owned);if(idx!==-1)openEftModal(u,idx,isMe);}:null;
+    const el=document.getElementById('bs-'+i),key=u.banSlots.at(i);
+    el.innerHTML=key?eftArt(key,22):'';el.style.display=key?'flex':'none';
+    el.onclick=key?()=>{const idx=u.efts.findIndex(x=>x.artKey===key&&x.owned);if(idx!==-1)openEftModal(u,idx,isMe);}:null;
   }
 
   const ex=document.getElementById('p-extra');
   if(u.extraTags.length){
     ex.innerHTML='И еще: '+u.extraTags.map(t=>'<span data-swap="'+t+'">'+t+'</span>').join(', ');
     ex.style.display='block';
-    if(isMe)ex.querySelectorAll('span').forEach(sp=>sp.onclick=e=>{
-      e.stopPropagation();const nt=sp.dataset.swap,old=u.tag;
-      u.tag=nt;u.extraTags=u.extraTags.map(x=>x===nt?old:x);saveState();drawProfile();drawMsgs();
+    ex.querySelectorAll('span').forEach(sp=>sp.onclick=e=>{
+      e.stopPropagation();openAssetModal(u,'tag',sp.dataset.swap,isMe);
     });
   }else{ex.style.display='none';}
+
+  document.getElementById('r-num').onclick=()=>openAssetModal(u,'num',u.num,isMe);
+  const isMainTagColl=Boolean((u.assetMeta&&u.assetMeta[u.tag])||SHOP_TAGS.some(x=>x.t===u.tag)||AUCTIONS.some(x=>    x.val===u.tag)||['@fox','@foxigram','@ceo','@boss'].includes(u.tag));
+  const pTagEl=document.getElementById('p-tag');
+  pTagEl.style.color=isMainTagColl?'var(--accent)':'var(--txt)';
+  document.getElementById('r-tag').style.cursor=isMainTagColl?'pointer':'default';
+  document.getElementById('r-tag').onclick=isMainTagColl?(()=>openAssetModal(u,'tag',u.tag,isMe)):null;
+
 
   const da=document.getElementById('dr-ava');
   if(st.u.avaImg){da.textContent='';da.style.backgroundImage='url('+st.u.avaImg+')';}else{da.style.backgroundImage='';da.textContent=st.u.ava;}
@@ -1013,28 +1275,55 @@ function drawProfile(){
   pv.style.display=u.ver?'inline-flex':'none';
   pv.className=badgeCls(u.verColor);
 
-  document.getElementById('p-prem').style.display=u.prem?'inline-flex':'none';
-  document.getElementById('p-biz').style.display=u.biz?'inline-flex':'none';
-  document.getElementById('p-lvl').textContent='Ур. '+u.lvl;
+  const premEl=document.getElementById('p-prem'),bizEl=document.getElementById('p-biz');
+  premEl.style.display=u.prem?'inline-flex':'none';
+  bizEl.style.display=(u.biz&&u.tag!=='@fox')?'inline-flex':'none';
+  premEl.onclick=()=>{st.shopTab='prem';document.querySelectorAll('.s-tab').forEach(x=>x.classList.toggle('active',x.dataset.st==='prem'));showView('shop');drawShop();setMobTab('view');};
+  bizEl.onclick=()=>{st.shopTab='biz';document.querySelectorAll('.s-tab').forEach(x=>x.classList.toggle('active',x.dataset.st==='biz'));showView('shop');drawShop();setMobTab('view');};
+
+
+  const lvlBtn=document.getElementById('p-lvl');
+  lvlBtn.textContent='Ур. '+u.lvl;
+  lvlBtn.onclick=()=>{
+    if(u.tag==='@fox'){
+      document.getElementById('lvl-num-big').textContent='631';
+      document.getElementById('lvl-title').textContent='Уровень создателя (631)';
+      document.getElementById('lvl-rem').textContent='Эксклюзивный статус основателя Foxigram';
+      document.getElementById('lvl-bar').style.width='100%';
+    }else{
+      const info=calcLevel(u.spentPts||0);
+      document.getElementById('lvl-num-big').textContent=info.lvl;
+      document.getElementById('lvl-title').textContent='Уровень '+info.lvl+' из 150';
+      document.getElementById('lvl-rem').textContent=info.lvl>=150?'Достигнут максимальный 150 уровень!':('До следующего уровня осталось потратить: '+info.left.toLocaleString()+' Points');
+      document.getElementById('lvl-bar').style.width=(info.lvl>=150?100:Math.round((info.rem/info.need)*100))+'%';
+    }
+    document.getElementById('m-lvl').style.display='flex';
+  };
+
   document.getElementById('p-num').textContent=u.num;
   document.getElementById('p-num-lbl').textContent=u.num.startsWith('+555')?'Анонимный номер':'Обыкновенный номер';
   document.getElementById('p-bio').textContent=u.bio;
+
+  const orgRow=document.getElementById('r-ceo-ver');
+  if(u.orgVer){
+    orgRow.style.display='flex';
+    document.getElementById('p-org-txt').textContent='Данный пользователь верифицирован организацией «'+u.orgVer+'»';
+  }else{orgRow.style.display='none';}
+
   document.getElementById('p-mtitle').textContent=u.mus?u.mus.name:'Нет трека';
   document.getElementById('e-cnt').textContent=u.efts.filter(x=>x.owned).length;
 
-  const achs=getAchs(u);
-  document.getElementById('p-achs-wrap').style.display=achs.length?'block':'none';
-  document.getElementById('p-achs').textContent=achs.join(' • ');
-
   const pa=document.getElementById('p-ava');
   const hasSt=st.stories.some(s=>s.tag.toLowerCase()===u.tag.toLowerCase());
-  pa.classList.toggle('has-story',hasSt);
+  pa.className='p-ava'+(hasSt?' has-story':'')+(u.frame?' '+u.frame:'');
   pa.onclick=()=>{if(hasSt)openUserStory(u.tag);};
   if(u.avaImg){pa.textContent='';pa.style.backgroundImage='url('+u.avaImg+')';}else{pa.style.backgroundImage='';pa.textContent=u.ava;}
 
   const pb=document.getElementById('p-banner');
   if(u.banImg){pb.style.backgroundImage='url('+u.banImg+')';}else{pb.style.backgroundImage='';pb.style.background=u.eq?u.eq.bg:u.ban;}
-  document.getElementById('p-emo').textContent=u.status||(u.eq?u.eq.icon:'');
+  const emoEl=document.getElementById('p-emo');
+  const stKey=u.status||(u.eq?u.eq.artKey:'');
+  emoEl.innerHTML=stKey?eftArt(stKey,20):'';
 
   const g=document.getElementById('e-grid');g.innerHTML='';
   const list=isMe?u.efts:u.efts.filter(x=>x.owned);
@@ -1042,7 +1331,7 @@ function drawProfile(){
   list.forEach(e=>{
     const idx=u.efts.indexOf(e),d=document.createElement('div');
     d.className='eft'+(e.owned?'':' locked')+(e.upg?' upg':'')+(e.safe?' safe':'');d.style.background=e.bg;
-    d.innerHTML=patHtml(e.pat)+'<span class="ser">'+e.ser+'</span><div style="font-size:26px;">'+e.icon+'</div><div style="font-size:10px;font-weight:700;max-width:95%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+e.title+'</div><div class="price-tag">'+(e.owned?e.price+' Pts':'🔒 '+e.price)+'</div>';
+    d.innerHTML=patHtml(e.pat)+'<span class="ser">'+e.ser+'</span><div>'+eftArt(e.artKey,38)+'</div><div style="font-size:10px;font-weight:700;max-width:95%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+e.title+'</div><div class="price-tag">'+(e.owned?e.price+' Pts':'🔒 '+e.price)+'</div>';
     d.onclick=()=>{
       if(!e.owned){if(isMe)showView('shop');return;}
       openEftModal(u,idx,isMe);
@@ -1056,7 +1345,7 @@ function activeMsgsKey(){
   if(st.cid==='support'&&st.u.tag!=='@fox')return 'sup_'+st.u.tag.replace(/^@/,'').toLowerCase();
   if(st.cid==='support'&&st.u.tag==='@fox'){
     const keys=Object.keys(st.msgs).filter(k=>k.startsWith('sup_'));
-    if(!st.supUser&&keys.length)st.supUser=keys;
+    if(!st.supUser&&keys.length)st.supUser=keys[0];
     return st.supUser||'support';
   }
   return st.cid;
@@ -1072,7 +1361,7 @@ function toggleSub(c){
         st.u.rag-=c.fee;
       }else{
         if(st.u.pts<c.fee)return alert('Для входа нужно '+c.fee+' Points!');
-        st.u.pts-=c.fee;
+        spendPts(st.u,c.fee);
       }
       const owner=findUserByTag(c.own);
       if(owner){
@@ -1118,9 +1407,13 @@ function drawChats(){
   }).forEach(c=>{
     const isSub=mySubs.includes(c.id)||c.own===st.u.tag||c.id.startsWith('dm_')||c.id.startsWith('sec_');
     const d=document.createElement('div');d.className='chat-item'+(c.id===st.cid?' active':'');
-    const sub=c.type==='channel'?((c.subs||0).toLocaleString()+' подписчиков • '+(c.code||'')):(c.type==='group'?((c.subs||1).toLocaleString()+' участников'):(c.id==='wallet'?'Кошелёк и чеки':(c.id==='support'?'Поддержка':(c.secTimer?'Секретный чат':'Личный чат'))));
+    let sub=c.type==='channel'?((c.subs||0).toLocaleString()+' подписчиков • '+(c.code||'')):(c.type==='group'?((c.subs||1).toLocaleString()+' участников'):(c.id==='wallet'?'Кошелёк и чеки':(c.id==='support'?'Поддержка':(c.secTimer?'Секретный чат':'Личный чат'))));
+    if(c.id.startsWith('dm_')||c.id.startsWith('sec_')){
+      const peer=findUserByTag('@'+c.id.replace(/^(dm_|sec_)/,''));
+      if(peer)sub=getLiveStatus(peer);
+    }
     const unr=(st.u.unread&&st.u.unread[c.id])?st.u.unread[c.id]:0;
-    d.innerHTML='<div class="ava" style="'+(c.avaImg?'background-image:url('+c.avaImg+');':'')+'">'+(c.avaImg?'':c.icon)+'</div><div style="min-width:0;flex:1;"><div style="font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:5px;"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+c.name+'</span>'+(c.ver?'<span class="'+badgeCls(c.vc||'blue')+'">✓</span>':'')+'</div><div style="font-size:11px;color:var(--mut);">'+sub+'</div></div>'+(unr>0?'<span class="unread-dot">'+unr+'</span>':(!isSub?'<button type="button" class="pill" style="padding:4px 9px;font-size:11px;">Войти</button>':''));
+    d.innerHTML='<div class="ava" style="'+(c.avaImg?'background-image:url('+c.avaImg+');':'')+'">'+(c.avaImg?'':c.icon)+'</div><div style="min-width:0;flex:1;"><div style="font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:5px;"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+c.name+'</span>'+(c.ver?'<span class="'+badgeCls(c.vc||'blue')+'">✓</span>':'')+'</div><div style="font-size:11px;color:'+(sub==='печатает...'?'var(--accent)':'var(--mut)')+';">'+sub+'</div></div>'+(unr>0?'<span class="unread-dot">'+unr+'</span>':(!isSub?'<button type="button" class="pill" style="padding:4px 9px;font-size:11px;">Войти</button>':''));
     d.onclick=()=>{
       if(!isSub){toggleSub(c);}
       if(st.u.unread)st.u.unread[c.id]=0;
@@ -1135,7 +1428,6 @@ function drawMsgs(){
   if(st.u.unread)st.u.unread[c.id]=0;
   document.getElementById('c-title').innerHTML=c.name+(c.ver?' <span class="'+badgeCls(c.vc||'blue')+'">✓</span>':'');
 
-  /* Умная строка под названием: статус в ЛС, участники в группах, подписчики в каналах */
   let subTxt='';
   if(c.type==='channel')subTxt=(c.subs||0).toLocaleString()+' подписчиков'+(c.code?' • '+c.code:'');
   else if(c.type==='group')subTxt=(c.subs||1).toLocaleString()+' участников'+(c.code?' • '+c.code:'');
@@ -1150,7 +1442,9 @@ function drawMsgs(){
   }
   document.getElementById('c-sub').textContent=subTxt;
 
-  /* Кнопка подписки в шапке чужого канала/группы */
+  const pollBtn=document.getElementById('b-poll');
+  pollBtn.style.display=(c.type==='group'||(c.type==='channel'&&c.own===st.u.tag))?'inline-flex':'none';
+
   const subHead=document.getElementById('b-sub-head');
   if((c.type==='channel'||c.type==='group')&&c.own!=='sys'&&c.own!==st.u.tag){
     const isSub=(st.u.subs||[]).includes(c.id);
@@ -1159,7 +1453,6 @@ function drawMsgs(){
     subHead.onclick=()=>toggleSub(c);
   }else{subHead.style.display='none';}
 
-  /* Селектор личных тикетов в Foxigram Support для @fox */
   const tSel=document.getElementById('sup-ticket-sel');
   if(c.id==='support'&&st.u.tag==='@fox'){
     const keys=Object.keys(st.msgs).filter(k=>k.startsWith('sup_'));
@@ -1170,7 +1463,6 @@ function drawMsgs(){
     }else{tSel.style.display='none';}
   }else{tSel.style.display='none';}
 
-  /* Кнопка звука чата */
   const isMuted=(st.u.mutedChats||[]).includes(c.id);
   const mBtn=document.getElementById('b-mute-chat');
   mBtn.style.opacity=isMuted?'0.45':'1';
@@ -1190,13 +1482,30 @@ function drawMsgs(){
   const box=document.getElementById('msgs');box.innerHTML='';
   const blocked=st.u.blocked||[],mKey=activeMsgsKey(),now=Date.now();
   const qWord=(st.cSearch||'').trim().toLowerCase();
+  const listMsgs=st.msgs[mKey]||[];
 
-  (st.msgs[mKey]||[]).forEach((m,mIdx)=>{
+  if(!listMsgs.length&&(c.id.startsWith('dm_')||c.id.startsWith('sec_'))){
+    const mEmoji=MASCOTS[c.id.length%MASCOTS.length];
+    const ec=document.createElement('div');ec.className='empty-card';
+    ec.innerHTML='<div style="font-weight:700;font-size:14px;margin-bottom:6px;">Здесь пока ничего нет...</div><div style="font-size:12px;color:var(--mut);line-height:1.45;">Отправьте сообщение или нажмите на приветствие ниже.</div><div class="empty-mascot" title="Отправить приветствие">'+mEmoji+'</div>';
+    ec.querySelector('.empty-mascot').onclick=()=>{document.getElementById('inp').value='Привет! '+mEmoji;send();};
+    box.appendChild(ec);
+    return;
+  }
+
+  let markedRead=false;
+  listMsgs.forEach((m,mIdx)=>{
     if(m.exp&&m.exp<now)return;
     if(blocked.includes(m.s))return;
     if(qWord&&!(m.t||'').toLowerCase().includes(qWord))return;
 
     const isMe=(m.s===st.u.tag||(st.cid==='support'&&st.u.tag==='@fox'&&m.s==='@support'));
+    if(!isMe&&!m.read){m.read=true;markedRead=true;}
+    if(c.type==='channel'){
+      if(!Array.isArray(m.views))m.views=[];
+      if(!m.views.includes(st.u.tag))m.views.push(st.u.tag);
+    }
+
     const row=document.createElement('div');row.className='msg-row'+(isMe?' mine':'');
     const senderObj=findUserByTag(m.s);
     const openSender=()=>{if(!senderObj)return;st.viewU=(senderObj===st.u)?null:senderObj;drawProfile();setMobTab('prof');};
@@ -1210,10 +1519,18 @@ function drawMsgs(){
 
     const d=document.createElement('div');d.className='msg';
     const safeT=m.t?m.t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
-    const txt=safeT?safeT.replace(/\|\|(.*?)\|\|/g,'<span class="spoiler" onclick="this.classList.toggle(`open`)">$1</span>'):'';
+    let txt=safeT?safeT.replace(/\|\|(.*?)\|\|/g,'<span class="spoiler" onclick="this.classList.toggle(`open`)">$1</span>'):'';
+    if(txt){txt=txt.replace(/(@[a-zA-Z0-9_]{3,})/g,'<span class="mention-link" data-mtag="$1">$1</span>');}
 
     let extraHtml='';
     if(m.rep){extraHtml+='<div class="reply-box"><strong>'+m.rep.s+':</strong> '+m.rep.t+'</div>';}
+    if(m.poll){
+      const totalV=m.poll.opts.reduce((acc,o)=>acc+(o.v?o.v.length:0),0);
+      extraHtml+='<div style="font-weight:700;font-size:13.5px;margin-bottom:4px;">'+m.poll.q+'</div><div class="poll-box">'+m.poll.opts.map((o,oi)=>{
+        const cnt=o.v?o.v.length:0,pct=totalV?Math.round((cnt/totalV)*100):0,voted=(o.v||[]).includes(st.u.tag);
+        return '<button type="button" class="poll-opt" data-oi="'+oi+'"><div class="poll-fill" style="width:'+pct+'%;"></div><span>'+(voted?'✓ ':'')+o.t+'</span><span>'+pct+'% ('+cnt+')</span></button>';
+      }).join('')+'</div>';
+    }
     if(m.bizAd){
       extraHtml+='<div class="pay-card biz-ad"><div style="font-size:10.5px;color:#9AC4AC;font-weight:800;">РЕКЛАМА • FOXIGRAM BUSINESS</div><div style="font-size:13.5px;font-weight:700;margin:3px 0;">'+m.bizAd.title+'</div><div style="font-size:11.5px;color:var(--mut);">Автор: '+m.bizAd.author+'</div></div>';
     }
@@ -1238,10 +1555,23 @@ function drawMsgs(){
     const isVer=senderObj?senderObj.ver:m.v;
     const comList=Array.isArray(m.com)?m.com:[];
     const comHtml=(c.type==='channel'&&comList.length)?('<div style="margin-top:7px;padding-top:6px;border-top:1px solid var(--brd);font-size:11.5px;color:var(--mut);">'+comList.map(cm=>'<div><strong>'+cm.s+':</strong> '+cm.t+'</div>').join('')+'</div>'):'';
+    const readTick=(isMe&&(c.id.startsWith('dm_')||c.id.startsWith('sec_')))?(m.read?' ✓✓':' ✓'):'';
 
-    d.innerHTML='<div style="font-size:11.5px;color:var(--mut);margin-bottom:4px;display:flex;align-items:center;gap:4px;"><span class="sender-link">'+m.s+'</span>'+(isVer?'<span class="'+badgeCls(vc)+'">✓</span>':'')+'<span>• '+m.n+' • '+m.time+(m.don?' • Донат: '+m.don+' RAG':'')+'</span></div>'+(txt?'<div style="font-size:13.5px;line-height:1.45;">'+txt+'</div>':'')+extraHtml+(m.img?'<img class="msg-img" src="'+m.img+'">':'')+comHtml+'<div class="reacts"></div><div class="msg-acts"><button type="button" class="act-mini a-rep">Ответить</button><button type="button" class="act-mini a-fwd">Переслать</button>'+(c.type==='channel'?'<button type="button" class="act-mini a-com">Коммент</button><button type="button" class="act-mini a-don">Донат 10 RAG</button>':'')+((isMe||st.u.tag==='@fox')?'<button type="button" class="act-mini a-del" style="color:#D69CA4;">Удалить</button>':'')+'</div>';
+    d.innerHTML='<div style="font-size:11.5px;color:var(--mut);margin-bottom:4px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;"><span class="sender-link">'+m.s+'</span>'+(isVer?'<span class="'+badgeCls(vc)+'">✓</span>':'')+'<span>• '+m.n+' • '+m.time+readTick+(c.type==='channel'?' '+SVG_EYE+' '+(m.views?m.views.length:1):'')+(m.ed?' (изм.)':'')+(m.don?' • Донат: '+m.don+' RAG':'')+'</span></div>'+(txt?'<div style="font-size:13.5px;line-height:1.45;">'+txt+'</div>':'')+extraHtml+(m.img?'<img class="msg-img" src="'+m.img+'">':'')+comHtml+'<div class="reacts"></div><div class="msg-acts"><button type="button" class="act-mini a-rep">Ответить</button><button type="button" class="act-mini a-fwd">Переслать</button>'+(c.type==='channel'?'<button type="button" class="act-mini a-com">Коммент</button><button type="button" class="act-mini a-don">Донат 10 RAG</button>':'')+(isMe&&m.t?'<button type="button" class="act-mini a-edit">Изменить</button>':'')+((isMe||st.u.tag==='@fox')?'<button type="button" class="act-mini a-del" style="color:#D69CA4;">Удалить</button>':'')+'</div>';
 
     d.querySelector('.sender-link').onclick=openSender;
+    d.querySelectorAll('.mention-link').forEach(ml=>ml.onclick=e=>{
+      e.stopPropagation();
+      const targetU=findUserByTag(ml.dataset.mtag);
+      if(targetU){st.viewU=(targetU===st.u)?null:targetU;drawProfile();setMobTab('prof');}
+    });
+
+    d.querySelectorAll('.poll-opt').forEach(po=>po.onclick=()=>{
+      const oi=parseInt(po.dataset.oi,10);
+      m.poll.opts.forEach(opt=>{if(!Array.isArray(opt.v))opt.v=[];opt.v=opt.v.filter(x=>x!==st.u.tag);});
+      m.poll.opts[oi].v.push(st.u.tag);
+      saveState();drawMsgs();
+    });
 
     const dc=d.querySelector('.drop-claim');
     if(dc){
@@ -1262,9 +1592,22 @@ function drawMsgs(){
       document.getElementById('inp').focus();
     };
     d.querySelector('.a-fwd').onclick=()=>{
-      if(!st.msgs.saved)st.msgs.saved=[];
-      st.msgs.saved.push({...m,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
-      saveState();alert('Переслано в Избранное!');
+      st.fwdMsg=m;
+      const fl=document.getElementById('fwd-list');fl.innerHTML='';
+      const mySubs=st.u.subs||[];
+      st.chats.filter(ch=>ch.id==='saved'||mySubs.includes(ch.id)||ch.own===st.u.tag||ch.id.startsWith('dm_')).forEach(ch=>{
+        if(ch.type==='channel'&&ch.own!==st.u.tag)return;
+        const b=document.createElement('button');b.type='button';b.className='chat-item';
+        b.innerHTML='<div class="ava">'+ch.icon+'</div><strong>'+ch.name+'</strong>';
+        b.onclick=()=>{
+          if(!st.msgs[ch.id])st.msgs[ch.id]=[];
+          st.msgs[ch.id].push({...st.fwdMsg,s:st.u.tag,v:st.u.ver,vc:st.u.verColor,n:st.u.num,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),read:false});
+          document.getElementById('m-fwd').style.display='none';saveState();
+          alert('Сообщение переслано в «'+ch.name+'»!');
+        };
+        fl.appendChild(b);
+      });
+      document.getElementById('m-fwd').style.display='flex';
     };
     const ac=d.querySelector('.a-com');
     if(ac)ac.onclick=()=>{
@@ -1278,6 +1621,13 @@ function drawMsgs(){
       const own=findUserByTag(c.own);
       if(own){own.rag=(own.rag||0)+10;walletNotify(own.tag,'Донат в канале «'+c.name+'» от '+st.u.tag+': +10 RAG');}
       saveState();drawMsgs();drawProfile();
+    };
+    const ed=d.querySelector('.a-edit');
+    if(ed)ed.onclick=()=>{
+      st.editIdx=mIdx;
+      document.getElementById('reply-bar').style.display='flex';
+      document.getElementById('reply-txt').textContent='Редактирование сообщения...';
+      const inp=document.getElementById('inp');inp.value=m.t;inp.focus();
     };
     const dl=d.querySelector('.a-del');
     if(dl)dl.onclick=()=>{st.msgs[mKey].splice(mIdx,1);saveState();drawMsgs();};
@@ -1307,6 +1657,7 @@ function drawMsgs(){
     row.appendChild(av);row.appendChild(d);box.appendChild(row);
   });
   box.scrollTop=box.scrollHeight;
+  if(markedRead)saveState();
 }
 function send(extra={}){
   if(st.u.banned)return alert('Ваш аккаунт заблокирован администратором.');
@@ -1314,22 +1665,25 @@ function send(extra={}){
   if(st.u.muted)return alert('Администратор ограничил вам отправку сообщений.');
 
   const inp=document.getElementById('inp'),t=inp.value.trim();
-  if(!t&&!extra.img&&!extra.voice&&!extra.file&&!extra.drop&&!extra.bizAd)return;
+  const mKey=activeMsgsKey();
+
+  if(st.editIdx!==null&&st.msgs[mKey]&&st.msgs[mKey][st.editIdx]){
+    if(t){st.msgs[mKey][st.editIdx].t=t;st.msgs[mKey][st.editIdx].ed=true;}
+    st.editIdx=null;inp.value='';document.getElementById('reply-bar').style.display='none';
+    playSfx('send');saveState();drawMsgs();return;
+  }
+
+  if(!t&&!extra.img&&!extra.voice&&!extra.file&&!extra.drop&&!extra.bizAd&&!extra.poll)return;
 
   if(st.delaySec>0&&!extra.delayed){
     const wait=st.delaySec,savedTxt=t,savedRep=st.replyTo;
     st.delaySec=0;inp.value='';st.replyTo=null;
     document.getElementById('reply-bar').style.display='none';
     alert('Сообщение запланировано и отправится через '+wait+' сек.');
-    setTimeout(()=>{
-      const oldCid=st.cid;
-      inp.value=savedTxt;st.replyTo=savedRep;
-      send({...extra,delayed:true});
-    },wait*1000);
+    setTimeout(()=>{inp.value=savedTxt;st.replyTo=savedRep;send({...extra,delayed:true});},wait*1000);
     return;
   }
 
-  const mKey=activeMsgsKey();
   if(!st.msgs[mKey])st.msgs[mKey]=[];
   const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
   const cObj=st.chats.find(x=>x.id===st.cid);
@@ -1361,7 +1715,7 @@ function send(extra={}){
     const target=toTag?findUserByTag(toTag):null;
     if(!target||target===st.u||isNaN(amt)||amt<=0)return alert('Формат: /pay @юзернейм сумма');
     if(st.u.pts<amt)return alert('Недостаточно Points!');
-    st.u.pts-=amt;target.pts+=amt;
+    spendPts(st.u,amt);target.pts+=amt;
     st.msgs[mKey].push({id:'m'+Date.now(),s:st.u.tag,v:st.u.ver,vc:st.u.verColor,n:st.u.num,t:'',pay:{to:target.tag,amt,cur:'PTS'},img:'',time,r:{},com:[],don:0,exp:expAt});
     walletNotify(target.tag,'Перевод от '+st.u.tag+': +'+amt+' Points');
     inp.value='';playSfx('send');saveState();drawMsgs();drawProfile();return;
@@ -1375,12 +1729,11 @@ function send(extra={}){
 
   st.msgs[mKey].push({
     id:'m'+Date.now()+Math.random(),s:senderTag,v:senderVer,vc:senderVc,n:senderNum,
-    t:t,rep:st.replyTo||null,drop:extra.drop||null,bizAd:extra.bizAd||null,
+    t:t,rep:st.replyTo||null,drop:extra.drop||null,bizAd:extra.bizAd||null,poll:extra.poll||null,
     img:extra.img||'',voice:extra.voice||null,file:extra.file||null,
-    time,r:{},com:[],don:0,exp:expAt
+    time,r:{},com:[],don:0,exp:expAt,read:false,views:cObj&&cObj.type==='channel'?[st.u.tag]:undefined
   });
 
-  /* Увеличиваем счётчик непрочитанных у остальных пользователей */
   Object.values(st.accounts).forEach(acc=>{
     const p=acc.profile;
     if(p&&p.tag!==st.u.tag){
@@ -1389,15 +1742,14 @@ function send(extra={}){
     }
   });
 
-  /* Авто-приветствие Foxigram Business при первом сообщении в ЛС */
   if(cObj&&(cObj.id.startsWith('dm_')||cObj.id.startsWith('sec_'))&&st.msgs[mKey].length===1){
     const peer=findUserByTag('@'+cObj.id.replace(/^(dm_|sec_)/,''));
     if(peer&&peer.biz&&peer.bizGreet){
-      st.msgs[mKey].push({id:'mb'+Date.now(),s:peer.tag,v:peer.ver,vc:peer.verColor,n:'BUSINESS',t:peer.bizGreet,img:'',time,r:{},com:[],don:0,exp:expAt});
+      st.msgs[mKey].push({id:'mb'+Date.now(),s:peer.tag,v:peer.ver,vc:peer.verColor,n:'BUSINESS',t:peer.bizGreet,img:'',time,r:{},com:[],don:0,exp:expAt,read:true});
     }
   }
 
-  st.u.cnt+=1;st.u.pts+=15;if(st.u.cnt%5===0)st.u.lvl+=1;
+  st.u.cnt+=1;st.u.pts+=15;
   st.u.typingIn='';st.replyTo=null;
   document.getElementById('reply-bar').style.display='none';
   inp.value='';document.getElementById('emo-box').style.display='none';
@@ -1408,7 +1760,7 @@ function send(extra={}){
     if(low.includes('кости')||low.includes('монетка')){
       if(st.u.pts<50){st.msgs.foxbot.push({id:'mf'+Date.now(),s:'@FoxBot',v:true,vc:'blue',n:'BOT',t:'Нужно минимум 50 Points для ставки.',img:'',time,r:{},com:[],don:0});}
       else{
-        st.u.pts-=50;const win=Math.random()>0.48;
+        spendPts(st.u,50);const win=Math.random()>0.48;
         if(win)st.u.pts+=110;
         const res=low.includes('кости')?('Выпало: '+(Math.floor(Math.random()*6)+1)+' против '+(Math.floor(Math.random()*6)+1)):(win?'Орёл!':'Решка!');
         st.msgs.foxbot.push({id:'mf'+Date.now(),s:'@FoxBot',v:true,vc:'blue',n:'BOT',t:res+(win?' — Победа! +110 Points':' — Не повезло (-50 Points)'),img:'',time,r:{},com:[],don:0});
@@ -1419,18 +1771,31 @@ function send(extra={}){
   }
   saveState();drawMsgs();drawProfile();
 }
-
 function drawShop(){
   const sg=document.getElementById('shop-grid');sg.innerHTML='';
   if(st.shopTab==='eft'){
     st.u.efts.forEach(e=>{
       const d=document.createElement('div');d.className='s-card';d.style.background=e.bg;
-      d.innerHTML=patHtml(e.pat)+'<div><div style="font-size:10px;color:rgba(255,255,255,.72);font-weight:700;">'+e.ser+'</div><div style="font-size:32px;margin:2px 0;">'+e.icon+'</div><div style="font-weight:700;">'+e.title+'</div></div><button type="button" class="'+(e.owned?'pill':'btn-main')+'">'+(e.owned?'Открыто ✓':('Купить ('+e.price+' Pts)'))+'</button>';
+      d.innerHTML=patHtml(e.pat)+'<div><div style="font-size:10px;color:rgba(255,255,255,.78);font-weight:700;">'+(e.lim?'★ ЛИМИТИРОВАННОЕ • ':'')+e.ser+'</div><div style="margin:4px 0;">'+eftArt(e.artKey,46)+'</div><div style="font-weight:700;">'+e.title+'</div></div><button type="button" class="'+(e.owned?'pill':'btn-main')+'">'+(e.owned?'Открыто ✓':('Купить ('+e.price+' Pts)'))+'</button>';
       d.querySelector('button').onclick=()=>{
         if(e.owned)return alert('Уже в коллекции!');
         if(st.u.pts<e.price)return alert('Недостаточно Points!');
-        st.u.pts-=e.price;e.owned=true;e.hist='Приобретён '+st.u.tag;
+        spendPts(st.u,e.price);e.owned=true;e.hist='Приобретён '+st.u.tag;
         st.viewU=null;saveState();drawProfile();drawShop();alert('EFT «'+e.title+'» ('+e.ser+') добавлен в профиль!');
+      };
+      sg.appendChild(d);
+    });
+  }else if(st.shopTab==='frames'){
+    AVA_FRAMES.forEach(fr=>{
+      const ow=(st.u.frames||[]).includes(fr.id),act=(st.u.frame===fr.id);
+      const d=document.createElement('div');d.className='s-card';
+      d.innerHTML='<div><div class="p-ava '+fr.id+'" style="transform:none;width:50px;height:50px;font-size:20px;margin-bottom:8px;">🦊</div><div style="font-weight:700;font-size:14.5px;">'+fr.n+'</div><div style="font-size:11.5px;color:var(--mut);margin-top:3px;">'+fr.d+'</div></div><button type="button" class="'+(act?'pill':(ow?'pill rag':'btn-main'))+'">'+(act?'Надето ✓':(ow?'Надеть':('Купить ('+fr.p.toLocaleString()+' Pts)')))+'</button>';
+      d.querySelector('button').onclick=()=>{
+        if(act){st.u.frame='';saveState();drawProfile();drawShop();return;}
+        if(ow){st.u.frame=fr.id;saveState();drawProfile();drawShop();return;}
+        if(st.u.pts<fr.p)return alert('Недостаточно Points!');
+        spendPts(st.u,fr.p);if(!Array.isArray(st.u.frames))st.u.frames=[];st.u.frames.push(fr.id);st.u.frame=fr.id;
+        saveState();drawProfile();drawShop();alert('Рамка «'+fr.n+'» куплена и установлена!');
       };
       sg.appendChild(d);
     });
@@ -1442,7 +1807,7 @@ function drawShop(){
       d.querySelector('button').onclick=()=>{
         if(act)return alert('Этот тариф уже активен!');
         if(st.u.pts<pl.p)return alert('Недостаточно Points!');
-        st.u.pts-=pl.p;st.u.prem=true;st.u.premLabel=pl.t;st.u.premUntil=Date.now()+pl.days*864e5;
+        spendPts(st.u,pl.p);st.u.prem=true;st.u.premLabel=pl.t;st.u.premUntil=Date.now()+pl.days*864e5;
         st.viewU=null;saveState();drawProfile();drawShop();alert('Подписка «'+pl.t+'» оформлена!');
       };
       sg.appendChild(d);
@@ -1455,7 +1820,7 @@ function drawShop(){
       d.querySelector('button').onclick=()=>{
         if(act)return alert('Этот тариф уже активен!');
         if(st.u.pts<pl.p)return alert('Недостаточно Points!');
-        st.u.pts-=pl.p;st.u.biz=true;st.u.bizLabel=pl.t;st.u.bizUntil=Date.now()+pl.days*864e5;
+        spendPts(st.u,pl.p);st.u.biz=true;st.u.bizLabel=pl.t;st.u.bizUntil=Date.now()+pl.days*864e5;
         st.u.ver=true;st.u.verColor='red';
         st.viewU=null;saveState();drawProfile();drawShop();alert('Подписка «'+pl.t+'» оформлена! Выдана красная галочка и статус BUSINESS.');
       };
@@ -1485,6 +1850,7 @@ function drawDrag(){
         st.u.rag-=next;a.bid=next;a.leader=st.u.tag;
         if(a.kind==='tag'&&!st.u.extraTags.includes(a.val)&&st.u.tag!==a.val)st.u.extraTags.push(a.val);
         if(a.kind==='num'&&!st.u.nums.includes(a.val)){st.u.nums.push(a.val);st.u.num=a.val;}
+        getAssetMeta(st.u,a.val,a.kind);
         pushTicker(st.u.tag+' сделал ставку '+next+' RAG на '+a.val);
         st.viewU=null;saveState();drawProfile();drawDrag();alert('Ставка принята! Лот '+a.val+' закреплён за вами.');
       };
@@ -1499,7 +1865,8 @@ function drawDrag(){
       const isMine=(lot.seller===st.u.tag);
       const d=document.createElement('div');d.className='s-card';
       if(lot.bg)d.style.background=lot.bg;
-      d.innerHTML=(lot.pat?patHtml(lot.pat):'')+'<div><span style="font-size:10px;color:var(--accent);font-weight:800;">P2P • '+lot.seller+'</span><div style="font-size:24px;margin:4px 0;">'+(lot.icon||'💎')+'</div><div style="font-size:15px;font-weight:800;">'+lot.title+'</div><div style="font-size:11px;color:var(--mut);">'+(lot.sub||'Актив игрока')+'</div></div><button type="button" class="'+(isMine?'pill danger':'btn-main')+'">'+(isMine?'Снять лот':('Купить ('+lot.price+' RAG)'))+'</button>';
+      const artHtml=lot.kind==='eft'?eftArt(lot.artKey||'fox',40):(lot.kind==='num'?PIRATE_FLAG_SVG:'<div style="font-size:26px;font-weight:800;color:var(--accent);">@</div>');
+      d.innerHTML=(lot.pat?patHtml(lot.pat):'')+'<div><span style="font-size:10px;color:var(--accent);font-weight:800;">P2P • '+lot.seller+'</span><div style="margin:6px 0;">'+artHtml+'</div><div style="font-size:15px;font-weight:800;">'+lot.title+'</div><div style="font-size:11px;color:var(--mut);">'+(lot.sub||'Актив игрока')+'</div></div><button type="button" class="'+(isMine?'pill danger':'btn-main')+'">'+(isMine?'Снять лот':('Купить ('+lot.price+' RAG)'))+'</button>';
       d.querySelector('button').onclick=()=>{
         if(isMine){
           if(lot.kind==='eft'){const e=st.u.efts.find(x=>x.hash===lot.hash);if(e)e.owned=true;}
@@ -1512,12 +1879,13 @@ function drawDrag(){
         const sellerObj=findUserByTag(lot.seller);
         if(sellerObj){sellerObj.rag=(sellerObj.rag||0)+lot.price;walletNotify(sellerObj.tag,'Ваш лот «'+lot.title+'» куплен игроком '+st.u.tag+' за '+lot.price+' RAG!');}
         if(lot.kind==='eft'){
-          st.u.efts.unshift({title:lot.title,icon:lot.icon,pat:lot.pat||'✦ • ◈',ser:lot.sub||'#1/1',bg:lot.bg||'linear-gradient(135deg,#3A4D5E,#1B242D)',price:lot.price*75,hash:lot.hash||hash(),hist:'Куплен на P2P у '+lot.seller,owned:true,upg:false,safe:false});
+          st.u.efts.unshift({title:lot.title,artKey:lot.artKey||'fox',pat:lot.pat||'✦ • ◈',ser:lot.sub||'#1/1',bg:lot.bg||'linear-gradient(135deg,#3A4D5E,#1B242D)',price:lot.price*75,hash:lot.hash||hash(),hist:'Куплен на P2P у '+lot.seller,owned:true,upg:false,safe:false,lim:!!lot.lim});
         }else if(lot.kind==='tag'){
           if(!st.u.extraTags.includes(lot.val)&&st.u.tag!==lot.val)st.u.extraTags.push(lot.val);
+          getAssetMeta(st.u,lot.val,'tag');
         }else if(lot.kind==='num'){
           if(!st.u.nums.includes(lot.val))st.u.nums.push(lot.val);
-          st.u.num=lot.val;
+          st.u.num=lot.val;getAssetMeta(st.u,lot.val,'num');
         }
         pushTicker(st.u.tag+' купил '+lot.title+' у '+lot.seller+' за '+lot.price+' RAG');
         st.p2p.splice(li,1);saveState();drawProfile();drawDrag();alert('Вы купили «'+lot.title+'» за '+lot.price+' RAG!');
@@ -1539,13 +1907,13 @@ function drawDrag(){
         else st.u.rentals.push({kind:r.kind,val:r.val,until:Date.now()+days*864e5});
         if(r.kind==='tag'&&!st.u.extraTags.includes(r.val)&&st.u.tag!==r.val)st.u.extraTags.push(r.val);
         if(r.kind==='num'){if(!st.u.nums.includes(r.val))st.u.nums.push(r.val);st.u.num=r.val;}
+        getAssetMeta(st.u,r.val,r.kind);
         pushTicker(st.u.tag+' арендовал '+r.val+' на '+days+' дн.');
         saveState();drawProfile();drawDrag();alert('Актив '+r.val+' арендован на '+days+' дн. за '+cost+' RAG!');
       });
       dg.appendChild(d);
     });
-  }
-  else if(tab==='tags'){
+  }else if(tab==='tags'){
     SHOP_TAGS.forEach(x=>{
       const ow=st.u.extraTags.includes(x.t)||st.u.tag===x.t;
       const d=document.createElement('div');d.className='s-card';
@@ -1553,7 +1921,7 @@ function drawDrag(){
       d.querySelector('button').onclick=()=>{
         if(ow)return alert('Уже в вашей коллекции!');
         if((st.u.rag||0)<x.p)return alert('Недостаточно RAG!');
-        st.u.rag-=x.p;st.u.extraTags.push(x.t);
+        st.u.rag-=x.p;st.u.extraTags.push(x.t);getAssetMeta(st.u,x.t,'tag');
         pushTicker(st.u.tag+' приобрёл юзернейм '+x.t+' за '+x.p+' RAG');
         st.viewU=null;saveState();drawProfile();drawDrag();alert('Юзернейм '+x.t+' добавлен в профиль!');
       };
@@ -1567,7 +1935,7 @@ function drawDrag(){
       d.querySelector('button').onclick=()=>{
         if(ow){st.u.num=it.n;st.viewU=null;saveState();drawProfile();return alert('Номер '+it.n+' выбран!');}
         if((st.u.rag||0)<it.p)return alert('Недостаточно RAG!');
-        st.u.rag-=it.p;st.u.nums.push(it.n);st.u.num=it.n;
+        st.u.rag-=it.p;st.u.nums.push(it.n);st.u.num=it.n;getAssetMeta(st.u,it.n,'num');
         pushTicker(st.u.tag+' купил номер '+it.n+' за '+it.p+' RAG');
         st.viewU=null;saveState();drawProfile();drawDrag();alert('Номер '+it.n+' куплен за '+it.p+' RAG!');
       };
@@ -1575,7 +1943,6 @@ function drawDrag(){
     });
   }
 }
-
 document.getElementById('c-head-info').onclick=()=>{
   const c=st.chats.find(x=>x.id===st.cid);
   if(!c||c.type==='private')return;
@@ -1616,7 +1983,7 @@ function fillP2PItems(){
   const k=document.getElementById('p2p-kind').value,sel=document.getElementById('p2p-item');
   sel.innerHTML='';
   if(k==='eft'){
-    st.u.efts.forEach((e,i)=>{if(e.owned&&!e.safe){const o=document.createElement('option');o.value=i;o.textContent=e.icon+' '+e.title+' ('+e.ser+')';sel.appendChild(o);}});
+    st.u.efts.forEach((e,i)=>{if(e.owned&&!e.safe){const o=document.createElement('option');o.value=i;o.textContent=e.title+' ('+e.ser+')';sel.appendChild(o);}});
   }else if(k==='tag'){
     st.u.extraTags.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o);});
   }else{
@@ -1641,21 +2008,144 @@ document.getElementById('p2p-post').onclick=()=>{
   if(!Array.isArray(st.p2p))st.p2p=[];
   if(k==='eft'){
     const e=st.u.efts.at(parseInt(val,10));if(!e||!e.owned||e.safe)return;
-    e.owned=false;st.u.banSlots=st.u.banSlots.map(x=>x===e.icon?null:x);
-    st.p2p.unshift({kind:'eft',seller:st.u.tag,title:e.title,icon:e.icon,pat:e.pat,sub:e.ser,bg:e.bg,hash:e.hash,price:pr});
+    e.owned=false;st.u.banSlots=st.u.banSlots.map(x=>x===e.artKey?null:x);
+    st.p2p.unshift({kind:'eft',seller:st.u.tag,title:e.title,artKey:e.artKey,pat:e.pat,sub:e.ser,bg:e.bg,hash:e.hash,price:pr,lim:!!e.lim});
     pushTicker(st.u.tag+' выставил EFT '+e.title+' за '+pr+' RAG');
   }else if(k==='tag'){
     st.u.extraTags=st.u.extraTags.filter(t=>t!==val);
-    st.p2p.unshift({kind:'tag',seller:st.u.tag,title:val,icon:'🏷️',val:val,sub:'Коллекционный тег',price:pr});
+    st.p2p.unshift({kind:'tag',seller:st.u.tag,title:val,val:val,sub:'Коллекционный тег',price:pr});
     pushTicker(st.u.tag+' выставил тег '+val+' за '+pr+' RAG');
   }else{
     st.u.nums=st.u.nums.filter(n=>n!==val);if(st.u.num===val)st.u.num=st.u.base;
-    st.p2p.unshift({kind:'num',seller:st.u.tag,title:val,icon:'📱',val:val,sub:'Анонимный номер +555',price:pr});
+    st.p2p.unshift({kind:'num',seller:st.u.tag,title:val,val:val,sub:'Анонимный номер +555',price:pr});
     pushTicker(st.u.tag+' выставил номер '+val+' за '+pr+' RAG');
   }
   document.getElementById('p2p-price').value='';
   saveState();document.getElementById('m-p2p').style.display='none';drawProfile();drawDrag();
 };
+
+/* Опросы, Прокрутка вниз, Окно «О проекте» и Пересылка */
+document.getElementById('b-poll').onclick=()=>document.getElementById('m-poll').style.display='flex';
+document.getElementById('m-close-pl').onclick=()=>document.getElementById('m-poll').style.display='none';
+document.getElementById('pl-post').onclick=()=>{
+  const q=document.getElementById('pl-q').value.trim();
+  const opts=[document.getElementById('pl-o1').value.trim(),document.getElementById('pl-o2').value.trim(),document.getElementById('pl-o3').value.trim()].filter(Boolean);
+  if(!q||opts.length<2)return alert('Введите вопрос и минимум 2 варианта ответа!');
+  send({poll:{q,opts:opts.map(t=>({t,v:[]}))}});
+  document.getElementById('pl-q').value='';document.getElementById('pl-o1').value='';document.getElementById('pl-o2').value='';document.getElementById('pl-o3').value='';
+  document.getElementById('m-poll').style.display='none';
+};
+
+const msgBox=document.getElementById('msgs'),sdBtn=document.getElementById('b-scrolldown');
+msgBox.addEventListener('scroll',()=>{sdBtn.style.display=(msgBox.scrollHeight-msgBox.scrollTop-msgBox.clientHeight>120)?'flex':'none';});
+sdBtn.onclick=()=>{msgBox.scrollTo({top:msgBox.scrollHeight,behavior:'smooth'});};
+
+document.getElementById('dr-about').onclick=()=>{toggleDrawer(false);document.getElementById('m-about').style.display='flex';};
+document.getElementById('m-close-ab').onclick=()=>document.getElementById('m-about').style.display='none';
+document.getElementById('ab-open-fox').onclick=()=>{document.getElementById('m-about').style.display='none';st.cid='portalfox';showView('chat');setMobTab('chat');drawChats();drawMsgs();};
+document.getElementById('m-close-fwd').onclick=()=>document.getElementById('m-fwd').style.display='none';
+document.getElementById('m-close-as').onclick=()=>document.getElementById('m-asset').style.display='none';
+document.getElementById('m-close-lvl').onclick=()=>document.getElementById('m-lvl').style.display='none';
+document.getElementById('c-head-info').onclick=()=>{
+  const c=st.chats.find(x=>x.id===st.cid);
+  if(!c||c.type==='private')return;
+  const ca=document.getElementById('ch-m-ava');
+  if(c.avaImg){ca.textContent='';ca.style.backgroundImage='url('+c.avaImg+')';}else{ca.style.backgroundImage='';ca.textContent=c.icon;}
+  document.getElementById('ch-m-name').textContent=c.name;
+  document.getElementById('ch-m-meta').textContent=(c.code||'#CHAT')+' • '+(c.subs||0).toLocaleString()+(c.type==='channel'?' подписчиков':' участников');
+  document.getElementById('ch-m-desc').textContent=c.desc||'Без описания';
+  const isSub=(st.u.subs||[]).includes(c.id);
+  document.getElementById('ch-m-sub').style.display=(c.own==='sys'||c.own===st.u.tag)?'none':'flex';
+  document.getElementById('ch-m-sub').textContent=isSub?'Отписаться':(c.fee>0?('Вступить ('+c.fee+' '+c.feeCur+')'):'Подписаться');
+  document.getElementById('ch-m-sub').onclick=()=>{toggleSub(c);document.getElementById('m-chan').style.display='none';};
+  const isOwn=(c.own===st.u.tag);
+  document.getElementById('ch-own-box').style.display=isOwn?'block':'none';
+  if(isOwn){
+    document.getElementById('ch-ed-name').value=c.name;
+    document.getElementById('ch-ed-desc').value=c.desc||'';
+    document.getElementById('ch-ed-code').value=c.code||'';
+    document.getElementById('ch-ed-fee').value=c.fee||0;
+    document.getElementById('ch-ed-cur').value=c.feeCur||'RAG';
+  }
+  document.getElementById('m-chan').style.display='flex';
+};
+document.getElementById('m-close-ch').onclick=()=>document.getElementById('m-chan').style.display='none';
+document.getElementById('ch-ed-file').onchange=e=>{const f=e.target.files.item(0);if(!f)return;const c=st.chats.find(x=>x.id===st.cid);if(!c)return;compressImg(f,240,url=>{c.avaImg=url;saveState();drawChats();document.getElementById('ch-m-ava').style.backgroundImage='url('+url+')';document.getElementById('ch-m-ava').textContent='';});};
+document.getElementById('ch-ed-save').onclick=()=>{
+  const c=st.chats.find(x=>x.id===st.cid);if(!c||c.own!==st.u.tag)return;
+  const nn=document.getElementById('ch-ed-name').value.trim();if(nn)c.name=nn;
+  c.desc=document.getElementById('ch-ed-desc').value.trim();
+  let nc=document.getElementById('ch-ed-code').value.trim().toUpperCase();
+  if(nc){if(!nc.startsWith('#'))nc='#'+nc;c.code=nc.slice(0,5);}
+  c.fee=Math.max(0,parseInt(document.getElementById('ch-ed-fee').value,10)||0);
+  c.feeCur=document.getElementById('ch-ed-cur').value;
+  saveState();document.getElementById('m-chan').style.display='none';drawChats();drawMsgs();drawProfile();
+};
+
+function fillP2PItems(){
+  const k=document.getElementById('p2p-kind').value,sel=document.getElementById('p2p-item');
+  sel.innerHTML='';
+  if(k==='eft'){
+    st.u.efts.forEach((e,i)=>{if(e.owned&&!e.safe){const o=document.createElement('option');o.value=i;o.textContent=e.title+' ('+e.ser+')';sel.appendChild(o);}});
+  }else if(k==='tag'){
+    st.u.extraTags.forEach(t=>{const o=document.createElement('option');o.value=t;o.textContent=t;sel.appendChild(o);});
+  }else{
+    st.u.nums.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;sel.appendChild(o);});
+  }
+}
+document.getElementById('b-p2p-sell').onclick=()=>{fillP2PItems();document.getElementById('m-p2p').style.display='flex';};
+document.getElementById('m-p2p-btn').onclick=()=>{
+  const e=st.u.efts.at(st.sel);
+  if(e&&e.safe)return alert('Сначала снимите замок защиты с этого EFT!');
+  document.getElementById('m-eft').style.display='none';
+  document.getElementById('p2p-kind').value='eft';fillP2PItems();
+  document.getElementById('p2p-item').value=st.sel;
+  document.getElementById('m-p2p').style.display='flex';
+};
+document.getElementById('p2p-kind').onchange=fillP2PItems;
+document.getElementById('m-close-p2p').onclick=()=>document.getElementById('m-p2p').style.display='none';
+document.getElementById('p2p-post').onclick=()=>{
+  const k=document.getElementById('p2p-kind').value,val=document.getElementById('p2p-item').value;
+  const pr=parseInt(document.getElementById('p2p-price').value,10);
+  if(!val||isNaN(pr)||pr<=0)return alert('Выберите актив и укажите цену в RAG!');
+  if(!Array.isArray(st.p2p))st.p2p=[];
+  if(k==='eft'){
+    const e=st.u.efts.at(parseInt(val,10));if(!e||!e.owned||e.safe)return;
+    e.owned=false;st.u.banSlots=st.u.banSlots.map(x=>x===e.artKey?null:x);
+    st.p2p.unshift({kind:'eft',seller:st.u.tag,title:e.title,artKey:e.artKey,pat:e.pat,sub:e.ser,bg:e.bg,hash:e.hash,lim:!!e.lim,price:pr});
+    pushTicker(st.u.tag+' выставил EFT '+e.title+' за '+pr+' RAG');
+  }else if(k==='tag'){
+    st.u.extraTags=st.u.extraTags.filter(t=>t!==val);
+    st.p2p.unshift({kind:'tag',seller:st.u.tag,title:val,val:val,sub:'Коллекционный тег',price:pr});
+    pushTicker(st.u.tag+' выставил тег '+val+' за '+pr+' RAG');
+  }else{
+    st.u.nums=st.u.nums.filter(n=>n!==val);if(st.u.num===val)st.u.num=st.u.base;
+    st.p2p.unshift({kind:'num',seller:st.u.tag,title:val,val:val,sub:'Анонимный номер +555',price:pr});
+    pushTicker(st.u.tag+' выставил номер '+val+' за '+pr+' RAG');
+  }
+  document.getElementById('p2p-price').value='';
+  saveState();document.getElementById('m-p2p').style.display='none';drawProfile();drawDrag();
+};
+
+/* Опросы в каналах и группах + окно «О проекте» */
+document.getElementById('b-poll').onclick=()=>document.getElementById('m-poll').style.display='flex';
+document.getElementById('m-close-pl').onclick=()=>document.getElementById('m-poll').style.display='none';
+document.getElementById('pl-post').onclick=()=>{
+  const q=document.getElementById('pl-q').value.trim();
+  const opts=[document.getElementById('pl-o1').value.trim(),document.getElementById('pl-o2').value.trim(),document.getElementById('pl-o3').value.trim()].filter(Boolean);
+  if(!q||opts.length<2)return alert('Введите вопрос и минимум 2 варианта ответа!');
+  send({poll:{q,opts:opts.map(t=>({t,v:[]}))}});
+  document.getElementById('pl-q').value='';document.getElementById('pl-o1').value='';document.getElementById('pl-o2').value='';document.getElementById('pl-o3').value='';
+  document.getElementById('m-poll').style.display='none';
+};
+
+document.getElementById('dr-about').onclick=()=>{toggleDrawer(false);document.getElementById('m-about').style.display='flex';};
+document.getElementById('m-close-ab').onclick=()=>document.getElementById('m-about').style.display='none';
+document.getElementById('ab-open-fox').onclick=()=>{document.getElementById('m-about').style.display='none';st.cid='portalfox';showView('chat');setMobTab('chat');drawChats();drawMsgs();};
+document.getElementById('m-close-as').onclick=()=>document.getElementById('m-asset').style.display='none';
+document.getElementById('m-close-lvl').onclick=()=>document.getElementById('m-lvl').style.display='none';
+document.getElementById('m-close-fwd').onclick=()=>document.getElementById('m-fwd').style.display='none';
+
 function showView(v){
   ['chat','shop','drag','top','set','admin'].forEach(id=>{
     const el=document.getElementById('v-'+id);
@@ -1665,10 +2155,9 @@ function showView(v){
   if(v==='drag')drawDrag();
   if(v==='top'){
     const sorted=Object.values(st.accounts).map(a=>a.profile).sort((a,b)=>b.cnt-a.cnt);
-    document.getElementById('top-list').innerHTML=sorted.map((p,i)=>'<div class="chat-item'+(p===st.u?' active':'')+'"><div class="ava">'+(i+1)+'</div><div><strong>'+p.display+'</strong> <span style="color:var(--mut);font-size:12px;">'+p.tag+'</span><div style="font-size:12px;color:var(--mut);">Сообщений: '+p.cnt+' • '+p.pts.toLocaleString()+' Points • '+(p.rag||0).toLocaleString()+' RAG</div></div></div>').join('');
+    document.getElementById('top-list').innerHTML=sorted.map((p,i)=>'<div class="chat-item'+(p===st.u?' active':'')+'"><div class="ava">'+(i+1)+'</div><div><strong>'+p.display+'</strong> <span style="color:var(--mut);font-size:12px;">'+p.tag+'</span><div style="font-size:12px;color:var(--mut);">Сообщений: '+p.cnt+' • Ур. '+p.lvl+' • '+p.pts.toLocaleString()+' Points • '+(p.rag||0).toLocaleString()+' RAG</div></div></div>').join('');
   }
 }
-
 const fb=document.getElementById('fox-bg'),hfx=document.getElementById('head-fx');
 for(let i=0;i<16;i++){
   const s=document.createElement('span');s.className='fly-fox';s.textContent=i%3===0?'✦':'🦊';
@@ -1729,6 +2218,35 @@ WALLPAPERS.forEach(w=>{
 const savedWp=WALLPAPERS.find(x=>x.id===localStorage.getItem('foxigram_wp'));
 if(savedWp)document.documentElement.style.setProperty('--chat-wp',savedWp.bg);
 
+/* Свободная смена дисплейного имени и основного @юзернейма (от 5 символов) */
+document.getElementById('s-name').onclick=()=>{
+  const v=prompt('Новое отображаемое имя (любые символы и длина):',st.u.display);
+  if(v!==null&&v.trim()){st.u.display=v.trim();saveState();drawProfile();drawMsgs();}
+};
+document.getElementById('s-tag').onclick=()=>{
+  if(st.u.tag==='@fox')return alert('Основной юзернейм создателя @fox защищён.');
+  const raw=prompt('Новый юзернейм (от 5 символов, латиница и цифры):',st.u.tag.replace(/^@/,''));
+  if(raw===null)return;
+  const clean=raw.trim().replace(/^@/,'').toLowerCase();
+  if(!/^[a-z0-9_]{5,}$/.test(clean))return alert('Юзернейм должен содержать от 5 символов (англ. буквы, цифры или _).');
+  if(clean==='fox'||st.accounts[clean]||findUserByTag('@'+clean))return alert('Этот юзернейм уже занят!');
+  const oldKey=st.u.tag.replace(/^@/,'').toLowerCase();
+  if(st.accounts[oldKey]){
+    st.accounts[clean]=st.accounts[oldKey];
+    delete st.accounts[oldKey];
+    localStorage.setItem('foxigram_active',clean);
+  }
+  st.u.tag='@'+clean;
+  saveState();drawProfile();drawChats();drawMsgs();alert('Ваш новый юзернейм: @'+clean);
+};
+
+/* Режим «Невидимка» строго для владельцев Foxigram Premium */
+document.getElementById('b-toggle-ghost').onclick=()=>{
+  if(!st.u.prem)return alert('Режим «Невидимка» доступен только владельцам Foxigram Premium!');
+  st.u.ghost=!st.u.ghost;
+  saveState();drawProfile();
+};
+
 document.getElementById('b-save-chan').onclick=()=>{
   st.u.myChan=document.getElementById('s-my-chan').value;
   saveState();drawProfile();alert('Настройки личного канала обновлены!');
@@ -1742,7 +2260,7 @@ document.getElementById('b-biz-promote').onclick=()=>{
   if(st.u.pts<200)return alert('Нужно 200 Points!');
   const adTxt=prompt('Текст рекламной карточки (канал, товар P2P или услуга):');
   if(!adTxt||!adTxt.trim())return;
-  st.u.pts-=200;
+  spendPts(st.u,200);
   if(!st.msgs.global)st.msgs.global=[];
   st.msgs.global.push({id:'ad'+Date.now(),s:st.u.tag,v:st.u.ver,vc:st.u.verColor,n:'BUSINESS',t:'',bizAd:{title:adTxt.trim(),author:st.u.display+' ('+st.u.tag+')'},img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0});
   pushTicker('Реклама Business от '+st.u.tag+': '+adTxt.trim());
@@ -1804,7 +2322,7 @@ const buyRag=(amt)=>{
   if(!amt||amt<=0||isNaN(amt))return;
   const cost=amt*75;
   if(st.u.pts<cost)return alert('Недостаточно Points! Нужно '+cost.toLocaleString()+' Points.');
-  st.u.pts-=cost;st.u.rag=(st.u.rag||0)+amt;saveState();drawProfile();drawDrag();
+  spendPts(st.u,cost);st.u.rag=(st.u.rag||0)+amt;saveState();drawProfile();drawDrag();
   alert('Обмен выполнен: +'+amt.toLocaleString()+' RAG за '+cost.toLocaleString()+' Points.');
 };
 document.getElementById('ex-1').onclick=()=>buyRag(1);
@@ -1814,9 +2332,8 @@ document.getElementById('ex-custom').onclick=()=>{
   const v=parseInt(prompt('Сколько RAG хотите получить? (Курс: 75 Points = 1 RAG):','10'),10);
   if(!isNaN(v)&&v>0)buyRag(v);
 };
-
 const admSel=document.getElementById('adm-eft-sel');
-ITEMS.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=x.i+' '+x.t;admSel.appendChild(o);});
+ITEMS.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=(x.lim?'★ ':'')+x.t;admSel.appendChild(o);});
 const getAdmTarget=()=>{
   if(st.u.tag!=='@fox')return null;
   const raw=document.getElementById('adm-user').value.trim();
@@ -1831,7 +2348,7 @@ document.getElementById('adm-rag').onclick=()=>{const t=getAdmTarget(),amt=parse
 document.getElementById('adm-give-eft').onclick=()=>{
   const t=getAdmTarget();if(!t)return;
   const item=ITEMS[parseInt(admSel.value,10)];
-  t.efts.unshift({title:item.t,icon:item.i,pat:item.pat,ser:'#1/'+item.m,bg:'linear-gradient(135deg,'+item.c+')',price:item.p,hash:hash(),hist:'Выдан администратором @fox',owned:true,upg:false,safe:false});
+  t.efts.unshift({title:item.t,artKey:item.k,pat:item.pat,ser:'#1/'+item.m,bg:'linear-gradient(135deg,'+item.c+')',price:item.p,hash:hash(),hist:'Выдан администратором @fox',owned:true,upg:false,safe:false,lim:!!item.lim});
   logAdm('Подарок EFT «'+item.t+'» выдан '+t.tag);
 };
 document.getElementById('adm-give-prem').onclick=()=>{
@@ -1849,11 +2366,18 @@ document.getElementById('adm-give-biz').onclick=()=>{
 document.getElementById('adm-v-blue').onclick=()=>{const t=getAdmTarget();if(t){t.ver=true;t.verColor='blue';logAdm('Синяя галочка выдана '+t.tag);}};
 document.getElementById('adm-v-pink').onclick=()=>{const t=getAdmTarget();if(t){t.ver=true;t.verColor='pink';logAdm('Розовая галочка выдана '+t.tag);}};
 document.getElementById('adm-v-red').onclick=()=>{const t=getAdmTarget();if(t){t.ver=true;t.verColor='red';logAdm('Красная галочка выдана '+t.tag);}};
-document.getElementById('adm-v-off').onclick=()=>{const t=getAdmTarget();if(t){t.ver=false;logAdm('Верификация снята с '+t.tag);}};
+document.getElementById('adm-v-off').onclick=()=>{const t=getAdmTarget();if(t){t.ver=false;t.orgVer='';logAdm('Верификация и отметка организации сняты с '+t.tag);}};
+document.getElementById('adm-org-set').onclick=()=>{
+  const t=getAdmTarget();if(!t)return;
+  const org=document.getElementById('adm-org-in').value.trim();
+  t.orgVer=org;if(org)t.ver=true;
+  logAdm(org?('Организация «'+org+'» подтвердила профиль '+t.tag):('Отметка организации снята с '+t.tag));
+};
 document.getElementById('adm-mute').onclick=()=>{const t=getAdmTarget();if(t){t.muted=true;logAdm('Пользователю '+t.tag+' запрещено писать (Мут).');}};
 document.getElementById('adm-freeze').onclick=()=>{const t=getAdmTarget();if(t){t.frozen=true;logAdm('Аккаунт '+t.tag+' заморожен.');}};
 document.getElementById('adm-ban').onclick=()=>{const t=getAdmTarget();if(t){t.banned=true;logAdm('Аккаунт '+t.tag+' заблокирован (Бан).');}};
 document.getElementById('adm-unban').onclick=()=>{const t=getAdmTarget();if(t){t.muted=false;t.frozen=false;t.banned=false;logAdm('Все ограничения сняты с '+t.tag);}};
+
 let mediaRec=null,recChunks=[],recTimer=null,recSecs=0;
 document.getElementById('b-mic').onclick=async()=>{
   if(mediaRec&&mediaRec.state==='recording'){mediaRec.stop();return;}
@@ -1935,7 +2459,7 @@ document.getElementById('dr-vault').onclick=()=>{
   alert('Ежедневный сейф открыт: +'+win.toLocaleString()+' Points.');
 };
 
-/* Кнопки Foxigram Wallet */
+/* Кнопка быстрой прокрутки вниз в длинных чатах */
 document.getElementById('w-check-rag').onclick=()=>{
   const amt=parseInt(prompt('Сумма RAG на одного человека:','10'),10);
   const cnt=parseInt(prompt('Сколько человек смогут забрать чек (1-50):','5'),10);
@@ -1952,7 +2476,7 @@ document.getElementById('w-check-pts').onclick=()=>{
   const cnt=parseInt(prompt('Сколько человек смогут забрать чек (1-50):','5'),10);
   if(isNaN(amt)||amt<=0||isNaN(cnt)||cnt<=0||cnt>50)return;
   const cost=amt*cnt;if(st.u.pts<cost)return alert('Нужно '+cost+' Points!');
-  st.u.pts-=cost;
+  spendPts(st.u,cost);
   if(!st.msgs.global)st.msgs.global=[];
   st.msgs.global.push({id:'dr'+Date.now(),s:st.u.tag,v:st.u.ver,vc:st.u.verColor,n:st.u.num,t:'',drop:{each:amt,total:cnt,cur:'Points',claimed:[]},img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0});
   walletNotify(st.u.tag,'Вы создали чек-раздачу в Глобальном чате на '+cost+' Points ('+cnt+' мест).');
@@ -1960,7 +2484,6 @@ document.getElementById('w-check-pts').onclick=()=>{
 };
 document.getElementById('w-bal-info').onclick=()=>walletNotify(st.u.tag,'Ваш текущий баланс: '+st.u.pts.toLocaleString()+' Points и '+(st.u.rag||0).toLocaleString()+' RAG.');
 
-/* Личные и секретные чаты с таймером самоуничтожения */
 document.getElementById('b-dm').onclick=()=>{
   if(!st.viewU)return;
   if((st.u.blocked||[]).includes(st.viewU.tag))return alert('Сначала разблокируйте пользователя.');
@@ -1987,19 +2510,19 @@ document.getElementById('b-pin').onclick=()=>{const c=st.chats.find(x=>x.id===st
 document.getElementById('pin-bar').onclick=()=>{const c=st.chats.find(x=>x.id===st.cid);if(c){c.pin='';saveState();drawMsgs();}};
 document.getElementById('b-boost').onclick=()=>{if(!st.u.prem)return alert('Бусты доступны только владельцам Premium.');const c=st.chats.find(x=>x.id===st.cid);if(c){c.boosts=(c.boosts||0)+1;saveState();drawMsgs();}};
 
-document.getElementById('m-status').onclick=()=>{const e=st.u.efts.at(st.sel);st.u.status=(st.u.status===e.icon)?'':e.icon;saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
+document.getElementById('m-status').onclick=()=>{const e=st.u.efts.at(st.sel);st.u.status=(st.u.status===e.artKey)?'':e.artKey;saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
 document.getElementById('m-equip').onclick=()=>{st.u.eq=st.u.efts.at(st.sel);st.u.banImg='';saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
 document.getElementById('m-safe').onclick=()=>{const e=st.u.efts.at(st.sel);e.safe=!e.safe;saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
 document.getElementById('m-upg').onclick=()=>{
   const e=st.u.efts.at(st.sel);if(e.upg)return alert('Этот EFT уже улучшен.');if(st.u.pts<300)return alert('Для апгрейда нужно 300 Points.');
-  st.u.pts-=300;e.upg=true;e.price=Math.round(e.price*1.5);e.bg=UPG_BGS.at(Math.floor(Math.random()*UPG_BGS.length));
+  spendPts(st.u,300);e.upg=true;e.price=Math.round(e.price*1.5);e.bg=UPG_BGS.at(Math.floor(Math.random()*UPG_BGS.length));
   const pat=UPG_PAT.at(Math.floor(Math.random()*UPG_PAT.length));e.hist+=' • Улучшен: '+pat;
   saveState();document.getElementById('m-eft').style.display='none';drawProfile();drawShop();alert('Апгрейд выполнен: '+pat);
 };
 document.getElementById('m-sell').onclick=()=>{
   const e=st.u.efts.at(st.sel);if(e.safe)return alert('Сначала снимите замок защиты с этого EFT!');
   const val=Math.floor(e.price*0.6);if(!confirm('Сдать «'+e.title+'» за '+val+' Points?'))return;
-  e.owned=false;e.upg=false;st.u.pts+=val;st.u.banSlots=st.u.banSlots.map(x=>x===e.icon?null:x);if(st.u.status===e.icon)st.u.status='';
+  e.owned=false;e.upg=false;st.u.pts+=val;st.u.banSlots=st.u.banSlots.map(x=>x===e.artKey?null:x);if(st.u.status===e.artKey)st.u.status='';
   saveState();document.getElementById('m-eft').style.display='none';drawProfile();drawShop();
 };
 document.getElementById('m-gift').onclick=()=>{
@@ -2008,7 +2531,7 @@ document.getElementById('m-gift').onclick=()=>{
   const parts=raw.split(/\s+/),toTag=parts.shift(),note=parts.join(' '),target=findUserByTag(toTag);
   if(!target||target===st.u)return alert('Пользователь '+toTag+' не найден.');
   target.efts.unshift({...e,hist:'Подарен от '+st.u.tag+(note?' («'+note+'»)':''),owned:true});
-  e.owned=false;st.u.banSlots=st.u.banSlots.map(x=>x===e.icon?null:x);document.getElementById('gift-to').value='';
+  e.owned=false;st.u.banSlots=st.u.banSlots.map(x=>x===e.artKey?null:x);document.getElementById('gift-to').value='';
   walletNotify(target.tag,'Вам подарили EFT «'+e.title+'» от '+st.u.tag);
   saveState();document.getElementById('m-eft').style.display='none';drawProfile();drawShop();alert('Подарок отправлен '+target.tag);
 };
@@ -2021,11 +2544,10 @@ document.getElementById('st-post').onclick=()=>{
   st.stories.unshift({tag:st.u.tag,name:st.u.display,ava:st.u.ava,avaImg:st.u.avaImg,prem:st.u.prem,text:txt,img:stImg,bg:'linear-gradient(135deg,#252932,#12141A)'});
   document.getElementById('st-inp').value='';stImg='';saveState();document.getElementById('m-story').style.display='none';drawStories();
 };
-
 document.getElementById('b-csearch').onclick=()=>{const sb=document.getElementById('csearch-bar');sb.style.display=sb.style.display==='flex'?'none':'flex';if(sb.style.display==='flex')document.getElementById('csearch-in').focus();};
 document.getElementById('csearch-close').onclick=()=>{st.cSearch='';document.getElementById('csearch-in').value='';document.getElementById('csearch-bar').style.display='none';drawMsgs();};
 document.getElementById('csearch-in').oninput=e=>{st.cSearch=e.target.value;drawMsgs();};
-document.getElementById('reply-cancel').onclick=()=>{st.replyTo=null;document.getElementById('reply-bar').style.display='none';};
+document.getElementById('reply-cancel').onclick=()=>{st.replyTo=null;st.editIdx=null;document.getElementById('reply-bar').style.display='none';};
 document.getElementById('b-delay').onclick=()=>{
   const s=parseInt(prompt('Через сколько секунд отправить сообщение? (0 = сразу):','10'),10);
   if(!isNaN(s)&&s>=0){st.delaySec=s;if(s>0)alert('Таймер установлен: следующее сообщение отправится через '+s+' сек.');}
@@ -2035,6 +2557,7 @@ document.getElementById('inp').oninput=()=>{
   st.u.typingIn=st.cid;clearTimeout(typTimer);
   typTimer=setTimeout(()=>{st.u.typingIn='';},2500);
 };
+
 document.getElementById('q-search').oninput=drawChats;
 document.querySelectorAll('.s-tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.s-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');st.shopTab=b.dataset.st;drawShop();});
 document.querySelectorAll('.d-tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.d-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');st.dragTab=b.dataset.dt;drawDrag();});
@@ -2072,9 +2595,6 @@ document.getElementById('n-ok').onclick=()=>{
   alert('Создано! Тег для поиска: '+cd);
 };
 
-document.getElementById('r-num').onclick=()=>{navigator.clipboard.writeText((st.viewU||st.u).num);alert('Скопировано: '+(st.viewU||st.u).num);};
-document.getElementById('r-tag').onclick=()=>{navigator.clipboard.writeText((st.viewU||st.u).tag);alert('Скопировано: '+(st.viewU||st.u).tag);};
-
 function openAuth(){toggleDrawer(false);document.getElementById('auth-err').textContent='';document.getElementById('m-auth').style.display='flex';}
 document.getElementById('dr-auth').onclick=openAuth;
 document.getElementById('tab-reg').onclick=()=>{st.authMode='reg';document.getElementById('tab-reg').classList.add('active');document.getElementById('tab-log').classList.remove('active');document.getElementById('auth-go').textContent='Создать аккаунт (500 Points)';document.getElementById('auth-err').textContent='';};
@@ -2100,7 +2620,7 @@ document.getElementById('auth-go').onclick=()=>{
     }
   }
   localStorage.setItem('foxigram_active',rawU);
-ensureDefaults(st.u);st.viewU=null;document.getElementById('m-auth').style.display='none';document.getElementById('auth-user').value='';document.getElementById('auth-pass').value='';
+  ensureDefaults(st.u);st.viewU=null;document.getElementById('m-auth').style.display='none';document.getElementById('auth-user').value='';document.getElementById('auth-pass').value='';
   drawProfile();drawChats();drawMsgs();drawShop();
   if(st.u.pin&&st.u.pin.length===4)openPinLock();
 };
@@ -2136,7 +2656,6 @@ setInterval(()=>{
   const k=activeMsgsKey(),now=Date.now();
   if((st.msgs[k]||[]).some(m=>m.exp&&m.exp<now))drawMsgs();
 },3000);
-
 </script>
 </body>
 </html>
