@@ -263,7 +263,41 @@
   .pin-key { height:48px; border-radius:16px; background:rgba(255,255,255,.05); border:1px solid var(--brd); font-size:18px; font-weight:700; }
   .pin-key:hover { background:rgba(255,255,255,.1); }
 
-  .mob-nav { display:none; }
+    /* Приветственный лендинг Foxigram */
+  .landing { position:fixed; inset:0; background:var(--bg); background-image:var(--bg-grad); z-index:110; overflow-y:auto; display:none; flex-direction:column; scroll-behavior:smooth; }
+  .land-nav { max-width:1100px; width:100%; margin:0 auto; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; }
+  .land-hero { max-width:1100px; width:100%; margin:0 auto; padding:36px 24px 54px; display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:center; }
+  .land-h1 { font-size:48px; font-weight:800; line-height:1.08; letter-spacing:-1.2px; margin-bottom:16px; }
+  .land-sub { font-size:15px; color:var(--mut); line-height:1.6; max-width:480px; margin-bottom:26px; }
+  .land-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .land-btn-w { background:#E6E9EF; color:#101317; font-weight:700; padding:13px 22px; border-radius:16px; font-size:14px; display:inline-flex; align-items:center; gap:8px; box-shadow:0 10px 28px rgba(0,0,0,.35); }
+  .land-btn-w:hover { background:#FFFFFF; transform:translateY(-2px); }
+  .land-btn-g { background:var(--card-2); border:1px solid var(--brd); color:var(--txt); font-weight:600; padding:13px 20px; border-radius:16px; font-size:14px; display:inline-flex; align-items:center; gap:8px; }
+  .land-btn-g:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.16); }
+    .phone-mock { width:276px; height:520px; margin:0 auto; border-radius:42px; background:linear-gradient(160deg,#1B1F27 0%,#101217 100%); border:2px solid rgba(255,255,255,.12); box-shadow:0 30px 70px rgba(0,0,0,.75), inset 0 0 0 6px #0D0F13; padding:18px 16px; display:flex; flex-direction:column; align-items:center; justify-content:space-between; position:relative; transform:rotate(-3deg); animation:phoneFloat 5s ease-in-out infinite; transition:transform .18s ease-out, box-shadow .25s ease; will-change:transform; }
+  .phone-mock.tilting { animation:none; box-shadow:0 36px 80px rgba(0,0,0,.85), 0 0 28px rgba(132,165,194,.18), inset 0 0 0 6px #0D0F13; }
+
+  @keyframes phoneFloat { 0%,100%{transform:rotate(-3deg) translateY(0)} 50%{transform:rotate(-1.5deg) translateY(-10px)} }
+  .phone-notch { width:86px; height:20px; border-radius:99px; background:#090A0D; margin-top:2px; }
+  .phone-logo { width:72px; height:72px; border-radius:24px; background:var(--pill-bg); border:1px solid rgba(132,165,194,.3); display:flex; align-items:center; justify-content:center; font-size:34px; box-shadow:0 12px 30px rgba(132,165,194,.18); }
+  .land-sec { max-width:1100px; width:100%; margin:0 auto; padding:30px 24px 70px; }
+  .land-kicker { font-size:11px; font-weight:700; letter-spacing:1.6px; color:var(--accent); text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .land-kicker::before { content:""; width:18px; height:1.5px; background:var(--accent); }
+  .land-h2 { font-size:34px; font-weight:800; letter-spacing:-.8px; line-height:1.15; margin-bottom:26px; }
+  .land-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .land-card { background:var(--card); border:1px solid var(--brd); border-radius:24px; padding:24px; display:flex; flex-direction:column; gap:14px; transition:transform .25s ease, border-color .25s ease; }
+  .land-card:hover { transform:translateY(-4px); border-color:rgba(132,165,194,.32); }
+  .land-num { font-size:12px; font-weight:700; color:var(--mut); }
+  .land-ico { width:48px; height:48px; border-radius:16px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; }
+  @media (max-width: 860px) {
+    .land-hero { grid-template-columns:1fr; text-align:center; padding-top:20px; }
+    .land-h1 { font-size:34px; }
+    .land-sub { margin:0 auto 22px; }
+    .land-btns { justify-content:center; }
+    .phone-mock { width:240px; height:450px; transform:none; }
+    .land-grid { grid-template-columns:1fr; }
+  }
+.mob-nav { display:none; }
   @media (max-width: 900px) {
     .head-mid { display:none; }
     .wrap { padding:6px; }
@@ -317,7 +351,8 @@
   <button type="button" class="dr-item" id="dr-vault"><svg class="ico" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/></svg>Ежедневный сейф</button>
   <button type="button" class="dr-item" id="dr-lock" style="display:none;"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Заблокировать (PIN)</button>
   <div class="dr-sep"></div>
-  <button type="button" class="dr-item" id="dr-about"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>О проекте</button>
+    <button type="button" class="dr-item" id="dr-home"><svg class="ico" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>На главную страницу</button>
+<button type="button" class="dr-item" id="dr-about"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>О проекте</button>
   <button type="button" class="dr-item" data-nav="set"><svg class="ico" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l-.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Настройки</button>
   <div class="dr-cloud"><i></i><span>Облако синхронизировано • Foxigram 2.0</span></div>
   <button type="button" class="dr-item admin-btn" id="dr-admin" data-nav="admin" style="display:none;"><svg class="ico" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Панель администратора</button>
@@ -478,7 +513,14 @@
         <button type="button" class="pill danger" id="b-del-pin">Снять</button>
       </div>
       <div id="email-status" style="font-size:11.5px;color:var(--accent);margin-top:8px;"></div>
+        <div class="set-sec" style="border-color:rgba(194,124,134,.22);">
+      <div class="set-title" style="color:#D69CA4;"><svg class="ico" style="stroke:#D69CA4;" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Управление аккаунтом</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button type="button" class="pill danger" style="justify-content:center;padding:11px;font-weight:700;" id="b-logout">Выйти из аккаунта</button>
+        <button type="button" class="pill danger" style="justify-content:center;padding:11px;font-weight:700;background:rgba(194,124,134,.16);" id="b-del-acc">Удалить аккаунт</button>
+      </div>
     </div>
+</div>
   </div>
 
   <div class="box view" id="v-admin">
@@ -610,6 +652,65 @@
 <div class="modal" id="m-ava"><div class="m-box"><button type="button" id="m-close3" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3>Смена аватара</h3><div class="ava-grid" id="ava-list"></div><label class="btn-main" style="display:flex;cursor:pointer;">Загрузить фото (JPG, JFIF, PNG)<input type="file" id="ava-file" accept=".jpg,.jpeg,.jfif,.png,.webp,image/*" style="display:none;"></label></div></div>
 <div class="modal" id="m-ban"><div class="m-box"><button type="button" id="m-close4" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><h3>Смена баннера</h3><div class="ban-grid" id="ban-list"></div><label class="btn-main" style="display:flex;cursor:pointer;">Загрузить фон (JPG, JFIF, PNG)<input type="file" id="ban-file" accept=".jpg,.jpeg,.jfif,.png,.webp,image/*" style="display:none;"></label></div></div>
 
+<!-- Стартовая страница-лендинг Foxigram -->
+<section class="landing" id="landing-page">
+  <div class="land-nav">
+    <div class="brand"><span class="brand-dot"></span>Foxigram</div>
+    <button type="button" class="pill" id="land-top-login">Войти в ID</button>
+  </div>
+
+  <div class="land-hero">
+    <div>
+      <h1 class="land-h1">Foxigram —<br>приватный<br>мессенджер</h1>
+      <p class="land-sub">Независимая анонимная сеть нового поколения. Общение без SIM-карты, 55 коллекционных векторных EFT, анонимные номера +555 и собственная биржа Dragment.</p>
+      <div class="land-btns">
+        <button type="button" class="land-btn-w" id="land-go-web"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Перейти в веб-версию</button>
+        <a href="#land-features" class="land-btn-g" style="text-decoration:none;">Узнать больше ↓</a>
+      </div>
+    </div>
+
+    <div>
+      <div class="phone-mock">
+        <div class="phone-notch"></div>
+        <div style="text-align:center;margin:auto 0;">
+          <div class="phone-logo" style="margin:0 auto 14px;">🦊</div>
+          <div style="font-size:21px;font-weight:800;letter-spacing:-.4px;">Foxigram</div>
+          <div style="font-size:10px;letter-spacing:1.4px;color:var(--mut);margin-top:3px;font-weight:700;">ANONYMOUS NETWORK</div>
+          <div style="margin-top:16px;display:inline-flex;align-items:center;gap:6px;padding:6px 13px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid var(--brd);font-size:11.5px;color:#8BB8A8;font-weight:600;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#7AA88E;"></span>
+            <span>Сеть активна • Foxigram 2.0</span>
+          </div>
+        </div>
+        <button type="button" class="pill rag" id="land-phone-btn" style="width:100%;justify-content:center;padding:10px;">Открыть Foxigram ID ›</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="land-sec" id="land-features">
+    <div class="land-kicker">ПРЕИМУЩЕСТВА •</div>
+    <h2 class="land-h2">Почему выбирают<br>Foxigram</h2>
+    <div class="land-grid">
+      <div class="land-card">
+        <div class="land-num">01</div>
+        <div class="land-ico"><svg class="ico" style="width:22px;height:22px;stroke:var(--txt);" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div style="font-size:17px;font-weight:700;">Полная анонимность</div>
+        <div style="font-size:13px;color:var(--mut);line-height:1.5;">Не требуется номер телефона или SIM-карта. Вход только по @юзернейму и паролю без привязки к личности, рекламы и трекеров.</div>
+      </div>
+      <div class="land-card">
+        <div class="land-num">02</div>
+        <div class="land-ico"><svg class="ico" style="width:22px;height:22px;stroke:var(--txt);" viewBox="0 0 24 24"><polygon points="6 3 18 3 22 9 12 22 2 9"/><line x1="2" y1="9" x2="22" y2="9"/></svg></div>
+        <div style="font-size:17px;font-weight:700;">Биржа Dragment и EFT</div>
+        <div style="font-size:13px;color:var(--mut);line-height:1.5;">55 коллекционных векторных EFT включая лимитированные серии, аренда редких тегов, анонимные номера +555 и P2P-маркет.</div>
+      </div>
+      <div class="land-card">
+        <div class="land-num">03</div>
+        <div class="land-ico"><svg class="ico" style="width:22px;height:22px;stroke:var(--txt);" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div style="font-size:17px;font-weight:700;">Мгновенная скорость</div>
+        <div style="font-size:13px;color:var(--mut);line-height:1.5;">Лёгкий веб-клиент для смартфонов и ПК. Облачная синхронизация в реальном времени, опросы, голосовые и защита PIN-кодом.</div>
+      </div>
+    </div>
+  </div>
+</section>
 <div class="modal" id="m-auth"><div class="fox-bg" id="fox-bg"></div><div class="m-box">
   <div class="auth-badge"><span class="brand-dot"></span>Независимая анонимная сеть</div>
   <h2 style="margin-bottom:4px;font-size:21px;font-weight:800;">Foxigram ID</h2>
@@ -620,7 +721,12 @@
     <div class="perk-row"><svg class="ico" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg><div><strong>Облачная синхронизация:</strong> мгновенный доступ с любого устройства.</div></div>
   </div>
   <div class="auth-tabs"><button type="button" class="auth-tab active" id="tab-reg">Регистрация</button><button type="button" class="auth-tab" id="tab-log">Вход</button></div>
-  <input type="text" id="auth-user" placeholder="Юзернейм (от 5 символов)" style="width:100%;margin-bottom:9px;">
+    <div style="display:flex;gap:6px;margin-bottom:5px;">
+    <input type="text" id="auth-user" placeholder="Юзернейм (от 5 символов)" style="flex:1;min-width:0;">
+    <button type="button" class="pill" id="b-gen-nick" style="padding:0 13px;border-radius:15px;" title="Сгенерировать случайный юзернейм"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.2" fill="currentColor"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.2" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.2" fill="currentColor"/></svg></button>
+  </div>
+  <div id="nick-hint" style="font-size:11px;text-align:left;margin-bottom:8px;min-height:14px;color:var(--mut);"></div>
+
   <input type="password" id="auth-pass" placeholder="Пароль (англ. от 6 символов)" style="width:100%;margin-bottom:9px;">
   <div id="auth-err" style="color:var(--danger);font-size:12px;margin-bottom:9px;min-height:16px;"></div>
   <button type="button" class="btn-main" id="auth-go">Создать аккаунт (500 Points)</button>
@@ -1430,7 +1536,11 @@ function drawMsgs(){
 
   let subTxt='';
   if(c.type==='channel')subTxt=(c.subs||0).toLocaleString()+' подписчиков'+(c.code?' • '+c.code:'');
-  else if(c.type==='group')subTxt=(c.subs||1).toLocaleString()+' участников'+(c.code?' • '+c.code:'');
+  else if(c.type==='group'){
+    const onlineCnt=Math.max(1,Object.values(st.accounts).filter(a=>a.profile&&!a.profile.ghost&&(Date.now()-(a.profile.lastSeen||0)<65000)).length);
+    subTxt=(c.subs||1).toLocaleString()+' участников • '+onlineCnt+' в сети'+(c.code?' • '+c.code:'');
+  }
+
   else if(c.id==='wallet')subTxt='бот • уведомления о сделках';
   else if(c.id==='support')subTxt=(st.u.tag==='@fox'?'личные тикеты пользователей':'официальная поддержка • в сети');
   else if(c.id==='foxbot')subTxt='бот • мини-игры';
@@ -1650,10 +1760,16 @@ function drawMsgs(){
       const b=document.createElement('button');b.type='button';b.className='r-btn';b.textContent=emo+' '+cnt;
       b.onclick=()=>{m.r[emo]=cnt+1;st.u.pts+=5;saveState();drawMsgs();drawProfile();};rb.appendChild(b);
     });
-    ['🔥','🦊'].forEach(emo=>{
-      const b=document.createElement('button');b.type='button';b.className='r-btn';b.textContent='+'+emo;
-      b.onclick=()=>{m.r[emo]=(m.r[emo]||0)+1;st.u.pts+=5;saveState();drawMsgs();drawProfile();};rb.appendChild(b);
+       const addR=document.createElement('button');addR.type='button';addR.className='r-btn';addR.textContent='+';addR.title='Поставить реакцию';
+    const palBox=document.createElement('span');palBox.style.cssText='display:none;gap:4px;flex-wrap:wrap;';
+    ['🔥','🦊','👍','👎','❤️','✅','❌'].forEach(emo=>{
+      const b=document.createElement('button');b.type='button';b.className='r-btn';b.textContent=emo;
+      b.onclick=()=>{m.r[emo]=(m.r[emo]||0)+1;st.u.pts+=5;saveState();drawMsgs();drawProfile();};
+      palBox.appendChild(b);
     });
+    addR.onclick=()=>{palBox.style.display=palBox.style.display==='none'?'inline-flex':'none';addR.style.display='none';};
+    rb.appendChild(addR);rb.appendChild(palBox);
+
     row.appendChild(av);row.appendChild(d);box.appendChild(row);
   });
   box.scrollTop=box.scrollHeight;
@@ -1711,6 +1827,7 @@ function send(extra={}){
   }
 
   if(t.toLowerCase().startsWith('/pay ')){
+    if(st.u.lvl<2&&st.u.tag!=='@fox')return alert('Защита от твинков: переводы /pay доступны со 2-го уровня!');
     const parts=t.split(/\s+/),toTag=parts.at(1),amt=parseInt(parts.at(2),10);
     const target=toTag?findUserByTag(toTag):null;
     if(!target||target===st.u||isNaN(amt)||amt<=0)return alert('Формат: /pay @юзернейм сумма');
@@ -2040,6 +2157,14 @@ const msgBox=document.getElementById('msgs'),sdBtn=document.getElementById('b-sc
 msgBox.addEventListener('scroll',()=>{sdBtn.style.display=(msgBox.scrollHeight-msgBox.scrollTop-msgBox.clientHeight>120)?'flex':'none';});
 sdBtn.onclick=()=>{msgBox.scrollTo({top:msgBox.scrollHeight,behavior:'smooth'});};
 
+document.getElementById('dr-home').onclick=()=>{
+  toggleDrawer(false);
+  const isLog=(st.u&&st.u.tag&&st.u.tag!=='@guest');
+  const topBtn=document.getElementById('land-top-login');
+  topBtn.textContent=isLog?'Вернуться в чаты →':'Войти в ID';
+  topBtn.onclick=isLog?(()=>{document.getElementById('landing-page').style.display='none';}):(()=>openWebAuth(true));
+  document.getElementById('landing-page').style.display='flex';
+};
 document.getElementById('dr-about').onclick=()=>{toggleDrawer(false);document.getElementById('m-about').style.display='flex';};
 document.getElementById('m-close-ab').onclick=()=>document.getElementById('m-about').style.display='none';
 document.getElementById('ab-open-fox').onclick=()=>{document.getElementById('m-about').style.display='none';st.cid='portalfox';showView('chat');setMobTab('chat');drawChats();drawMsgs();};
@@ -2301,6 +2426,40 @@ document.getElementById('b-save-pin').onclick=()=>{
   if(!/^\d{4}$/.test(v))return alert('PIN-код должен состоять ровно из 4 цифр!');
   st.u.pin=v;document.getElementById('priv-pin').value='';saveState();drawProfile();
   document.getElementById('email-status').textContent='4-значный PIN-код установлен!';
+};
+document.getElementById('b-logout').onclick=()=>{
+  localStorage.removeItem('foxigram_active');
+  st.u=makeUser('guest');st.viewU=null;
+  showView('chat');drawProfile();drawChats();drawMsgs();
+  const topBtn=document.getElementById('land-top-login');
+  if(topBtn){topBtn.textContent='Войти в ID';topBtn.onclick=()=>openWebAuth(true);}
+  document.getElementById('landing-page').style.display='flex';
+};
+
+let delClicks=0,delResetT=null;
+document.getElementById('b-del-acc').onclick=function(){
+  if(st.u.tag==='@fox')return alert('Аккаунт создателя @fox защищён от удаления.');
+  delClicks++;
+  clearTimeout(delResetT);
+  if(delClicks===1){
+    this.textContent='Точно? Ещё 2 нажатия';
+    delResetT=setTimeout(()=>{delClicks=0;this.textContent='Удалить аккаунт';},4000);
+  }else if(delClicks===2){
+    this.textContent='Нажмите ещё 1 раз!';
+    delResetT=setTimeout(()=>{delClicks=0;this.textContent='Удалить аккаунт';},4000);
+  }else{
+    delClicks=0;
+    this.textContent='Удалить аккаунт';
+    const key=st.u.tag.replace(/^@/,'').toLowerCase();
+    delete st.accounts[key];
+    localStorage.removeItem('foxigram_active');
+    st.u=makeUser('guest');st.viewU=null;
+    saveState();showView('chat');drawProfile();drawChats();drawMsgs();
+    const topBtn=document.getElementById('land-top-login');
+    if(topBtn){topBtn.textContent='Войти в ID';topBtn.onclick=()=>openWebAuth(true);}
+    document.getElementById('landing-page').style.display='flex';
+    alert('Ваш аккаунт был безвозвратно удалён.');
+  }
 };
 document.getElementById('b-del-pin').onclick=()=>{st.u.pin='';saveState();drawProfile();document.getElementById('email-status').textContent='PIN-код отключён.';};
 document.getElementById('dr-lock').onclick=openPinLock;
@@ -2599,15 +2758,44 @@ function openAuth(){toggleDrawer(false);document.getElementById('auth-err').text
 document.getElementById('dr-auth').onclick=openAuth;
 document.getElementById('tab-reg').onclick=()=>{st.authMode='reg';document.getElementById('tab-reg').classList.add('active');document.getElementById('tab-log').classList.remove('active');document.getElementById('auth-go').textContent='Создать аккаунт (500 Points)';document.getElementById('auth-err').textContent='';};
 document.getElementById('tab-log').onclick=()=>{st.authMode='log';document.getElementById('tab-log').classList.add('active');document.getElementById('tab-reg').classList.remove('active');document.getElementById('auth-go').textContent='Войти в аккаунт';document.getElementById('auth-err').textContent='';};
+function checkNickLive(){
+  const raw=document.getElementById('auth-user').value.trim().replace(/^@/,'').toLowerCase();
+  const h=document.getElementById('nick-hint');
+  if(!raw||st.authMode!=='reg'){h.textContent='';return;}
+  if(raw.length<5){h.style.color='var(--mut)';h.textContent='Минимум 5 символов (англ. буквы, цифры, _)';return;}
+  if(!/^[a-z0-9_]+$/.test(raw)){h.style.color='var(--danger)';h.textContent='✕ Только латинские буквы, цифры и _';return;}
+  if(raw==='fox'||st.accounts[raw]||findUserByTag('@'+raw)){h.style.color='var(--danger)';h.textContent='✕ Юзернейм @'+raw+' уже занят';return;}
+  h.style.color='#7AA88E';h.textContent='✓ Юзернейм @'+raw+' свободен';
+}
+document.getElementById('auth-user').oninput=checkNickLive;
+document.getElementById('b-gen-nick').onclick=()=>{
+  const adj=['cyber','lunar','neon','frost','apex','nova','onyx','shadow','swift','silent','astral','void'];
+  const noun=['fox','wolf','ghost','hawk','lynx','spark','storm','blade','orbit','echo','drift','raven'];
+  let nick='';
+  for(let i=0;i<20;i++){
+    const cand=adj[Math.floor(Math.random()*adj.length)]+'_'+noun[Math.floor(Math.random()*noun.length)];
+    if(!st.accounts[cand]&&!findUserByTag('@'+cand)){nick=cand;break;}
+  }
+  if(!nick)nick='fox_'+Math.floor(1000+Math.random()*8999);
+  document.getElementById('auth-user').value=nick;
+  if(st.authMode!=='reg')document.getElementById('tab-reg').click();
+  checkNickLive();
+};
 document.getElementById('auth-go').onclick=()=>{
   const rawU=document.getElementById('auth-user').value.trim().replace(/^@/,'').toLowerCase(),pass=document.getElementById('auth-pass').value.trim(),err=document.getElementById('auth-err');
   if(rawU!=='fox'&&rawU.length<5){err.textContent='Юзернейм от 5 символов.';return;}
   if(!/^[A-Za-z0-9]{6,}$/.test(pass)){err.textContent='Пароль: англ. буквы и цифры, от 6 символов.';return;}
   const foxKey=['Gram99X7','FAFox126'].join('');
-  if(st.authMode==='reg'){
+   if(st.authMode==='reg'){
     if(rawU==='fox'||st.accounts[rawU]){err.textContent='Юзернейм занят.';return;}
+    const devReg=JSON.parse(localStorage.getItem('foxigram_dev_reg')||'[]');
+    if(devReg.length>=2){err.textContent='Лимит регистрации: максимум 2 аккаунта на одно устройство.';return;}
+    if(devReg.length===1&&(Date.now()-devReg[0])<864e5){err.textContent='Второй аккаунт можно создать через 24 часа после первого.';return;}
+    devReg.push(Date.now());
+    localStorage.setItem('foxigram_dev_reg',JSON.stringify(devReg));
     const np=makeUser(rawU);np.lvl=1;st.accounts[rawU]={pass:pass,profile:np};st.u=np;saveState();
   }else{
+
     if(rawU==='fox'){
       if(pass!==foxKey){err.textContent='Неверный логин или пароль.';return;}
       st.u=st.accounts.fox.profile;
@@ -2639,6 +2827,30 @@ function setMobTab(t){
 setMobTab('chats');
 document.querySelectorAll('.mob-btn').forEach(b=>b.onclick=()=>{showView('chat');setMobTab(b.dataset.mv);});
 
+const openWebAuth=(loginTab=false)=>{
+  document.getElementById('landing-page').style.display='none';
+  if(loginTab)document.getElementById('tab-log').click();
+  else document.getElementById('tab-reg').click();
+  openAuth();
+};
+document.getElementById('land-go-web').onclick=()=>openWebAuth(false);
+document.getElementById('land-phone-btn').onclick=()=>openWebAuth(false);
+document.getElementById('land-top-login').onclick=()=>openWebAuth(true);const pm=document.querySelector('.phone-mock');
+if(pm){
+  pm.onmousemove=e=>{
+    const r=pm.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5;
+    const y=(e.clientY-r.top)/r.height-0.5;
+    pm.classList.add('tilting');
+    pm.style.transform=`perspective(900px) rotateY(${(x*26).toFixed(1)}deg) rotateX(${(-y*26).toFixed(1)}deg) scale(1.03)`;
+  };
+  pm.onmouseleave=()=>{
+    pm.classList.remove('tilting');
+    pm.style.transform='';
+  };
+}
+
+
 const savedAct=localStorage.getItem('foxigram_active');
 if(savedAct&&st.accounts[savedAct]){
   st.u=st.accounts[savedAct].profile;
@@ -2646,8 +2858,10 @@ if(savedAct&&st.accounts[savedAct]){
   drawProfile();drawChats();drawMsgs();drawShop();drawStories();
   if(st.u.pin&&st.u.pin.length===4)openPinLock();
 }else{
-  drawProfile();drawChats();drawMsgs();drawShop();drawStories();openAuth();
+  drawProfile();drawChats();drawMsgs();drawShop();drawStories();
+  document.getElementById('landing-page').style.display='flex';
 }
+
 
 syncCloud(false);
 setInterval(()=>{
