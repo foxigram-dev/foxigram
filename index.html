@@ -47,7 +47,7 @@
   .brand-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); opacity:.85; }
   .head-mid { flex:1; height:100%; margin:0 14px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
   .head-fx { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
-  .head-fx span { position:absolute; bottom:-22px; opacity:0; animation:headFloat linear infinite; }
+    .head-fx span { position:absolute; bottom:-22px; opacity:0; color:transparent; text-shadow:0 0 0 var(--accent); filter:drop-shadow(0 0 6px var(--pill-bg)); animation:headFloat linear infinite; transition:text-shadow .4s ease; }
   @keyframes headFloat { 0%{transform:translateY(0) rotate(-10deg) scale(.8);opacity:0} 20%{opacity:.28} 80%{opacity:.28} 100%{transform:translateY(-72px) rotate(16deg) scale(1.08);opacity:0} }
   .head-right { display:flex; align-items:center; gap:7px; flex-shrink:0; z-index:2; }
   .pill { background:var(--card-2); border:1px solid var(--brd); padding:6px 12px; border-radius:99px; font-size:12.5px; font-weight:600; display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
@@ -188,7 +188,9 @@
   .flag-wave { animation:flagFlutter 2.4s ease-in-out infinite; transform-origin:left center; }
   @keyframes flagFlutter { 0%,100%{transform:skewY(0deg) scaleX(1)} 50%{transform:skewY(-3deg) scaleX(.96)} }
 
-  .banner { height:136px; background:linear-gradient(135deg,#202530,#111318); background-size:cover; background-position:center; position:relative; display:flex; align-items:flex-end; justify-content:center; flex-shrink:0; }
+  .banner { height:136px; background:linear-gradient(135deg,#202530,#111318); background-size:cover; background-position:center; position:relative; display:flex; align-items:flex-end; justify-content:center; flex-shrink:0; transition:background .5s ease; }
+  .banner::after { content:""; position:absolute; left:10%; right:10%; bottom:-26px; height:58px; background:var(--prof-glow, radial-gradient(circle, rgba(132,165,194,.32), transparent 72%)); filter:blur(22px); opacity:.88; pointer-events:none; z-index:0; transition:background .5s ease; }
+
   .b-eft { position:absolute; width:36px; height:36px; border-radius:50%; background:rgba(16,18,23,.78); border:1px solid rgba(255,255,255,.22); backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; padding:6px; box-shadow:0 5px 14px rgba(0,0,0,.48); cursor:pointer; z-index:3; animation:gentleFloat 3.6s ease-in-out infinite; transition:border-color .2s, background .2s; }
   .b-eft:hover { border-color:var(--accent); background:rgba(30,36,48,.92); }
   .b-s0 { top:14px; left:28px; } .b-s1 { top:54px; left:12px; animation-delay:.6s; } .b-s2 { top:92px; left:36px; animation-delay:1.2s; }
@@ -232,6 +234,16 @@
   .eft.locked { opacity:.6; border-style:dashed; }
   .eft.upg::after { content:"✦"; position:absolute; top:4px; left:6px; font-size:11px; color:#E8D5A3; z-index:2; }
   .eft.safe::before { content:"🔒"; position:absolute; bottom:4px; left:6px; font-size:10px; z-index:2; }
+  .eft.pinned { border-color:rgba(132,165,194,.55); box-shadow:0 4px 14px rgba(0,0,0,.35); }
+  /* Голографический 3D-перелив и интерактивный тап EFT */
+  .eft::after, #m-card::after { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .25s ease; background:radial-gradient(120px circle at var(--hx,50%) var(--hy,50%), rgba(255,255,255,.28), rgba(132,165,194,.12) 45%, transparent 75%); mix-blend-mode:screen; z-index:2; }
+  .eft:hover::after, #m-card:hover::after { opacity:1; }
+  #m-card { cursor:pointer; transition:transform .16s ease-out, box-shadow .25s ease; will-change:transform; box-shadow:0 14px 34px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.16); }
+  #m-card.eft-pop { animation:eftTapPop .45s cubic-bezier(.22,1.6,.36,1); }
+  @keyframes eftTapPop { 0%{transform:scale(1)} 35%{transform:scale(1.18) rotate(-6deg)} 70%{transform:scale(.95) rotate(4deg)} 100%{transform:scale(1) rotate(0)} }
+  .eft-spark { position:fixed; pointer-events:none; z-index:999; font-size:15px; color:var(--accent); text-shadow:0 0 8px rgba(255,255,255,.6); animation:sparkFly .75s cubic-bezier(.16,1,.3,1) forwards; }
+  @keyframes sparkFly { 0%{opacity:1;transform:translate(0,0) scale(.6)} 100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(1.35) rotate(var(--sr))} }
+
   .eft-pat { position:absolute; inset:-8px; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:7px; font-size:13px; opacity:.14; transform:rotate(-16deg); pointer-events:none; user-select:none; line-height:1; z-index:0; }
   .eft > *:not(.eft-pat) { position:relative; z-index:1; }
   .ser { position:absolute; top:5px; right:6px; font-size:8.5px; background:rgba(0,0,0,.48); backdrop-filter:blur(4px); padding:1px 5px; border-radius:99px; font-weight:700; z-index:2; }
@@ -264,7 +276,7 @@
   .m-box { background:#15181F; border:1px solid rgba(255,255,255,.12); border-radius:26px; width:100%; max-width:410px; padding:22px; position:relative; z-index:2; text-align:center; box-shadow:0 24px 60px rgba(0,0,0,.8); max-height:92vh; overflow-y:auto; animation:modalPop .3s cubic-bezier(.22,1,.36,1); }
   @keyframes modalPop { from{opacity:0;transform:scale(.94) translateY(10px)} to{opacity:1;transform:none} }
   .fox-bg { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:1; }
-  .fly-fox { position:absolute; bottom:-50px; opacity:0; animation:floatFox linear infinite; }
+    .fly-fox { position:absolute; bottom:-50px; opacity:0; color:transparent; text-shadow:0 0 0 var(--accent); filter:drop-shadow(0 0 10px var(--pill-bg)); animation:floatFox linear infinite; transition:text-shadow .4s ease; }
   @keyframes floatFox { 0%{transform:translateY(0) rotate(-12deg) scale(.8);opacity:0} 15%{opacity:.28} 85%{opacity:.28} 100%{transform:translateY(-115vh) rotate(18deg) scale(1.12);opacity:0} }
   .auth-badge { display:inline-flex; align-items:center; gap:6px; padding:4px 11px; border-radius:99px; background:var(--pill-bg); border:1px solid rgba(132,165,194,.25); color:var(--accent); font-size:11px; font-weight:700; margin-bottom:10px; }
   .auth-perks { text-align:left; background:rgba(255,255,255,.03); border:1px solid var(--brd); border-radius:16px; padding:11px 13px; margin-bottom:14px; display:flex; flex-direction:column; gap:8px; }
@@ -312,6 +324,15 @@
   .land-card:hover { transform:translateY(-4px); border-color:rgba(132,165,194,.32); }
   .land-num { font-size:12px; font-weight:700; color:var(--mut); }
   .land-ico { width:48px; height:48px; border-radius:16px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; }
+  .land-th-dots { display:inline-flex; align-items:center; gap:7px; padding:5px 10px; border-radius:99px; background:var(--card-2); border:1px solid var(--brd); }
+  .land-th-dot { width:14px; height:14px; border-radius:50%; border:1.5px solid rgba(255,255,255,.25); transition:transform .2s, border-color .2s; }
+  .land-th-dot:hover { transform:scale(1.18); }
+  .land-th-dot.active { border-color:#fff; transform:scale(1.2); box-shadow:0 0 8px var(--accent); }
+  .land-foot { max-width:1100px; width:100%; margin:auto auto 0; padding:22px 24px 32px; border-top:1px solid var(--brd); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:12px; color:var(--mut); }
+  .land-foot-links { display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
+  .land-foot a, .land-foot button { color:var(--mut); font-size:12px; font-weight:600; text-decoration:none; }
+  .land-foot a:hover, .land-foot button:hover { color:var(--accent); }
+
   @media (max-width: 860px) {
     .land-hero { grid-template-columns:1fr; text-align:center; padding-top:20px; }
     .land-h1 { font-size:34px; }
@@ -462,6 +483,7 @@
     </div>
     <div class="shop-tabs">
       <button type="button" class="d-tab active" data-dt="auc">Аукцион</button>
+      <button type="button" class="d-tab" data-dt="exeft">Эксклюзивные EFT</button>
       <button type="button" class="d-tab" data-dt="p2p">P2P-маркет</button>
       <button type="button" class="d-tab" data-dt="rent">Аренда</button>
       <button type="button" class="d-tab" data-dt="tags">Юзернеймы</button>
@@ -646,7 +668,8 @@
   </div>
 </div>
 <!-- Модальное окно EFT -->
-<div class="modal" id="m-eft"><div class="m-box"><button type="button" id="m-close1" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="m-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;padding:14px;position:relative;overflow:hidden;"></div><h3 id="m-title">Cyber Fox</h3><div id="m-ser" style="font-size:12px;color:var(--gold);margin:4px 0 10px;">#1/55</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="m-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш</div></div><div class="row"><div id="m-hist" style="font-size:12px;">Выпущен в сети Foxigram</div><div style="font-size:10.5px;color:var(--mut);">История владения</div></div></div><div id="m-own-acts"><div style="font-size:11px;color:var(--mut);margin-bottom:4px;">Закрепить на баннер (6 слотов):</div><div class="slot-grid" id="slot-grid"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="justify-content:center;" id="m-status">В статус</button><button type="button" class="pill" style="justify-content:center;" id="m-equip">На баннер</button><button type="button" class="pill" style="justify-content:center;" id="m-upg">Апгрейд (300)</button><button type="button" class="pill" style="justify-content:center;" id="m-safe">Замок защиты</button><button type="button" class="pill" style="justify-content:center;" id="m-sell">Скупка 60%</button><button type="button" class="pill rag" style="justify-content:center;" id="m-p2p-btn">На P2P-маркет</button></div><div style="display:flex;gap:6px;"><input type="text" id="gift-to" placeholder="@тег и подпись..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="m-gift">Подарить</button></div></div></div></div>
+<div class="modal" id="m-eft"><div class="m-box"><button type="button" id="m-close1" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="m-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;padding:14px;position:relative;overflow:hidden;"></div><h3 id="m-title">Cyber Fox</h3><div id="m-ser" style="font-size:12px;color:var(--gold);margin:4px 0 10px;">#1/55</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="m-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш</div></div><div class="row"><div id="m-hist" style="font-size:12px;">Выпущен в сети Foxigram</div><div style="font-size:10.5px;color:var(--mut);">История владения</div></div></div><div id="m-own-acts"><div style="font-size:11px;color:var(--mut);margin-bottom:4px;">Закрепить на баннер (6 слотов):</div><div class="slot-grid" id="slot-grid"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="justify-content:center;" id="m-status">В статус</button><button type="button" class="pill" style="justify-content:center;" id="m-equip">На баннер</button><button type="button" class="pill" style="justify-content:center;" id="m-upg">Апгрейд (300)</button><button type="button" class="pill" style="justify-content:center;" id="m-safe">Замок защиты</button><button type="button" class="pill" style="justify-content:center;" id="m-sell">Скупка 60%</button><button type="button" class="pill rag" style="justify-content:center;" id="m-p2p-btn">На P2P-маркет</button></div><button type="button" class="pill" style="width:100%;justify-content:center;margin-bottom:8px;border-color:rgba(132,165,194,.3);color:var(--accent);" id="m-pin-prof">📌 Закрепить в начале коллекции</button>
+<div style="display:flex;gap:6px;"><input type="text" id="gift-to" placeholder="@тег и подпись..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="m-gift">Подарить</button></div></div></div></div>
 
 <!-- Коллекционная карточка анонимного номера +555 (с развевающимся пиратским флагом) и редкого юзернейма -->
 <div class="modal" id="m-asset"><div class="m-box"><button type="button" id="m-close-as" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="as-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#252B36,#13161C);border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;"></div><h3 id="as-title">Анонимный номер телефона</h3><div id="as-val" style="font-size:16px;font-weight:800;color:var(--accent);margin:4px 0 2px;">+555 555-55</div><div id="as-price" style="font-size:12px;color:var(--gold);margin-bottom:10px;">Оценка: 500 RAG</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="as-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш актива</div></div><div class="row"><div id="as-hist" style="font-size:12px;">Зарегистрирован в сети Dragment</div><div style="font-size:10.5px;color:var(--mut);">Статус владения</div></div></div><div style="display:flex;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="flex:1;justify-content:center;" id="as-copy">Скопировать</button><button type="button" class="pill rag" style="flex:1;justify-content:center;display:none;" id="as-make-main">Сделать основным</button></div><div id="as-gift-box" style="display:none;border-top:1px solid var(--brd);padding-top:10px;"><div style="font-size:11px;color:var(--mut);margin-bottom:6px;">Безопасная передача в подарок (зачисление через 24 часа):</div><div style="display:flex;gap:6px;"><input type="text" id="as-gift-to" placeholder="Введите @юзернейм..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="as-gift-go">Подарить</button></div></div></div></div>
@@ -677,10 +700,19 @@
 
 <!-- Стартовая страница-лендинг Foxigram -->
 <section class="landing" id="landing-page">
-  <div class="land-nav">
+   <div class="land-nav">
     <div class="brand"><span class="brand-dot"></span>Foxigram</div>
-    <button type="button" class="pill" id="land-top-login">Войти в ID</button>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="land-th-dots" title="Выбрать тему оформления">
+        <button type="button" class="land-th-dot active" data-lth="default" style="background:#1A1D24;"></button>
+        <button type="button" class="land-th-dot" data-lth="ocean" style="background:#1E3A5F;"></button>
+        <button type="button" class="land-th-dot" data-lth="gold" style="background:#4A3B22;"></button>
+        <button type="button" class="land-th-dot" data-lth="purple" style="background:#3A2C54;"></button>
+      </div>
+      <button type="button" class="pill" id="land-top-login">Войти в ID</button>
+    </div>
   </div>
+
 
   <div class="land-hero">
     <div>
@@ -733,6 +765,14 @@
       </div>
     </div>
   </div>
+  <footer class="land-foot">
+    <div>© 2026 Foxigram Network. Все права защищены.</div>
+    <div class="land-foot-links">
+      <a href="https://t.me" target="_blank" rel="noopener">Telegram @foxigramdev</a>
+      <button type="button" id="land-foot-priv">Политика конфиденциальности</button>
+      <span style="color:var(--accent);font-weight:700;">E2E Protected</span>
+    </div>
+  </footer>
 </section>
 <div class="modal" id="m-auth"><div class="fox-bg" id="fox-bg"></div><div class="m-box">
   <div class="auth-badge"><span class="brand-dot"></span>Независимая анонимная сеть</div>
@@ -751,9 +791,31 @@
   <div id="nick-hint" style="font-size:11px;text-align:left;margin-bottom:8px;min-height:14px;color:var(--mut);"></div>
 
   <input type="password" id="auth-pass" placeholder="Пароль (англ. от 6 символов)" style="width:100%;margin-bottom:9px;">
+    <label id="auth-agree-wrap" style="display:flex;align-items:flex-start;gap:9px;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--brd);padding:9px 11px;border-radius:14px;margin-bottom:9px;cursor:pointer;font-size:11.5px;color:var(--mut);line-height:1.38;">
+    <input type="checkbox" id="auth-agree" style="width:16px;height:16px;margin-top:1px;accent-color:var(--accent);cursor:pointer;flex-shrink:0;">
+    <span>Я принимаю <strong id="open-priv-doc" style="color:var(--accent);text-decoration:underline;cursor:pointer;">Политику конфиденциальности</strong> и правила сети Foxigram</span>
+  </label>
   <div id="auth-err" style="color:var(--danger);font-size:12px;margin-bottom:9px;min-height:16px;"></div>
-  <button type="button" class="btn-main" id="auth-go">Создать аккаунт (500 Points)</button>
+  <button type="button" class="btn-main" id="auth-go">Создать аккаунт</button>
 </div></div>
+
+<div class="modal" id="m-privacy" style="z-index:115;">
+  <div class="m-box" style="max-width:440px;text-align:left;">
+    <button type="button" id="m-close-priv" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button>
+    <h3 style="margin-bottom:4px;text-align:center;">Политика конфиденциальности</h3>
+    <div style="font-size:11px;color:var(--accent);text-align:center;font-weight:700;margin-bottom:12px;">Foxigram Network • Редакция от 2026 г.</div>
+    <div style="max-height:54vh;overflow-y:auto;padding-right:6px;font-size:12px;color:var(--mut);line-height:1.58;display:flex;flex-direction:column;gap:10px;background:rgba(255,255,255,.03);border:1px solid var(--brd);padding:14px;border-radius:16px;">
+      <div><strong style="color:var(--txt);">1. Общие положения</strong><br>Настоящая Политика конфиденциальности определяет порядок обработки и защиты данных пользователей анонимной коммуникационной платформы Foxigram. Регистрируя учётную запись, вы подтверждаете согласие с изложенными ниже условиями.</div>
+      <div><strong style="color:var(--txt);">2. Минимальный объём данных</strong><br>Foxigram не запрашивает номер телефона, паспортные данные, геолокацию или банковские карты. Хранятся только выбранный вами @юзернейм, пароль, настройки профиля и технический идентификатор устройства для защиты от мультиаккаунтов.</div>
+      <div><strong style="color:var(--txt);">3. Сквозное шифрование (E2E)</strong><br>Личные переписки и секретные чаты с таймером защищены сквозным шифрованием и недоступны третьим лицам и рекламным сетям.</div>
+      <div><strong style="color:var(--txt);">4. Публичные каналы и модерация</strong><br>Сообщения в Глобальном чате и публичных каналах видны всем участникам сети. Администрация вправе ограничивать доступ при спаме или нарушении правил.</div>
+      <div><strong style="color:var(--txt);">5. Внутрисетевые цифровые активы</strong><br>Баллы Points, валюта RAG, значки EFT и номера +555 являются внутрисетевыми цифровыми объектами платформы и не являются платёжным средством.</div>
+      <div><strong style="color:var(--txt);">6. Управление данными и удаление аккаунта</strong><br>Вы в любой момент можете изменить данные профиля, установить PIN-код или безвозвратно удалить свой аккаунт в разделе «Настройки».</div>
+    </div>
+    <button type="button" class="btn-main" style="margin-top:14px;" id="m-accept-priv">Ознакомился и принимаю ✓</button>
+  </div>
+</div>
+
 
 <div class="modal" id="m-story"><div class="m-box" id="st-card" style="min-height:330px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(135deg,#1D222E,#111317);background-size:cover;background-position:center;"><div style="display:flex;justify-content:space-between;align-items:center;"><span id="st-author" style="font-size:12.5px;font-weight:700;background:rgba(15,17,22,.68);padding:4px 11px;border-radius:99px;">@fox</span><button type="button" id="m-close6" style="font-size:16px;background:rgba(15,17,22,.68);width:30px;height:30px;border-radius:50%;">✕</button></div><div id="st-text" style="font-size:17px;font-weight:700;padding:20px 10px;">Добро пожаловать в Foxigram Stories</div><div id="st-new-box" style="display:none;flex-direction:column;gap:8px;"><input type="text" id="st-inp" placeholder="Текст истории..."><label class="pill" style="justify-content:center;cursor:pointer;padding:9px;">Прикрепить фото<input type="file" id="st-file" accept=".jpg,.jpeg,.jfif,.png,.webp,image/*" style="display:none;"></label><button type="button" class="btn-main" id="st-post">Опубликовать историю</button></div></div></div>
 
@@ -793,8 +855,15 @@ function eftArt(key,size=38){
     lim1:['#FF8A65','#BF360C','#FFF3E0'],lim2:['#7986CB','#1A237E','#E8EAF6'],lim3:['#4FC3F7','#01579B','#E1F5FE'],
     lim4:['#AED581','#33691E','#F1F8E9'],lim5:['#FFD54F','#FF6F00','#FFF8E1'],lim6:['#F06292','#880E4F','#FCE4EC'],
     lim7:['#4DB6AC','#004D40','#E0F2F1'],lim8:['#BA68C8','#4A148C','#F3E5F5'],lim9:['#90A4AE','#263238','#ECEFF1'],
-    lim10:['#FFB74D','#E65100','#FFF3E0'],num555:['#D4B475','#6E5528','#FFF8E1']
+       lim10:['#FFB74D','#E65100','#FFF3E0'],num555:['#D4B475','#6E5528','#FFF8E1'],
+    ex1:['#FFD54F','#FF6F00','#FFFDE7'],ex2:['#FF7043','#D500F9','#FFF3E0'],ex3:['#00E5FF','#00BFA5','#E0F7FA'],
+    ex4:['#FF4081','#FFD740','#FCE4EC'],ex5:['#40C4FF','#2979FF','#E1F5FE'],ex6:['#FF5252','#FF1744','#FFEBEE'],
+        ex7:['#FFE57F','#FFAB00','#FFF8E1'],ex8:['#69F0AE','#7C4DFF','#E8F5E9'],ex9:['#EA80FC','#00E5FF','#F3E5F5'],
+    ex10:['#00E5FF','#2979FF','#E0F7FA'],ex11:['#FF4081','#AA00FF','#FCE4EC'],ex12:['#FFD740','#FF3D00','#FFFDE7'],
+    ex13:['#69F0AE','#00BFA5','#E8F5E9'],ex14:['#FF5252','#D500F9','#FFEBEE'],ex15:['#40C4FF','#651FFF','#E1F5FE'],
+    ex16:['#FFAB40','#FF1744','#FFF3E0']
   };
+
   let c1='#84A5C2',c2='#2C3E50',c3='#E6E9EF',shape='gem';
   if(key&&key.startsWith('gen_')){
     const n=parseInt(key.split('_')[1],10)||1;
@@ -817,7 +886,24 @@ function eftArt(key,size=38){
   else if(shape==='core'||shape==='ring'||shape==='lim7')inner=`<circle cx="32" cy="32" r="19" fill="none" stroke="url(#${uid})" stroke-width="4.5"/><circle cx="32" cy="32" r="11" fill="url(#${uid})"/><circle cx="32" cy="32" r="4.5" fill="#fff" opacity=".85"/>`;
   else if(shape==='cube'||shape==='lim2'||shape==='lim8')inner=`<polygon points="32,8 52,20 52,44 32,56 12,44 12,20" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><polyline points="12,20 32,32 52,20" fill="none" stroke="${c3}" stroke-width="1.4"/><line x1="32" y1="32" x2="32" y2="56" stroke="${c3}" stroke-width="1.4"/>`;
   else if(shape==='mask'||shape==='skull'||shape==='pepe')inner=`<rect x="13" y="13" width="38" height="38" rx="14" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><circle cx="24" cy="29" r="3.5" fill="#111317"/><circle cx="40" cy="29" r="3.5" fill="#111317"/><path d="M24 40 Q32 45 40 40" stroke="#111317" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
-  return `<span class="eft-svg" style="width:${size}px;height:${size}px;"><svg viewBox="0 0 64 64"><defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs>${inner}</svg></span>`;
+    if(shape==='ex1')inner=`<circle cx="32" cy="32" r="19" fill="url(#${uid})" opacity=".35"/><circle cx="32" cy="32" r="14" fill="#050507" stroke="url(#${uid})" stroke-width="3.5"/><path d="M32 6 V13 M32 51 V58 M6 32 H13 M51 32 H58 M14 14 L19 19 M45 45 L50 50 M50 14 L45 19 M19 45 L14 50" stroke="${c1}" stroke-width="2.6" stroke-linecap="round"/>`;
+  else if(shape==='ex2')inner=`<path d="M12 12 L24 23 L40 23 L52 12 L55 34 L32 55 L9 34 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.6"/><path d="M18 30 L27 33 L21 37 Z" fill="#FFFDE7"/><path d="M46 30 L37 33 L43 37 Z" fill="#FFFDE7"/><path d="M22 44 Q14 48 12 40 M42 44 Q50 48 52 40" stroke="${c1}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+  else if(shape==='ex3')inner=`<path d="M16 46 C9 34 16 14 34 14 C48 14 54 28 46 40 C40 48 26 46 28 34 C29 27 36 26 39 31" fill="none" stroke="url(#${uid})" stroke-width="5.5" stroke-linecap="round"/><polygon points="34,8 44,14 34,20" fill="${c1}"/><circle cx="34" cy="33" r="4" fill="#fff"/>`;
+  else if(shape==='ex4')inner=`<path d="M32 42 C24 26 10 18 8 28 C6 36 18 44 28 46" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><path d="M32 42 C40 26 54 18 56 28 C58 36 46 44 36 46" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><polygon points="32,16 37,30 32,48 27,30" fill="${c3}"/>`;
+  else if(shape==='ex5')inner=`<circle cx="32" cy="32" r="20" fill="none" stroke="url(#${uid})" stroke-width="4"/><polygon points="32,16 46,40 18,40" fill="none" stroke="${c1}" stroke-width="2.6" stroke-linejoin="round"/><circle cx="32" cy="32" r="5" fill="#fff"/>`;
+  else if(shape==='ex6')inner=`<path d="M32 12 C25 24 25 38 32 48 C39 38 39 24 32 12 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><path d="M32 48 C20 44 12 34 14 24 C22 28 28 36 32 48 Z" fill="url(#${uid})" opacity=".88"/><path d="M32 48 C44 44 52 34 50 24 C42 28 36 36 32 48 Z" fill="url(#${uid})" opacity=".88"/>`;
+  else if(shape==='ex7')inner=`<path d="M18 12 H46 L34 32 L46 52 H18 L30 32 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.8" stroke-linejoin="round"/><line x1="15" y1="12" x2="49" y2="12" stroke="${c3}" stroke-width="3" stroke-linecap="round"/><line x1="15" y1="52" x2="49" y2="52" stroke="${c3}" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="44" r="3" fill="#fff"/>`;
+  else if(shape==='ex8')inner=`<rect x="15" y="14" width="34" height="36" rx="16" fill="url(#${uid})" stroke="${c3}" stroke-width="1.6"/><circle cx="24" cy="30" r="5.5" fill="#0B0D12" stroke="${c1}" stroke-width="2"/><circle cx="40" cy="30" r="5.5" fill="#0B0D12" stroke="${c1}" stroke-width="2"/><polygon points="32,35 29,40 35,40" fill="${c1}"/>`;
+  else if(shape==='ex9')inner=`<polygon points="32,8 54,48 10,48" fill="url(#${uid})" stroke="${c3}" stroke-width="1.6" stroke-linejoin="round"/><polygon points="32,8 41,48 23,48" fill="#fff" opacity=".32"/><circle cx="32" cy="34" r="4" fill="#fff"/>`;
+  else if(shape==='ex10')inner=`<polygon points="32,6 52,18 52,46 32,58 12,46 12,18" fill="none" stroke="url(#${uid})" stroke-width="3.5"/><polygon points="32,14 45,32 32,50 19,32" fill="url(#${uid})" stroke="${c3}" stroke-width="1.4"/><circle cx="32" cy="32" r="4.5" fill="#fff"/>`;
+  else if(shape==='ex11')inner=`<path d="M32 10 L40 24 L56 26 L44 37 L47 53 L32 45 L17 53 L20 37 L8 26 L24 24 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><circle cx="32" cy="32" r="7" fill="#050507" stroke="${c3}" stroke-width="1.5"/><circle cx="32" cy="32" r="2.5" fill="#fff"/>`;
+  else if(shape==='ex12')inner=`<path d="M20 50 L14 22 L25 32 L32 12 L39 32 L50 22 L44 50 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.6" stroke-linejoin="round"/><circle cx="32" cy="36" r="4" fill="#fff"/><rect x="18" y="51" width="28" height="5" rx="2.5" fill="${c1}"/>`;
+  else if(shape==='ex13')inner=`<circle cx="32" cy="32" r="20" fill="none" stroke="url(#${uid})" stroke-width="3" stroke-dasharray="10 5"/><circle cx="32" cy="32" r="12" fill="url(#${uid})"/><path d="M26 32 L30 36 L39 27" stroke="#050507" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`;
+  else if(shape==='ex14')inner=`<path d="M32 10 C46 18 52 34 42 48 C36 55 28 55 22 48 C12 34 18 18 32 10 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.5"/><polygon points="32,20 40,34 32,46 24,34" fill="#050507"/><circle cx="32" cy="34" r="3" fill="${c1}"/>`;
+  else if(shape==='ex15')inner=`<rect x="14" y="14" width="36" height="36" rx="10" transform="rotate(45 32 32)" fill="url(#${uid})" stroke="${c3}" stroke-width="1.6"/><circle cx="32" cy="32" r="8" fill="#050507" stroke="${c1}" stroke-width="2.5"/><circle cx="32" cy="32" r="3" fill="#fff"/>`;
+  else if(shape==='ex16')inner=`<path d="M16 44 L32 12 L48 44 L32 36 Z" fill="url(#${uid})" stroke="${c3}" stroke-width="1.6" stroke-linejoin="round"/><path d="M22 48 L32 41 L42 48 L32 54 Z" fill="${c1}"/>`;
+
+return `<span class="eft-svg" style="width:${size}px;height:${size}px;"><svg viewBox="0 0 64 64"><defs><linearGradient id="${uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${c1}"/><stop offset="100%" stop-color="${c2}"/></linearGradient></defs>${inner}</svg></span>`;
 }
 let sfxOn=(localStorage.getItem('foxigram_sfx')!=='0');
 let audioCtx=null;
@@ -872,6 +958,25 @@ const ITEMS=[
   {t:"Excalibur Edge",k:"lim10",pat:"✦ ◈ ✦",c:"#634229,#2B1B0F",p:4100,m:15,lim:true}
 ];
 
+const DRAG_EX_EFTS=[
+  {id:'ex1',t:"Eclipse Singularity",k:"ex1",bgName:"Pure Black",pat:"✦ ◈ ✦",c:"#141519,#050507",rag:2000,m:5,pure:true},
+  {id:'ex2',t:"Nine-Tail Kitsune",k:"ex2",bgName:"Pure Black",pat:"❖ ✦ ❖",c:"#141519,#050507",rag:1500,m:7,pure:true},
+  {id:'ex3',t:"Aether Leviathan",k:"ex3",bgName:"Pure Black",pat:"◈ ◎ ◈",c:"#141519,#050507",rag:1200,m:10,pure:true},
+  {id:'ex10',t:"Supernova Core",k:"ex10",bgName:"Pure Black",pat:"✦ ❖ ✦",c:"#141519,#050507",rag:2500,m:3,pure:true},
+  {id:'ex11',t:"Astral Valkyrie",k:"ex11",bgName:"Pure Black",pat:"◈ ✦ ◈",c:"#141519,#050507",rag:2200,m:4,pure:true},
+  {id:'ex12',t:"Sovereign Apex",k:"ex12",bgName:"Pure Black",pat:"❖ ◎ ❖",c:"#141519,#050507",rag:1900,m:5,pure:true},
+  {id:'ex13',t:"Emerald Matrix",k:"ex13",bgName:"Pure Black",pat:"◎ ✦ ◎",c:"#141519,#050507",rag:1700,m:6,pure:true},
+  {id:'ex14',t:"Crimson Abyss",k:"ex14",bgName:"Pure Black",pat:"✦ ◈ ✦",c:"#141519,#050507",rag:1550,m:7,pure:true},
+  {id:'ex15',t:"Quantum Tesseract",k:"ex15",bgName:"Pure Black",pat:"◈ ❖ ◈",c:"#141519,#050507",rag:1350,m:8,pure:true},
+  {id:'ex16',t:"Solar Phoenix X",k:"ex16",bgName:"Pure Black",pat:"✧ ✦ ✧",c:"#141519,#050507",rag:1250,m:9,pure:true},
+
+  {id:'ex4',t:"Valkyrie Wings",k:"ex4",bgName:"Onyx Black",pat:"✧ ✦ ✧",c:"#232730,#0E1014",rag:1050,m:12,pure:false},
+  {id:'ex5',t:"Hyperion Reactor",k:"ex5",bgName:"Onyx Black",pat:"◎ • ◎",c:"#232730,#0E1014",rag:850,m:15,pure:false},
+  {id:'ex6',t:"Crimson Lotus",k:"ex6",bgName:"Onyx Black",pat:"✿ ✦ ✿",c:"#232730,#0E1014",rag:650,m:18,pure:false},
+  {id:'ex7',t:"Astral Hourglass",k:"ex7",bgName:"Onyx Black",pat:"✧ ◎ ✧",c:"#232730,#0E1014",rag:480,m:20,pure:false},
+  {id:'ex8',t:"Cyber Owl",k:"ex8",bgName:"Onyx Black",pat:"◈ • ◈",c:"#232730,#0E1014",rag:350,m:25,pure:false},
+  {id:'ex9',t:"Zero-Trace Prism",k:"ex9",bgName:"Onyx Black",pat:"• ✦ •",c:"#232730,#0E1014",rag:250,m:30,pure:false}
+];
 const AVA_FRAMES=[
   {id:'fr-silver',n:'Серебряное дыхание',p:1500,d:'Спокойный платиновый контур вокруг аватара'},
   {id:'fr-gold',n:'Золотой обод',p:2500,d:'Тёплое золотистое свечение профиля'},
@@ -1011,7 +1116,8 @@ const st={
     foxbot:[{id:'m6',s:'@FoxBot',v:true,vc:'blue',n:'BOT',t:'Привет! Напишите «кости» или «монетка», чтобы сыграть на 50 Points.',img:'',time:'Сейчас',r:{},com:[],don:0}],
     saved:[]
   },
-  p2p:[],
+  p2p:[],  exSold:{},
+
   ticker:['@fox выпустил 10 лимитированных EFT тиражом 15 штук в Магазине','Запущена безопасная передача номеров +555 с задержкой 24 часа'],
   stories:[{tag:'@fox',name:'Fox',ava:'🦊',avaImg:'',prem:true,text:'Foxigram 2.0 уже в сети! Зацените 10 лимитированных EFT в Магазине.',img:'',bg:'linear-gradient(135deg,#252932,#12141A)'}]
 };
@@ -1125,7 +1231,7 @@ try{
     if(d.chats)st.chats=d.chats;
     if(d.msgs)st.msgs=d.msgs;
     if(d.stories)st.stories=d.stories;
-    if(Array.isArray(d.p2p))st.p2p=d.p2p;
+    if(Array.isArray(d.p2p))st.p2p=d.p2p; if(d.exSold&&typeof d.exSold==='object')st.exSold=d.exSold;
     if(Array.isArray(d.ticker))st.ticker=d.ticker;
   }
 }catch(e){}
@@ -1134,7 +1240,7 @@ mergeBaseChats();
 async function syncCloud(push=false){
   try{
     if(push){
-      const payload={accounts:st.accounts,chats:st.chats,msgs:st.msgs,stories:st.stories,p2p:st.p2p,ticker:st.ticker};
+      const payload={accounts:st.accounts,chats:st.chats,msgs:st.msgs,stories:st.stories,p2p:st.p2p,exSold:st.exSold,ticker:st.ticker};
       lastCloudHash=JSON.stringify(payload);
       await fetch(SB_URL,{method:'POST',headers:SB_HDR,body:JSON.stringify({key:'main',val:payload,updated_at:new Date().toISOString()})});
     }else{
@@ -1154,7 +1260,7 @@ async function syncCloud(push=false){
         if(d.chats)st.chats=d.chats;
         if(d.msgs)st.msgs=d.msgs;
         if(d.stories)st.stories=d.stories;
-        if(Array.isArray(d.p2p))st.p2p=d.p2p;
+        if(Array.isArray(d.p2p))st.p2p=d.p2p; if(d.exSold&&typeof d.exSold==='object')st.exSold=d.exSold;
         if(Array.isArray(d.ticker))st.ticker=d.ticker;
         mergeBaseChats();
         if((st.msgs[st.cid]||[]).length>oldCount&&!(st.u.mutedChats||[]).includes(st.cid))playSfx('msg');
@@ -1166,7 +1272,7 @@ async function syncCloud(push=false){
 
 function saveState(){
   st.u.lastSeen=Date.now();
-  try{localStorage.setItem(SAVE_KEY,JSON.stringify({accounts:st.accounts,chats:st.chats,msgs:st.msgs,stories:st.stories,p2p:st.p2p,ticker:st.ticker}));}catch(e){}
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify({accounts:st.accounts,chats:st.chats,msgs:st.msgs,stories:st.stories,p2p:st.p2p,exSold:st.exSold,ticker:st.ticker}));}catch(e){}
   syncCloud(true);
 }
 function findUserByTag(tag){
@@ -1261,6 +1367,7 @@ function openEftModal(u,idx,isMe){
   document.getElementById('m-own-acts').style.display=isMe?'block':'none';
   if(isMe){
     document.getElementById('m-safe').textContent=e.safe?'Снять замок':'Замок защиты';
+    document.getElementById('m-pin-prof').textContent=e.pinned?'📌 Открепить из начала коллекции':'📌 Закрепить в начале коллекции';
     const sg=document.getElementById('slot-grid');sg.innerHTML='';
     ['Слева 1','Слева 2','Слева 3','Справа 1','Справа 2','Справа 3'].forEach((lbl,si)=>{
       const b=document.createElement('button');b.type='button';b.className='slot-btn';
@@ -1452,18 +1559,29 @@ function drawProfile(){
   if(u.avaImg){pa.textContent='';pa.style.backgroundImage='url('+u.avaImg+')';}else{pa.style.backgroundImage='';pa.textContent=u.ava;}
 
   const pb=document.getElementById('p-banner');
-  if(u.banImg){pb.style.backgroundImage='url('+u.banImg+')';}else{pb.style.backgroundImage='';pb.style.background=u.eq?u.eq.bg:u.ban;}
+  const activeBg=u.eq?u.eq.bg:u.ban;
+  if(u.banImg){
+    pb.style.backgroundImage='url('+u.banImg+')';
+    pb.style.setProperty('--prof-glow','radial-gradient(circle, var(--pill-bg), transparent 72%)');
+  }else{
+    pb.style.backgroundImage='';pb.style.background=activeBg;
+    const hexMatch=activeBg&&activeBg.match(/#[0-9A-Fa-f]{6}/);
+    const glowCol=hexMatch?hexMatch[0]+'66':'var(--pill-bg)';
+    pb.style.setProperty('--prof-glow','radial-gradient(circle, '+glowCol+', transparent 72%)');
+  }
+
   const emoEl=document.getElementById('p-emo');
   const stKey=u.status||(u.eq?u.eq.artKey:'');
   emoEl.innerHTML=stKey?eftArt(stKey,20):'';
-
   const g=document.getElementById('e-grid');g.innerHTML='';
-  const list=isMe?u.efts:u.efts.filter(x=>x.owned);
+  const rawList=isMe?u.efts:u.efts.filter(x=>x.owned);
+  const list=[...rawList].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0));
   if(!list.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--mut);font-size:12px;padding:16px;">Нет открытых EFT</div>';return;}
   list.forEach(e=>{
     const idx=u.efts.indexOf(e),d=document.createElement('div');
-    d.className='eft'+(e.owned?'':' locked')+(e.upg?' upg':'')+(e.safe?' safe':'');d.style.background=e.bg;
-    d.innerHTML=patHtml(e.pat)+'<span class="ser">'+e.ser+'</span><div>'+eftArt(e.artKey,38)+'</div><div style="font-size:10px;font-weight:700;max-width:95%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+e.title+'</div><div class="price-tag">'+(e.owned?e.price+' Pts':'🔒 '+e.price)+'</div>';
+    d.className='eft'+(e.owned?'':' locked')+(e.upg?' upg':'')+(e.safe?' safe':'')+(e.pinned?' pinned':'');d.style.background=e.bg;
+    d.innerHTML=patHtml(e.pat)+(e.pinned?'<span style="position:absolute;top:5px;left:6px;font-size:9px;z-index:2;">📌</span>':'')+'<span class="ser">'+e.ser+'</span><div>'+eftArt(e.artKey,38)+'</div><div style="font-size:10px;font-weight:700;max-width:95%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+e.title+'</div><div class="price-tag">'+(e.owned?e.price+' Pts':'🔒 '+e.price)+'</div>';
+
     d.onclick=()=>{
       if(!e.owned){if(isMe)showView('shop');return;}
       openEftModal(u,idx,isMe);
@@ -2051,7 +2169,38 @@ function drawDrag(){
       };
       dg.appendChild(d);
     });
-  }else if(tab==='p2p'){
+    }else if(tab==='exeft'){
+    if(!st.exSold)st.exSold={};
+    DRAG_EX_EFTS.forEach(item=>{
+      const sold=st.exSold[item.id]||0;
+      const left=Math.max(0,item.m-sold);
+      const isOut=(left<=0);
+      const d=document.createElement('div');d.className='s-card';
+      d.style.background='linear-gradient(135deg,'+item.c+')';
+      d.style.borderColor=item.pure?'rgba(212,180,117,.48)':'rgba(255,255,255,.16)';
+      d.innerHTML=patHtml(item.pat)+'<div><div style="display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:800;color:'+(item.pure?'var(--gold)':'var(--accent)')+';"><span>★ '+item.bgName.toUpperCase()+'</span><span>'+(isOut?'РАСПРОДАНО':('Осталось: '+left+'/'+item.m))+'</span></div><div style="margin:8px 0;">'+eftArt(item.k,52)+'</div><div style="font-size:15.5px;font-weight:800;color:#fff;">'+item.t+'</div><div style="font-size:11px;color:var(--mut);margin-top:2px;">Фон: '+item.bgName+' • Тираж '+item.m+' шт.</div></div><button type="button" class="'+(isOut?'pill':'btn-main')+'" style="'+(isOut?'opacity:.6;':'')+'">'+(isOut?'Распродано (0/'+item.m+')':('Купить за '+item.rag.toLocaleString()+' RAG'))+'</button>';
+      d.querySelector('button').onclick=()=>{
+        const curSold=st.exSold[item.id]||0;
+        if(curSold>=item.m)return alert('Этот эксклюзивный EFT уже полностью распродан!');
+        if((st.u.rag||0)<item.rag)return alert('Недостаточно RAG! Нужно '+item.rag.toLocaleString()+' RAG.');
+        if(!confirm('Купить «'+item.t+'» ('+item.bgName+', #'+(curSold+1)+'/'+item.m+') за '+item.rag.toLocaleString()+' RAG?'))return;
+        st.u.rag-=item.rag;
+        const serialNum=curSold+1;
+        st.exSold[item.id]=serialNum;
+        st.u.efts.unshift({
+          title:item.t,artKey:item.k,pat:item.pat,ser:'#'+serialNum+'/'+item.m,
+          bg:'linear-gradient(135deg,'+item.c+')',price:item.rag*75,hash:hash(),
+          hist:'Dragment Exclusive ('+item.bgName+') • Выкуплен '+st.u.tag+' за '+item.rag+' RAG',
+          owned:true,upg:false,safe:true,lim:true
+        });
+        pushTicker(st.u.tag+' выкупил '+item.t+' ('+item.bgName+', #'+serialNum+'/'+item.m+') за '+item.rag+' RAG!');
+        walletNotify(st.u.tag,'Вы приобрели эксклюзивный EFT «'+item.t+'» ('+item.bgName+', #'+serialNum+'/'+item.m+') за '+item.rag+' RAG!');
+        st.viewU=null;saveState();drawProfile();drawDrag();
+        alert('Эксклюзивный EFT «'+item.t+'» ('+item.bgName+', #'+serialNum+'/'+item.m+') добавлен в ваш профиль!');
+      };
+      dg.appendChild(d);
+    });
+}else if(tab==='p2p'){
     if(!st.p2p||!st.p2p.length){
       dg.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--mut);padding:24px;font-size:13px;">На P2P-маркете пока нет лотов. Нажмите «+ Продать свой лот» выше!</div>';
       return;
@@ -2751,6 +2900,15 @@ document.getElementById('m-status').onclick=()=>{const e=st.u.efts.at(st.sel);st
 document.getElementById('m-equip').onclick=()=>{st.u.eq=st.u.efts.at(st.sel);st.u.banImg='';saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
 document.getElementById('m-safe').onclick=()=>{const e=st.u.efts.at(st.sel);e.safe=!e.safe;saveState();document.getElementById('m-eft').style.display='none';drawProfile();};
 document.getElementById('m-upg').onclick=()=>{
+}; document.getElementById('m-pin-prof').onclick=()=>{
+  const e=st.u.efts.at(st.sel);if(!e)return;
+  e.pinned=!e.pinned;
+  st.u.efts.splice(st.sel,1);
+  if(e.pinned)st.u.efts.unshift(e);
+  else st.u.efts.push(e);
+  saveState();document.getElementById('m-eft').style.display='none';drawProfile();
+}; document.getElementById('m-upg').onclick=()=>{
+
   const e=st.u.efts.at(st.sel);if(e.upg)return alert('Этот EFT уже улучшен.');if(st.u.pts<300)return alert('Для апгрейда нужно 300 Points.');
   spendPts(st.u,300);e.upg=true;e.price=Math.round(e.price*1.5);e.bg=UPG_BGS.at(Math.floor(Math.random()*UPG_BGS.length));
   const pat=UPG_PAT.at(Math.floor(Math.random()*UPG_PAT.length));e.hist+=' • Улучшен: '+pat;
@@ -2813,6 +2971,48 @@ document.getElementById('b-back5').onclick=()=>{showView('chat');setMobTab('chat
 document.querySelectorAll('.tab[data-f]').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');st.flt=b.dataset.f;drawChats();});
 document.getElementById('b-new').onclick=()=>document.getElementById('m-new').style.display='flex';
 document.getElementById('m-close1').onclick=()=>document.getElementById('m-eft').style.display='none';
+const mCardEl=document.getElementById('m-card');
+if(mCardEl){
+  mCardEl.title='Нажмите на EFT';
+  mCardEl.onmousemove=e=>{
+    const r=mCardEl.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5;
+    const y=(e.clientY-r.top)/r.height-0.5;
+    mCardEl.style.setProperty('--hx',((x+0.5)*100).toFixed(0)+'%');
+    mCardEl.style.setProperty('--hy',((y+0.5)*100).toFixed(0)+'%');
+    mCardEl.style.transform=`perspective(420px) rotateY(${(x*28).toFixed(1)}deg) rotateX(${(-y*28).toFixed(1)}deg) scale(1.05)`;
+  };
+  mCardEl.onmouseleave=()=>{mCardEl.style.transform='';};
+  mCardEl.onclick=()=>{
+    mCardEl.classList.remove('eft-pop');
+    void mCardEl.offsetWidth;
+    mCardEl.classList.add('eft-pop');
+    playSfx('msg');
+    const r=mCardEl.getBoundingClientRect();
+    const syms=['✦','◈','❖','✧','•'];
+    for(let i=0;i<8;i++){
+      const sp=document.createElement('span');
+      sp.className='eft-spark';
+      sp.textContent=syms[i%syms.length];
+      sp.style.left=(r.left+r.width/2-7)+'px';
+      sp.style.top=(r.top+r.height/2-7)+'px';
+      sp.style.setProperty('--sx',Math.round((Math.random()-0.5)*110)+'px');
+      sp.style.setProperty('--sy',Math.round(-35-Math.random()*55)+'px');
+      sp.style.setProperty('--sr',Math.round((Math.random()-0.5)*90)+'deg');
+      document.body.appendChild(sp);
+      setTimeout(()=>sp.remove(),760);
+    }
+  };
+}
+document.addEventListener('mousemove',e=>{
+  const card=e.target.closest('.eft');
+  if(card){
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--hx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--hy',(e.clientY-r.top)+'px');
+  }
+});
+
 document.getElementById('m-close2').onclick=()=>document.getElementById('m-new').style.display='none';
 document.getElementById('m-close3').onclick=()=>document.getElementById('m-ava').style.display='none';
 document.getElementById('m-close4').onclick=()=>document.getElementById('m-ban').style.display='none';
@@ -2835,8 +3035,13 @@ document.getElementById('n-ok').onclick=()=>{
 
 function openAuth(){toggleDrawer(false);document.getElementById('auth-err').textContent='';document.getElementById('m-auth').style.display='flex';}
 document.getElementById('dr-auth').onclick=openAuth;
-document.getElementById('tab-reg').onclick=()=>{st.authMode='reg';document.getElementById('tab-reg').classList.add('active');document.getElementById('tab-log').classList.remove('active');document.getElementById('auth-go').textContent='Создать аккаунт (500 Points)';document.getElementById('auth-err').textContent='';};
-document.getElementById('tab-log').onclick=()=>{st.authMode='log';document.getElementById('tab-log').classList.add('active');document.getElementById('tab-reg').classList.remove('active');document.getElementById('auth-go').textContent='Войти в аккаунт';document.getElementById('auth-err').textContent='';};
+document.getElementById('tab-reg').onclick=()=>{st.authMode='reg';document.getElementById('tab-reg').classList.add('active');document.getElementById('tab-log').classList.remove('active');document.getElementById('auth-go').textContent='Создать аккаунт';document.getElementById('auth-agree-wrap').style.display='flex';document.getElementById('auth-err').textContent='';};
+document.getElementById('tab-log').onclick=()=>{st.authMode='log';document.getElementById('tab-log').classList.add('active');document.getElementById('tab-reg').classList.remove('active');document.getElementById('auth-go').textContent='Войти в аккаунт';document.getElementById('auth-agree-wrap').style.display='none';document.getElementById('auth-err').textContent='';};
+
+document.getElementById('open-priv-doc').onclick=e=>{e.preventDefault();e.stopPropagation();document.getElementById('m-privacy').style.display='flex';};
+document.getElementById('m-close-priv').onclick=()=>document.getElementById('m-privacy').style.display='none';
+document.getElementById('m-accept-priv').onclick=()=>{document.getElementById('auth-agree').checked=true;document.getElementById('m-privacy').style.display='none';};
+
 function checkNickLive(){
   const raw=document.getElementById('auth-user').value.trim().replace(/^@/,'').toLowerCase();
   const h=document.getElementById('nick-hint');
@@ -2865,8 +3070,10 @@ document.getElementById('auth-go').onclick=()=>{
   if(rawU!=='fox'&&rawU.length<5){err.textContent='Юзернейм от 5 символов.';return;}
   if(!/^[A-Za-z0-9]{6,}$/.test(pass)){err.textContent='Пароль: англ. буквы и цифры, от 6 символов.';return;}
   const foxKey=['Gram99X7','FAFox126'].join('');
-   if(st.authMode==='reg'){
+      if(st.authMode==='reg'){
+    if(!document.getElementById('auth-agree').checked){err.textContent='Поставьте галочку согласия с Политикой конфиденциальности.';return;}
     if(rawU==='fox'||st.accounts[rawU]){err.textContent='Юзернейм занят.';return;}
+
     const devReg=JSON.parse(localStorage.getItem('foxigram_dev_reg')||'[]');
     if(devReg.length>=2){err.textContent='Лимит регистрации: максимум 2 аккаунта на одно устройство.';return;}
     if(devReg.length===1&&(Date.now()-devReg[0])<864e5){err.textContent='Второй аккаунт можно создать через 24 часа после первого.';return;}
@@ -2916,6 +3123,20 @@ document.getElementById('land-go-web').onclick=()=>openWebAuth(false);
 document.getElementById('land-phone-btn').onclick=()=>openWebAuth(false);
 document.getElementById('land-top-login').onclick=()=>openWebAuth(true);const pm=document.querySelector('.phone-mock');
 if(pm){
+document.querySelectorAll('.land-th-dot').forEach(b=>b.onclick=()=>{
+  const th=b.dataset.lth;
+  document.querySelectorAll('.land-th-dot').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.th-btn').forEach(x=>x.classList.toggle('active',x.dataset.th===th));
+  document.body.classList.remove('th-ocean','th-gold','th-purple');
+  if(th!=='default')document.body.classList.add('th-'+th);
+  localStorage.setItem('foxigram_theme',th);
+});
+if(savedTh){
+  document.querySelectorAll('.land-th-dot').forEach(x=>x.classList.toggle('active',x.dataset.lth===savedTh));
+}
+const lfp=document.getElementById('land-foot-priv');
+if(lfp)lfp.onclick=()=>{const mp=document.getElementById('m-privacy');if(mp)mp.style.display='flex';};
+
   pm.onmousemove=e=>{
     const r=pm.getBoundingClientRect();
     const x=(e.clientX-r.left)/r.width-0.5;
