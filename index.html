@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Foxigram</title>
+<script src="https://unpkg.com"></script>
 <link rel="preconnect" href="https://googleapis.com">
 <link rel="preconnect" href="https://gstatic.com" crossorigin>
 <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -441,7 +442,9 @@
         <button type="button" class="pill" id="b-sub-head" style="display:none;font-size:11.5px;padding:5px 10px;">Подписаться</button>
         <button type="button" class="pill" id="b-poll" style="display:none;font-size:11.5px;padding:5px 9px;" title="Создать опрос"><svg class="ico-sm" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></button>
         <button type="button" class="pill" id="b-boost" style="display:none;font-size:11.5px;padding:5px 10px;"><svg class="ico-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span id="c-boosts">0</span></button>
-        <button type="button" class="pill" id="b-csearch" style="font-size:11.5px;padding:5px 9px;" title="Поиск по чату"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+                <button type="button" class="pill" id="b-call-aud" style="display:none;font-size:11.5px;padding:5px 9px;" title="Аудиозвонок"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 2 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
+        <button type="button" class="pill" id="b-call-vid" style="display:none;font-size:11.5px;padding:5px 9px;" title="Видеозвонок"><svg class="ico-sm" viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></button>
+<button type="button" class="pill" id="b-csearch" style="font-size:11.5px;padding:5px 9px;" title="Поиск по чату"><svg class="ico-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
         <button type="button" class="pill" id="b-mute-chat" style="font-size:11.5px;padding:5px 9px;" title="Звук чата"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
         <button type="button" class="pill" id="b-pin" style="font-size:11.5px;padding:5px 9px;" title="Закрепить"><svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg></button>
         <button type="button" class="pill" id="b-clear" style="font-size:11.5px;padding:5px 9px;" title="Очистить чат"><svg class="ico-sm" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
@@ -842,6 +845,26 @@
 
 <div class="modal" id="m-pin" style="z-index:120;"><div class="m-box" style="max-width:320px;"><h3>Код-пароль Foxigram</h3><p style="font-size:12px;color:var(--mut);margin-top:4px;">Введите 4-значный PIN-код</p><div class="pin-dots" id="pin-dots"><i></i><i></i><i></i><i></i></div><div class="pin-pad" id="pin-pad"></div></div></div>
 
+<div class="modal" id="m-call" style="z-index:130;">
+  <div class="m-box" style="max-width:380px;background:linear-gradient(160deg,#1A1F2B 0%,#101319 100%);border-color:rgba(132,165,194,.28);">
+    <div id="call-vid-wrap" style="display:none;position:relative;width:100%;height:240px;border-radius:20px;overflow:hidden;background:#090B0E;margin-bottom:14px;border:1px solid var(--brd);">
+      <video id="rem-vid" autoplay playsinline style="width:100%;height:100%;object-fit:cover;"></video>
+      <video id="loc-vid" autoplay playsinline muted style="position:absolute;right:10px;bottom:10px;width:78px;height:106px;border-radius:14px;object-fit:cover;border:1.5px solid var(--accent);background:#15181F;"></video>
+    </div>
+    <div class="p-ava" id="call-ava" style="transform:none;margin:0 auto 10px;width:78px;height:78px;font-size:30px;">🦊</div>
+    <h3 id="call-name" style="font-size:18px;">Собеседник</h3>
+    <div id="call-stat" style="font-size:12.5px;color:var(--accent);font-weight:600;margin:4px 0 18px;">Вызов...</div>
+    <div id="call-in-btns" style="display:none;gap:10px;justify-content:center;margin-bottom:8px;">
+      <button type="button" class="btn-main" id="call-ans" style="background:var(--biz);flex:1;">Принять 📞</button>
+      <button type="button" class="pill danger" id="call-rej" style="flex:1;justify-content:center;padding:11px;">Отклонить</button>
+    </div>
+    <div id="call-act-btns" style="display:flex;gap:10px;justify-content:center;">
+      <button type="button" class="pill" id="call-mute" style="flex:1;justify-content:center;padding:11px;">Микрофон: Вкл</button>
+      <button type="button" class="pill danger" id="call-end" style="flex:1;justify-content:center;padding:11px;font-weight:700;">Сбросить ✕</button>
+    </div>
+    <audio id="rem-aud" autoplay></audio>
+  </div>
+</div>
 <nav class="mob-nav" id="mob-nav">
   <button type="button" class="mob-btn active" data-mv="chats">Чаты</button>
   <button type="button" class="mob-btn" data-mv="chat">Переписка</button>
@@ -1740,7 +1763,10 @@ function drawMsgs(){
   }
   document.getElementById('c-sub').textContent=subTxt;
 
-  const pollBtn=document.getElementById('b-poll');
+    const isPrivateDm=(c.id.startsWith('dm_')||c.id.startsWith('sec_'));
+  document.getElementById('b-call-aud').style.display=isPrivateDm?'inline-flex':'none';
+  document.getElementById('b-call-vid').style.display=isPrivateDm?'inline-flex':'none';
+const pollBtn=document.getElementById('b-poll');
   pollBtn.style.display=(c.type==='group'||(c.type==='channel'&&c.own===st.u.tag))?'inline-flex':'none';
 
   const subHead=document.getElementById('b-sub-head');
@@ -3213,6 +3239,101 @@ if(savedAct&&st.accounts[savedAct]){
 }
 
 
+let foxPeer=null,curCall=null,locStream=null,callTimer=null,callSecs=0,micMuted=false;
+function initFoxPeer(){
+  if(!window.Peer||!st.u||st.u.tag==='@guest')return;
+  const pid='foxigram_u_'+st.u.tag.replace(/^@/,'').toLowerCase();
+  if(foxPeer&&foxPeer.id===pid&&!foxPeer.destroyed)return;
+  if(foxPeer)try{foxPeer.destroy();}catch(e){}
+  foxPeer=new Peer(pid,{debug:0});
+  foxPeer.on('call',incoming=>{
+    const callerClean=(incoming.metadata&&incoming.metadata.from)||incoming.peer.replace('foxigram_u_','');
+    const isVid=Boolean(incoming.metadata&&incoming.metadata.video);
+    const callerU=findUserByTag('@'+callerClean);
+    curCall=incoming;
+    showCallModal(callerU?callerU.display:('@'+callerClean),callerU?callerU.ava:'🦊',callerU?callerU.avaImg:'',isVid?'Входящий видеозвонок...':'Входящий аудиозвонок...',true,isVid);
+    playSfx('msg');
+  });
+}
+function showCallModal(name,ava,avaImg,stat,isIncoming,isVid){
+  document.getElementById('call-name').textContent=name;
+  document.getElementById('call-stat').textContent=stat;
+  const ca=document.getElementById('call-ava');
+  if(avaImg){ca.textContent='';ca.style.backgroundImage='url('+avaImg+')';}else{ca.style.backgroundImage='';ca.textContent=ava||'🦊';}
+  document.getElementById('call-vid-wrap').style.display=isVid?'block':'none';
+  document.getElementById('call-in-btns').style.display=isIncoming?'flex':'none';
+  document.getElementById('call-act-btns').style.display=isIncoming?'none':'flex';
+  micMuted=false;document.getElementById('call-mute').textContent='Микрофон: Вкл';
+  document.getElementById('m-call').style.display='flex';
+}
+function bindCallEvents(call,isVid){
+  call.on('stream',remStream=>{
+    if(isVid)document.getElementById('rem-vid').srcObject=remStream;
+    else document.getElementById('rem-aud').srcObject=remStream;
+    clearInterval(callTimer);callSecs=0;
+    document.getElementById('call-stat').textContent='00:00 • Соединение установлено';
+    callTimer=setInterval(()=>{
+      callSecs++;
+      const m=Math.floor(callSecs/60).toString().padStart(2,'0'),s=(callSecs%60).toString().padStart(2,'0');
+      document.getElementById('call-stat').textContent=m+':'+s+' • В разговоре';
+    },1000);
+  });
+  call.on('close',()=>endFoxCall());
+  call.on('error',()=>endFoxCall('Не удалось установить соединение'));
+}
+function endFoxCall(reason){
+  clearInterval(callTimer);
+  if(curCall)try{curCall.close();}catch(e){}
+  curCall=null;
+  if(locStream){locStream.getTracks().forEach(t=>t.stop());locStream=null;}
+  document.getElementById('rem-vid').srcObject=null;
+  document.getElementById('loc-vid').srcObject=null;
+  document.getElementById('rem-aud').srcObject=null;
+  if(reason){
+    document.getElementById('call-stat').textContent=reason;
+    setTimeout(()=>{document.getElementById('m-call').style.display='none';},1400);
+  }else{document.getElementById('m-call').style.display='none';}
+}
+async function startFoxCall(isVid){
+  const c=st.chats.find(x=>x.id===st.cid);
+  if(!c||(!c.id.startsWith('dm_')&&!c.id.startsWith('sec_')))return;
+  const peerTag=Array.isArray(c.pair)?c.pair.find(x=>x!==st.u.tag.toLowerCase()):('@'+c.id.replace(/^(dm_|sec_)/,''));
+  const peerU=findUserByTag(peerTag);
+  if(!peerU)return alert('Собеседник не найден');
+  initFoxPeer();
+  if(!foxPeer)return alert('Сервис звонков ещё загружается, попробуйте через секунду.');
+  try{
+    locStream=await navigator.mediaDevices.getUserMedia({audio:true,video:isVid});
+    if(isVid)document.getElementById('loc-vid').srcObject=locStream;
+    showCallModal(peerU.display,peerU.ava,peerU.avaImg,isVid?'Видеовызов...':'Аудиовызов...',false,isVid);
+    const targetId='foxigram_u_'+peerU.tag.replace(/^@/,'').toLowerCase();
+    curCall=foxPeer.call(targetId,locStream,{metadata:{from:st.u.tag.replace(/^@/,''),video:isVid}});
+    bindCallEvents(curCall,isVid);
+  }catch(e){alert('Разрешите доступ к микрофону'+(isVid?' и камере':'')+' в браузере!');}
+}
+document.getElementById('b-call-aud').onclick=()=>startFoxCall(false);
+document.getElementById('b-call-vid').onclick=()=>startFoxCall(true);
+document.getElementById('call-ans').onclick=async()=>{
+  if(!curCall)return;
+  const isVid=Boolean(curCall.metadata&&curCall.metadata.video);
+  try{
+    locStream=await navigator.mediaDevices.getUserMedia({audio:true,video:isVid});
+    if(isVid)document.getElementById('loc-vid').srcObject=locStream;
+    document.getElementById('call-in-btns').style.display='none';
+    document.getElementById('call-act-btns').style.display='flex';
+    curCall.answer(locStream);
+    bindCallEvents(curCall,isVid);
+  }catch(e){alert('Нет доступа к микрофону/камере!');endFoxCall();}
+};
+document.getElementById('call-rej').onclick=()=>endFoxCall();
+document.getElementById('call-end').onclick=()=>endFoxCall();
+document.getElementById('call-mute').onclick=()=>{
+  if(!locStream)return;
+  micMuted=!micMuted;
+  locStream.getAudioTracks().forEach(t=>t.enabled=!micMuted);
+  document.getElementById('call-mute').textContent=micMuted?'Микрофон: Выкл':'Микрофон: Вкл';
+};
+setInterval(initFoxPeer,4000);initFoxPeer();
 syncCloud(false);
 setInterval(()=>{
   st.u.lastSeen=Date.now();
