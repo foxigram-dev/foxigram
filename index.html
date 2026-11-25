@@ -88,17 +88,25 @@
   .st-in { width:100%; height:100%; border-radius:50%; background:#161920; display:flex; align-items:center; justify-content:center; font-size:16px; background-size:cover; background-position:center; border:2px solid #111317; }
   .st-lbl { font-size:10.5px; color:var(--mut); max-width:54px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:500; }
 
-  .tabs { display:flex; padding:8px 10px; gap:5px; border-bottom:1px solid var(--brd); }
-  .tab { flex:1; padding:7px 4px; font-size:12px; border-radius:11px; color:var(--mut); font-weight:600; }
-  .tab:hover { color:var(--txt); background:rgba(255,255,255,.04); }
-  .tab.active { background:var(--pill-bg); color:var(--accent); }
-  .list { flex:1; overflow-y:auto; padding:8px; display:flex; flex-direction:column; gap:4px; }
-  .chat-item { padding:10px 12px; border-radius:16px; display:flex; align-items:center; gap:11px; cursor:pointer; transition:all .2s ease; }
-  .chat-item:hover { background:rgba(255,255,255,.045); transform:translateX(2px); }
-  .chat-item.active { background:var(--pill-bg); border:1px solid rgba(132,165,194,.2); }
-  .ava { width:40px; height:40px; border-radius:14px; background:rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; overflow:hidden; background-size:cover; background-position:center; }
+  #q-search { border-radius:99px !important; padding:9px 15px !important; background:rgba(255,255,255,.045) !important; border:1px solid rgba(255,255,255,.08) !important; font-size:12.5px !important; }
+  #q-search:focus { background:rgba(255,255,255,.075) !important; border-color:var(--accent) !important; box-shadow:0 0 0 3px var(--pill-bg) !important; }
+  .tabs { display:flex; margin:8px 10px 4px; padding:4px; gap:4px; border-radius:14px; background:rgba(0,0,0,.26); border:1px solid var(--brd); border-bottom:1px solid var(--brd); }
+  .tab { flex:1; padding:6px 4px; font-size:11.5px; border-radius:10px; color:var(--mut); font-weight:700; letter-spacing:.1px; }
+  .tab:hover { color:var(--txt); background:rgba(255,255,255,.05); }
+  .tab.active { background:var(--accent); color:#101317; box-shadow:0 4px 12px rgba(0,0,0,.35); }
+  #b-new { color:var(--accent); background:var(--pill-bg); }
+  #b-new:hover { filter:brightness(1.12); }
+  .list { flex:1; overflow-y:auto; padding:6px 10px 12px; display:flex; flex-direction:column; gap:5px; }
+  .list::-webkit-scrollbar { width:4px; }
+  .list::-webkit-scrollbar-thumb { background:rgba(255,255,255,.1); border-radius:99px; }
+  .chat-item { position:relative; padding:10px 12px; border-radius:17px; display:flex; align-items:center; gap:11px; cursor:pointer; border:1px solid transparent; background:rgba(255,255,255,.015); transition:all .22s cubic-bezier(.22,1,.36,1); }
+  .chat-item:hover { background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.08); transform:translateX(2px); }
+  .chat-item.active { background:linear-gradient(135deg, var(--pill-bg), rgba(255,255,255,.03)); border-color:rgba(132,165,194,.28); box-shadow:0 8px 20px rgba(0,0,0,.28); }
+  .chat-item.active::before { content:""; position:absolute; left:4px; top:12px; bottom:12px; width:3px; border-radius:99px; background:var(--accent); }
+  .ava { width:44px; height:44px; border-radius:15px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; overflow:hidden; background-size:cover; background-position:center; box-shadow:0 4px 12px rgba(0,0,0,.3); }
   .ava.has-story, .m-ava.has-story { box-shadow:0 0 0 2px #111317, 0 0 0 3.5px var(--accent); }
-  .unread-dot { background:var(--accent); color:#101317; font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:99px; flex-shrink:0; }
+  .unread-dot { background:var(--accent); color:#101317; font-size:10.5px; font-weight:800; padding:2px 7px; border-radius:99px; flex-shrink:0; box-shadow:0 0 10px var(--pill-bg); }
+
 
   .chat-head { height:54px; padding:0 16px; border-bottom:1px solid var(--brd); display:flex; align-items:center; justify-content:space-between; flex-shrink:0; gap:8px; background:rgba(18,20,26,.65); }
   .pin-bar { background:rgba(132,165,194,.09); border-bottom:1px solid rgba(132,165,194,.18); padding:7px 16px; font-size:12px; display:none; align-items:center; justify-content:space-between; cursor:pointer; animation:fadeSlide .25s ease; }
@@ -357,6 +365,19 @@
     .bar input[type="text"], input, select { font-size:16px; }
     .shop-grid, .theme-grid, .adm-grid { grid-template-columns:1fr; }
   }
+  /* Мягкое скругление интерфейса и Spotlight-свечение карточек */
+  .box { border-radius:26px; box-shadow:0 16px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06); }
+  .m-box { border-radius:30px; box-shadow:0 28px 70px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.08); }
+  .msg { border-radius:22px; border-bottom-left-radius:6px; padding:11px 15px; }
+  .msg-row.mine .msg { border-bottom-left-radius:22px; border-bottom-right-radius:6px; }
+  .bar { padding:10px 14px 12px; gap:8px; }
+  .bar input[type="text"] { border-radius:99px; padding:11px 17px; background:rgba(255,255,255,.055); }
+  #b-send { border-radius:50%; width:40px; height:40px; padding:0; flex-shrink:0; box-shadow:0 6px 16px var(--pill-bg); }
+  .info, .set-sec { border-radius:22px; }
+  .eft { border-radius:20px; }
+  .s-card { border-radius:24px; }
+  .s-card::after, .land-card::after { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .3s ease; background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%), var(--pill-bg), transparent 72%); z-index:0; }
+  .s-card:hover::after, .land-card:hover::after { opacity:1; }
 </style>
 </head>
 <body>
@@ -931,6 +952,15 @@ function playSfx(type='tap'){
   }catch(e){}
 }
 document.addEventListener('click',e=>{if(e.target.closest('button'))playSfx('tap');});
+document.addEventListener('mousemove',e=>{
+  const card=e.target.closest('.s-card, .land-card');
+  if(card){
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+    card.style.setProperty('--my',(e.clientY-r.top)+'px');
+  }
+});
+
 
 /* 30 базовых коллекционных EFT + 10 эксклюзивных лимитированных EFT (тираж 15 штук каждая) */
 const ITEMS=[
@@ -1421,7 +1451,7 @@ function openAssetModal(u,kind,val,isMe){
       target.pendingGifts.push({kind,val,from:st.u.tag,deliverAt});
       walletNotify(target.tag,'Вам отправлен в подарок '+val+' от '+st.u.tag+'. В целях безопасности предмет будет зачислен через 24 часа.');
       const dmId='dm_'+target.tag.replace('@','');
-      if(!st.msgs[dmId])st.msgs[dmId]=[];
+       if(!st.msgs[dmId])st.msgs[dmId]=[];
       st.msgs[dmId].push({id:'mg'+Date.now(),s:st.u.tag,v:st.u.ver,vc:st.u.verColor,n:st.u.num,t:'Отправил(а) вам в подарок '+val+'! В целях безопасности актив придет через 24 часа.',img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0,read:false});
       saveState();document.getElementById('m-asset').style.display='none';drawProfile();
       alert('Подарок '+val+' отправлен пользователю '+target.tag+' и придёт ему через 24 часа.');
@@ -1650,19 +1680,33 @@ function drawChats(){
   }
 
   st.chats.filter(c=>{
-    const isSubscribed=mySubs.includes(c.id)||c.own===st.u.tag||c.id.startsWith('dm_')||c.id.startsWith('sec_');
+    const isDm=(c.id.startsWith('dm_')||c.id.startsWith('sec_'));
+    const myTagLow=st.u.tag.toLowerCase();
+    const isMyDm=isDm&&c.id.includes('__')&&!c.id.includes(',')&&!c.id.includes('undefined')&&Array.isArray(c.pair)&&c.pair.includes(myTagLow);
+    if(isDm&&!isMyDm)return false;
+
+    const isSubscribed=mySubs.includes(c.id)||c.own===st.u.tag||isMyDm;
     if(!q&&!isSubscribed)return false;
     if(q&&!c.name.toLowerCase().includes(q)&&!(c.code||'').toLowerCase().includes(q))return false;
     return (st.flt==='all'||c.type===st.flt);
   }).forEach(c=>{
-    const isSub=mySubs.includes(c.id)||c.own===st.u.tag||c.id.startsWith('dm_')||c.id.startsWith('sec_');
+    const isDm=(c.id.startsWith('dm_')||c.id.startsWith('sec_'));
+    const isSub=mySubs.includes(c.id)||c.own===st.u.tag||isDm;
+
     const d=document.createElement('div');d.className='chat-item'+(c.id===st.cid?' active':'');
     let sub=c.type==='channel'?((c.subs||0).toLocaleString()+' подписчиков • '+(c.code||'')):(c.type==='group'?((c.subs||1).toLocaleString()+' участников'):(c.id==='wallet'?'Кошелёк и чеки':(c.id==='support'?'Поддержка':(c.secTimer?'Секретный чат':'Личный чат'))));
+    let dispName=c.name,dispAva=c.avaImg,dispIco=c.icon;
     if(c.id.startsWith('dm_')||c.id.startsWith('sec_')){
-      const peer=findUserByTag('@'+c.id.replace(/^(dm_|sec_)/,''));
-      if(peer)sub=getLiveStatus(peer);
+      const peerTag=Array.isArray(c.pair)?c.pair.find(x=>x!==st.u.tag.toLowerCase()):('@'+c.id.replace(/^(dm_|sec_)/,''));
+      const peer=findUserByTag(peerTag);
+      if(peer){
+        sub=getLiveStatus(peer);
+        dispName=(c.secTimer?'Секретный: ':'')+peer.display+' ('+peer.tag+')';
+        if(!c.secTimer){dispAva=peer.avaImg;dispIco=peer.ava;}
+      }
     }
     const unr=(st.u.unread&&st.u.unread[c.id])?st.u.unread[c.id]:0;
+
     d.innerHTML='<div class="ava" style="'+(c.avaImg?'background-image:url('+c.avaImg+');':'')+'">'+(c.avaImg?'':c.icon)+'</div><div style="min-width:0;flex:1;"><div style="font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:5px;"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">'+c.name+'</span>'+(c.ver?'<span class="'+badgeCls(c.vc||'blue')+'">✓</span>':'')+'</div><div style="font-size:11px;color:'+(sub==='печатает...'?'var(--accent)':'var(--mut)')+';">'+sub+'</div></div>'+(unr>0?'<span class="unread-dot">'+unr+'</span>':(!isSub?'<button type="button" class="pill" style="padding:4px 9px;font-size:11px;">Войти</button>':''));
     d.onclick=()=>{
       if(!isSub){toggleSub(c);}
@@ -2057,13 +2101,13 @@ function sendGiftCardToChat(fromU,toU,e,note=''){
   const bgN=e.upg?'Улучшенный градиент':bgNames[e.title.length%bgNames.length];
   const patN=patNames[e.title.charCodeAt(0)%patNames.length];
   const rar=e.lim?'Лимитированный (1/15)':(e.upg?'Улучшенный EFT':'Коллекционный');
-  const cleanTo=toU.tag.replace(/^@/,'');
-  const dmId='dm_'+cleanTo;
+  const dmId=getDmId(fromU.tag,toU.tag,false);
   if(!st.chats.find(x=>x.id===dmId)){
-    st.chats.unshift({id:dmId,name:toU.display+' ('+toU.tag+')',type:'private',icon:toU.ava,avaImg:toU.avaImg,own:'self',pin:'',boosts:0});
+    st.chats.unshift({id:dmId,name:toU.display+' ('+toU.tag+')',type:'private',icon:toU.ava,avaImg:toU.avaImg,own:'self',pair:[fromU.tag.toLowerCase(),toU.tag.toLowerCase()],pin:'',boosts:0});
   }
   if(!st.msgs[dmId])st.msgs[dmId]=[];
-  const giftObj={from:fromU.tag,to:toU.tag,title:e.title,artKey:e.artKey,ser:e.ser,bg:e.bg,pat:e.pat,price:e.price,hash:e.hash,rarity:rar,bgName:bgN,patName:patN,note};
+const giftObj={from:fromU.tag
+,to:toU.tag,title:e.title,artKey:e.artKey,ser:e.ser,bg:e.bg,pat:e.pat,price:e.price,hash:e.hash,rarity:rar,bgName:bgN,patName:patN,note};
   st.msgs[dmId].push({id:'mg'+Date.now()+Math.random(),s:fromU.tag,v:fromU.ver,vc:fromU.verColor,n:fromU.num,t:note||'',eftGift:giftObj,img:'',time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}),r:{},com:[],don:0,read:false});
   if(!toU.unread)toU.unread={};
   toU.unread[dmId]=(toU.unread[dmId]||0)+1;
@@ -2870,12 +2914,18 @@ document.getElementById('w-check-pts').onclick=()=>{
 };
 document.getElementById('w-bal-info').onclick=()=>walletNotify(st.u.tag,'Ваш текущий баланс: '+st.u.pts.toLocaleString()+' Points и '+(st.u.rag||0).toLocaleString()+' RAG.');
 
+function getDmId(t1,t2,isSec=false){
+  const u1=t1.replace(/^@/,'').trim().toLowerCase();
+  const u2=t2.replace(/^@/,'').trim().toLowerCase();
+  return (isSec?'sec_':'dm_')+[u1,u2].sort().join('__');
+}
+
 document.getElementById('b-dm').onclick=()=>{
   if(!st.viewU)return;
   if((st.u.blocked||[]).includes(st.viewU.tag))return alert('Сначала разблокируйте пользователя.');
-  const tid='dm_'+st.viewU.tag.replace('@','');
+  const tid=getDmId(st.u.tag,st.viewU.tag,false);
   if(!st.chats.find(x=>x.id===tid)){
-    st.chats.unshift({id:tid,name:st.viewU.display+' ('+st.viewU.tag+')',type:'private',icon:st.viewU.ava,avaImg:st.viewU.avaImg,own:'self',pin:'',boosts:0});
+    st.chats.unshift({id:tid,name:st.viewU.display+' ('+st.viewU.tag+')',type:'private',icon:st.viewU.ava,avaImg:st.viewU.avaImg,own:'self',pair:[st.u.tag.toLowerCase(),st.viewU.tag.toLowerCase()],pin:'',boosts:0});
     st.msgs[tid]=[];saveState();
   }
   st.cid=tid;showView('chat');setMobTab('chat');drawChats();drawMsgs();
@@ -2884,10 +2934,10 @@ document.getElementById('b-sec-dm').onclick=()=>{
   if(!st.viewU)return;
   const sec=parseInt(prompt('Таймер самоуничтожения сообщений в секундах (например 15 или 60):','15'),10);
   if(isNaN(sec)||sec<5)return;
-  const tid='sec_'+st.viewU.tag.replace('@','');
+  const tid=getDmId(st.u.tag,st.viewU.tag,true);
   const ex=st.chats.find(x=>x.id===tid);
   if(!ex){
-    st.chats.unshift({id:tid,name:'Секретный: '+st.viewU.display,type:'private',icon:'🔒',avaImg:'',own:'self',secTimer:sec,pin:'Секретный чат: сообщения удаляются через '+sec+' сек.',boosts:0});
+    st.chats.unshift({id:tid,name:'Секретный: '+st.viewU.display,type:'private',icon:'🔒',avaImg:'',own:'self',pair:[st.u.tag.toLowerCase(),st.viewU.tag.toLowerCase()],secTimer:sec,pin:'Секретный чат: сообщения удаляются через '+sec+' сек.',boosts:0});
     st.msgs[tid]=[];
   }else{ex.secTimer=sec;ex.pin='Секретный чат: сообщения удаляются через '+sec+' сек.';}
   saveState();st.cid=tid;showView('chat');setMobTab('chat');drawChats();drawMsgs();
