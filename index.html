@@ -379,6 +379,68 @@
   .s-card { border-radius:24px; }
   .s-card::after, .land-card::after { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .3s ease; background:radial-gradient(230px circle at var(--mx,50%) var(--my,50%), var(--pill-bg), transparent 72%); z-index:0; }
   .s-card:hover::after, .land-card:hover::after { opacity:1; }
+  /* === ELITE LIQUID GLASS, NEW PROFILE & 3D RAG CARD === */
+  body::before, body::after { content:""; position:fixed; border-radius:50%; pointer-events:none; z-index:0; filter:blur(95px); opacity:.34; animation:auroraFloat 14s ease-in-out infinite alternate; }
+  body::before { width:420px; height:420px; top:-90px; left:12%; background:var(--accent); }
+  body::after { width:380px; height:380px; bottom:-100px; right:8%; background:var(--accent); animation-delay:-7s; animation-duration:18s; }
+  @keyframes auroraFloat { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(35px,25px) scale(1.12)} 100%{transform:translate(-25px,40px) scale(.95)} }
+
+  header, .wrap, .mob-nav { position:relative; z-index:2; }
+  header { background:rgba(16,19,26,.54) !important; backdrop-filter:blur(28px) saturate(180%) !important; -webkit-backdrop-filter:blur(28px) saturate(180%) !important; border-bottom:1px solid rgba(255,255,255,.12) !important; }
+  .box { background:rgba(19,23,31,.48) !important; backdrop-filter:blur(32px) saturate(185%) !important; -webkit-backdrop-filter:blur(32px) saturate(185%) !important; border:1px solid rgba(255,255,255,.13) !important; border-radius:30px !important; box-shadow:0 24px 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.16) !important; }
+  .m-box { background:rgba(17,21,29,.68) !important; backdrop-filter:blur(36px) saturate(190%) !important; border:1px solid rgba(255,255,255,.16) !important; border-radius:34px !important; }
+  .drawer { background:rgba(18,21,29,.68) !important; backdrop-filter:blur(34px) saturate(180%) !important; border-right:1px solid rgba(255,255,255,.14) !important; }
+
+  .pill, .tg-cap, .s-tab, .d-tab, .th-btn { background:rgba(255,255,255,.055) !important; backdrop-filter:blur(16px) !important; border:1px solid rgba(255,255,255,.12) !important; box-shadow:inset 0 1px 0 rgba(255,255,255,.1); transition:all .26s cubic-bezier(.22,1,.36,1) !important; }
+  .pill:hover, .tg-cap:hover { background:rgba(255,255,255,.11) !important; border-color:rgba(255,255,255,.22) !important; transform:translateY(-1.5px); }
+  .chat-head { margin:10px 12px 0; border-radius:24px; background:rgba(255,255,255,.045) !important; backdrop-filter:blur(22px) !important; border:1px solid rgba(255,255,255,.11) !important; box-shadow:0 10px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.12); }
+  .bar-wrap { margin:0 12px 12px; border-radius:26px; background:rgba(255,255,255,.05) !important; backdrop-filter:blur(24px) !important; border:1px solid rgba(255,255,255,.12) !important; box-shadow:0 12px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.12); overflow:hidden; }
+  .bar { border-top:none !important; }
+  .msg { background:rgba(255,255,255,.065) !important; backdrop-filter:blur(18px) !important; border:1px solid rgba(255,255,255,.11) !important; border-radius:24px !important; border-bottom-left-radius:7px !important; box-shadow:0 8px 22px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12); }
+  .msg-row.mine .msg { background:linear-gradient(135deg, rgba(132,165,194,.24), rgba(255,255,255,.07)) !important; border-color:rgba(132,165,194,.34) !important; border-bottom-left-radius:24px !important; border-bottom-right-radius:7px !important; }
+  .s-card { background:rgba(255,255,255,.045) !important; backdrop-filter:blur(20px) !important; border:1px solid rgba(255,255,255,.12) !important; border-radius:26px !important; }
+
+  /* Элитный профиль */
+  .profile { background:linear-gradient(180deg, rgba(22,26,36,.58) 0%, rgba(14,17,23,.74) 100%) !important; }
+  .profile .banner { height:174px !important; border-bottom:1px solid rgba(255,255,255,.14); position:relative; }
+  .profile .banner::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.08) 0%, rgba(14,17,23,.72) 100%); pointer-events:none; z-index:1; }
+  .profile .p-ava { width:92px !important; height:92px !important; transform:translateY(34px) !important; border:3px solid rgba(255,255,255,.28) !important; box-shadow:0 16px 38px rgba(0,0,0,.7), 0 0 32px var(--pill-bg) !important; z-index:4 !important; animation:avaAura 4.5s ease-in-out infinite; }
+  @keyframes avaAura { 0%,100%{box-shadow:0 16px 38px rgba(0,0,0,.7), 0 0 22px var(--pill-bg)} 50%{box-shadow:0 18px 42px rgba(0,0,0,.75), 0 0 40px var(--pill-bg)} }
+
+  .prof-elite-card { position:relative; z-index:3; margin:20px 14px 0; padding:32px 16px 14px; border-radius:26px; background:linear-gradient(165deg, rgba(255,255,255,.075) 0%, rgba(255,255,255,.025) 100%); backdrop-filter:blur(24px) saturate(170%); border:1px solid rgba(255,255,255,.14); box-shadow:0 16px 36px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.22); text-align:center; animation:panelIn .4s cubic-bezier(.22,1,.36,1); }
+  .prof-elite-card .prof-pills { padding:12px 0 0 !important; margin-top:10px; border-top:1px solid rgba(255,255,255,.08); }
+    .prof-elite-card .prof-pills { gap:6px !important; justify-content:center !important; }
+  .prof-elite-card .tg-cap { background:rgba(0,0,0,.26) !important; border:1px solid rgba(255,255,255,.12) !important; padding:5px 10px !important; font-size:11.5px !important; max-width:148px !important; }
+  .prof-elite-card .tg-cap span.tr-txt { max-width:86px !important; }
+  .prof-elite-card .tg-cap:hover { background:rgba(255,255,255,.1) !important; border-color:var(--accent) !important; }
+
+  .profile .info { margin:12px 14px !important; border-radius:26px !important; background:rgba(255,255,255,.04) !important; backdrop-filter:blur(20px) !important; border:1px solid rgba(255,255,255,.12) !important; box-shadow:0 12px 28px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.14) !important; }
+  .prof-clean-row { display:flex; align-items:center !important; gap:13px !important; padding:12px 16px !important; border-bottom:1px solid rgba(255,255,255,.07) !important; transition:all .22s ease !important; }
+  .prof-clean-row:hover { background:rgba(255,255,255,.06) !important; padding-left:19px !important; }
+  .prof-row-ico { width:34px; height:34px; border-radius:12px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09); display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--accent); }
+  .prof-row-ico svg { width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+  .prof-lbl { font-size:10.5px; color:var(--mut); margin-top:2px; letter-spacing:.15px; }
+  .prof-sec-head { margin:6px 14px 10px; padding:7px 14px; border-radius:99px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); display:flex; align-items:center; justify-content:space-between; font-size:11px; font-weight:700; color:var(--mut); letter-spacing:.5px; }
+
+  .profile .grid { gap:10px !important; padding:0 14px 28px !important; }
+  .profile .eft { border-radius:22px !important; border:1px solid rgba(255,255,255,.18) !important; box-shadow:0 10px 24px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.22); padding:8px 6px !important; gap:4px; transition:transform .3s cubic-bezier(.34,1.56,.64,1), box-shadow .3s ease, border-color .25s ease !important; }
+  .profile .eft .price-tag { display:none !important; }
+  .profile .eft .ser { font-size:8px !important; opacity:.78; background:rgba(0,0,0,.36) !important; }
+  .profile .eft:hover { transform:translateY(-5px) scale(1.04) !important; border-color:rgba(255,255,255,.38) !important; box-shadow:0 18px 36px rgba(0,0,0,.5), 0 0 22px var(--pill-bg), inset 0 1px 0 rgba(255,255,255,.35) !important; }
+
+  /* 3D-карта баланса RAG */
+  .rag-card-3d { width:100%; max-width:360px; aspect-ratio:1.62; margin:0 auto; border-radius:24px; padding:22px 24px; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:space-between; text-align:left; cursor:pointer; background:radial-gradient(circle at 28% 35%, #2B84F6 0%, #1558C4 52%, #0D3A8C 100%); border:1px solid rgba(255,255,255,.32); box-shadow:0 28px 65px rgba(13,58,140,.65), inset 0 1px 0 rgba(255,255,255,.45); transition:transform .16s ease-out, box-shadow .25s ease; will-change:transform; animation:ragCardPop .42s cubic-bezier(.22,1.25,.36,1); }
+  @keyframes ragCardPop { from{opacity:0;transform:scale(.86) translateY(18px) rotateX(12deg)} to{opacity:1;transform:none} }
+  .rag-card-3d::before { content:""; position:absolute; inset:-40%; background:conic-gradient(from 45deg at 50% 50%, transparent 0deg, rgba(255,255,255,.16) 65deg, transparent 130deg, rgba(255,255,255,.12) 240deg, transparent 360deg); pointer-events:none; }
+  .rag-card-3d::after { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; opacity:0; transition:opacity .25s ease; background:radial-gradient(220px circle at var(--rx,50%) var(--ry,50%), rgba(255,255,255,.34), transparent 70%); mix-blend-mode:screen; }
+  .rag-card-3d:hover::after { opacity:1; }
+  .rag-chip { position:absolute; right:46px; top:50%; transform:translateY(-50%); width:42px; height:32px; border-radius:8px; background:linear-gradient(135deg,#F2F5F9 0%,#C5CFD9 50%,#E8EEF4 100%); border:1px solid rgba(255,255,255,.7); box-shadow:0 3px 10px rgba(0,0,0,.28); display:grid; grid-template-columns:1fr 1fr; gap:3px; padding:5px; }
+  .rag-chip i { display:block; border:1px solid rgba(80,95,112,.45); border-radius:2px; }
+  .rag-side-code { position:absolute; right:11px; top:14px; bottom:14px; writing-mode:vertical-rl; font-family:monospace; font-size:8.5px; letter-spacing:1.3px; color:rgba(165,212,255,.58); font-weight:700; line-height:1.25; user-select:none; pointer-events:none; text-align:center; }
+  .rag-sparkles { position:absolute; inset:0; pointer-events:none; color:rgba(255,255,255,.75); font-size:11px; }
+  .rag-sparkles span { position:absolute; animation:twinkleStar 2.6s ease-in-out infinite; }
+  @keyframes twinkleStar { 0%,100%{opacity:.25;transform:scale(.8)} 50%{opacity:1;transform:scale(1.25)} }
+  @media (max-width: 900px) { .chat-head { margin:6px 6px 0; } .bar-wrap { margin:0 6px 6px; } }
 </style>
 </head>
 <body>
@@ -457,7 +519,14 @@
     <div class="pin-bar" id="pin-bar"><span><svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/></svg> <strong id="pin-txt">Закреплённое сообщение</strong></span><span style="color:var(--mut);font-size:11px;">✕</span></div>
     <div class="msgs" id="msgs"></div>
     <button type="button" class="scroll-down-btn" id="b-scrolldown" title="Вниз"><svg class="ico" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></button>
-    <div id="wallet-quick" style="display:none;padding:8px 14px;border-top:1px solid var(--brd);gap:6px;flex-wrap:wrap;background:rgba(132,165,194,.06);">
+        <div id="support-quick" style="display:none;padding:8px 14px;border-top:1px solid var(--brd);gap:6px;flex-wrap:wrap;background:rgba(132,165,194,.06);">
+      <button type="button" class="pill rag" data-sq="rag">Как получить RAG?</button>
+      <button type="button" class="pill" data-sq="eft">Покупка и подарки EFT</button>
+      <button type="button" class="pill" data-sq="ver">Галочка и статус Media</button>
+      <button type="button" class="pill" data-sq="call">Звонки и безопасность</button>
+      <button type="button" class="pill gold" data-sq="adm">Позвать администратора</button>
+    </div>
+<div id="wallet-quick" style="display:none;padding:8px 14px;border-top:1px solid var(--brd);gap:6px;flex-wrap:wrap;background:rgba(132,165,194,.06);">
       <button type="button" class="pill rag" id="w-check-rag">Создать чек RAG</button>
       <button type="button" class="pill gold" id="w-check-pts">Создать чек Points</button>
       <button type="button" class="pill" id="w-bal-info">Мой баланс</button>
@@ -640,28 +709,29 @@
   <div class="box profile" id="p-panel">
     <div class="banner" id="p-banner">
       <button type="button" class="back-me" id="b-backme">← Мой профиль</button>
+      <button type="button" id="b-prof-qr" title="QR-визитка профиля" style="position:absolute;top:10px;right:10px;width:30px;height:30px;border-radius:50%;background:rgba(15,17,22,.72);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;z-index:5;color:var(--txt);"><svg class="ico-sm" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3z"/><path d="M17 17h4v4h-4z"/><path d="M14 20h2"/></svg></button>
+
       <div class="b-eft b-s0" id="bs-0"></div><div class="b-eft b-s1" id="bs-1"></div><div class="b-eft b-s2" id="bs-2"></div>
       <div class="b-eft b-s3" id="bs-3"></div><div class="b-eft b-s4" id="bs-4"></div><div class="b-eft b-s5" id="bs-5"></div>
       <div class="p-ava" id="p-ava" title="Нажмите для просмотра истории">F</div>
     </div>
-    <div style="margin-top:44px;text-align:center;padding:0 16px;">
-      <div style="font-size:19.5px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:6px;"><span id="p-name">Fox</span><span id="p-ver" class="badge">✓</span><span id="p-emo" style="display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;"></span></div>
-      <div style="font-size:12px;color:#8BB8A8;margin-top:5px;display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;"><span id="p-status-txt">● в сети</span><button type="button" class="lvl-pill" id="p-lvl" title="Прогресс уровня">Ур. 1</button><span class="prem-pill" id="p-prem">PREM</span><span class="biz-pill" id="p-biz">BUZ</span></div>
-    </div>
-
-    <div class="prof-pills">
-      <button type="button" class="tg-cap" id="p-play" title="Воспроизвести или пауза">
-        <svg class="ico-sm" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-        <div class="eq" id="p-eq"><i></i><i></i><i></i></div>
-        <span class="tr-txt" id="p-mtitle">Нет трека</span>
-        <span style="opacity:.65;">›</span>
-      </button>
-      <button type="button" class="tg-cap" id="p-rag-cap" title="Открыть Dragment">
-        <span style="color:var(--mut);">Баланс:</span>
-        <svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-        <strong id="p-rag-val">0</strong>
-        <span style="opacity:.65;">›</span>
-      </button>
+    <div class="prof-elite-card">
+      <div style="font-size:21px;font-weight:800;letter-spacing:-.3px;display:flex;align-items:center;justify-content:center;gap:6px;"><span id="p-name">Fox</span><span id="p-ver" class="badge">✓</span><span id="p-emo" style="display:inline-flex;width:20px;height:20px;align-items:center;justify-content:center;"></span></div>
+      <div style="font-size:12px;color:#8BB8A8;margin-top:6px;display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;"><span id="p-status-txt">● в сети</span><button type="button" class="lvl-pill" id="p-lvl" title="Прогресс уровня">Ур. 1</button><span class="prem-pill" id="p-prem">PREM</span><span class="biz-pill" id="p-biz">BUZ</span></div>
+      <div class="prof-pills">
+        <button type="button" class="tg-cap" id="p-play" title="Воспроизвести или пауза">
+          <svg class="ico-sm" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <div class="eq" id="p-eq"><i></i><i></i><i></i></div>
+          <span class="tr-txt" id="p-mtitle">Нет трека</span>
+          <span style="opacity:.65;">›</span>
+        </button>
+        <button type="button" class="tg-cap" id="p-rag-cap" title="Открыть карту баланса RAG">
+          <span style="color:var(--mut);">Баланс:</span>
+          <svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          <strong id="p-rag-val">0</strong>
+          <span style="opacity:.65;">›</span>
+        </button>
+      </div>
     </div>
 
     <div style="padding:10px 14px 0;display:none;gap:6px;flex-wrap:wrap;" id="dm-box">
@@ -671,7 +741,7 @@
     </div>
 
     <div class="info">
-            <div class="row" id="r-chan" style="display:none;align-items:center;gap:11px;background:rgba(132,165,194,.07);border-bottom:1px solid rgba(132,165,194,.16);">
+      <div class="row" id="r-chan" style="display:none;align-items:center;gap:11px;background:rgba(132,165,194,.07);border-bottom:1px solid rgba(132,165,194,.16);">
         <div class="ava" id="p-chan-ava" style="width:42px;height:42px;border-radius:50%;font-size:18px;border:1.5px solid var(--accent);">📢</div>
         <div style="min-width:0;flex:1;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:6px;">
@@ -682,12 +752,25 @@
         </div>
         <span style="color:var(--accent);font-size:16px;font-weight:700;">›</span>
       </div>
-      <div class="row" id="r-num"><div style="font-size:13.5px;font-weight:600;" id="p-num">+8 900 000-00</div><div style="font-size:11px;color:var(--mut);" id="p-num-lbl">Обыкновенный номер</div></div>
-      <div class="row" id="r-tag"><div style="font-size:13.5px;color:var(--accent);font-weight:700;" id="p-tag">@user</div><div class="extra-tags" id="p-extra"></div><div style="font-size:11px;color:var(--mut);margin-top:2px;">Имя пользователя</div></div>
-      <div class="row"><div style="font-size:13.5px;line-height:1.4;" id="p-bio">Пользователь Foxigram</div><div style="font-size:11px;color:var(--mut);">О себе</div></div>
-      <div class="row" id="r-ceo-ver" style="display:none;align-items:center;gap:10px;cursor:default;"><svg class="ico" style="width:19px;height:19px;stroke:var(--accent);" viewBox="0 0 24 24"><path d="M4 3l4 5h8l4-5 1 9-9 9-9-9 1-9z"/><path d="M9 13l1.5 1.5"/><path d="M15 13l-1.5 1.5"/></svg><div style="font-size:12px;color:var(--mut);line-height:1.35;" id="p-org-txt">Данный пользователь верифицирован организацией «CEO»</div></div>
+      <div class="row prof-clean-row" id="r-num">
+        <div class="prof-row-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 2 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div style="min-width:0;flex:1;"><div style="font-size:13.5px;font-weight:700;" id="p-num">+8 900 000-00</div><div class="prof-lbl" id="p-num-lbl">Обыкновенный номер</div></div>
+      </div>
+      <div class="row prof-clean-row" id="r-tag">
+        <div class="prof-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg></div>
+        <div style="min-width:0;flex:1;"><div style="font-size:13.5px;color:var(--accent);font-weight:700;" id="p-tag">@user</div><div class="extra-tags" id="p-extra"></div><div class="prof-lbl">Имя пользователя</div></div>
+      </div>
+      <div class="row prof-clean-row" style="cursor:default;">
+        <div class="prof-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div>
+        <div style="min-width:0;flex:1;"><div style="font-size:13.5px;line-height:1.45;" id="p-bio">Пользователь Foxigram</div><div class="prof-lbl">О себе</div></div>
+      </div>
+      <div class="row prof-clean-row" id="r-ceo-ver" style="display:none;cursor:default;">
+        <div class="prof-row-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+        <div style="font-size:12px;color:var(--mut);line-height:1.35;min-width:0;flex:1;" id="p-org-txt">Данный пользователь верифицирован организацией «CEO»</div>
+      </div>
     </div>
-    <div style="padding:2px 16px 10px;font-size:11.5px;font-weight:700;color:var(--mut);letter-spacing:.4px;">КОЛЛЕКЦИЯ EFT (<span id="e-cnt">0</span>)</div>
+    <div class="prof-sec-head"><span>КОЛЛЕКЦИЯ EFT</span><span style="color:var(--accent);" id="e-cnt">0</span></div>
+
     <div class="grid" id="e-grid"></div>
   </div>
 </div>
@@ -699,6 +782,65 @@
 <div class="modal" id="m-asset"><div class="m-box"><button type="button" id="m-close-as" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div id="as-card" style="width:96px;height:96px;margin:0 auto 10px;border-radius:24px;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#252B36,#13161C);border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden;"></div><h3 id="as-title">Анонимный номер телефона</h3><div id="as-val" style="font-size:16px;font-weight:800;color:var(--accent);margin:4px 0 2px;">+555 555-55</div><div id="as-price" style="font-size:12px;color:var(--gold);margin-bottom:10px;">Оценка: 500 RAG</div><div class="info" style="margin:0 0 10px;text-align:left;"><div class="row"><div id="as-hash" style="font-size:11px;word-break:break-all;color:var(--mut);">0x...</div><div style="font-size:10.5px;color:var(--mut);">SHA-хеш актива</div></div><div class="row"><div id="as-hist" style="font-size:12px;">Зарегистрирован в сети Dragment</div><div style="font-size:10.5px;color:var(--mut);">Статус владения</div></div></div><div style="display:flex;gap:6px;margin-bottom:8px;"><button type="button" class="pill" style="flex:1;justify-content:center;" id="as-copy">Скопировать</button><button type="button" class="pill rag" style="flex:1;justify-content:center;display:none;" id="as-make-main">Сделать основным</button></div><div id="as-gift-box" style="display:none;border-top:1px solid var(--brd);padding-top:10px;"><div style="font-size:11px;color:var(--mut);margin-bottom:6px;">Безопасная передача в подарок (зачисление через 24 часа):</div><div style="display:flex;gap:6px;"><input type="text" id="as-gift-to" placeholder="Введите @юзернейм..." style="flex:1;padding:8px 12px;font-size:12px;"><button type="button" class="btn-main" style="width:auto;padding:8px 14px;font-size:12px;" id="as-gift-go">Подарить</button></div></div></div></div>
 
 <!-- Карточка прогресса уровня (1–150) -->
+<!-- 3D-карта баланса RAG -->
+<!-- QR-визитка профиля Foxigram ID -->
+<div class="modal" id="m-qr" style="z-index:126;">
+  <div class="m-box" style="max-width:340px;background:linear-gradient(160deg,#181C24 0%,#0F1117 100%);border-color:rgba(255,255,255,.14);padding:24px 20px;">
+    <button type="button" id="m-close-qr" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button>
+    <div style="font-size:10.5px;font-weight:800;letter-spacing:1.2px;color:var(--accent);margin-bottom:12px;">FOXIGRAM ID • PASS</div>
+    <div id="qr-card-frame" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:18px;margin:0 auto 14px;position:relative;">
+      <div style="position:relative;width:196px;height:196px;margin:0 auto;border-radius:20px;background:#111317;padding:10px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;">
+        <canvas id="qr-canvas" width="176" height="176" style="border-radius:12px;display:block;"></canvas>
+        <div id="qr-center-ava" style="position:absolute;width:44px;height:44px;border-radius:50%;background:#161920;border:2.5px solid #111317;box-shadow:0 0 0 2px var(--accent);display:flex;align-items:center;justify-content:center;font-size:19px;background-size:cover;background-position:center;">🦊</div>
+      </div>
+      <div style="margin-top:12px;font-size:17px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:5px;"><span id="qr-name">Fox</span><span id="qr-ver" class="badge">✓</span></div>
+      <div id="qr-tag" style="font-size:13px;font-weight:700;color:var(--accent);margin-top:2px;">@fox</div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button type="button" class="btn-main" id="qr-copy-btn" style="flex:1;">Скопировать @тег</button>
+      <button type="button" class="pill" id="qr-tint-btn" style="padding:11px 14px;" title="Сменить оттенок QR">Цвет</button>
+    </div>
+  </div>
+</div>
+<div class="modal" id="m-ragcard" style="z-index:125;">
+  <div style="width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;z-index:2;">
+    <div class="rag-card-3d" id="rag-card-3d">
+      <div class="rag-sparkles">
+        <span style="top:18%;left:34%;animation-delay:0s;">✦</span>
+        <span style="top:64%;left:14%;animation-delay:.7s;">+</span>
+        <span style="top:56%;left:26%;animation-delay:1.3s;">✦</span>
+        <span style="top:78%;left:76%;animation-delay:.4s;">+</span>
+        <span style="top:22%;left:62%;animation-delay:1.1s;">✦</span>
+      </div>
+      <div style="position:relative;z-index:2;margin-top:16px;">
+        <div style="display:flex;align-items:center;gap:9px;">
+          <svg style="width:28px;height:28px;fill:#FFFFFF;filter:drop-shadow(0 2px 8px rgba(0,0,0,.25));" viewBox="0 0 24 24"><polygon points="12 2 22 9 12 22 2 9"/></svg>
+          <span style="font-size:27px;font-weight:800;color:#FFFFFF;letter-spacing:-.5px;" id="rc-amt">0</span>
+          <span style="font-size:21px;font-weight:500;color:rgba(255,255,255,.85);">RAG</span>
+        </div>
+        <div style="font-size:13.5px;color:rgba(255,255,255,.78);font-weight:600;margin-top:3px;padding-left:2px;" id="rc-pts">≈ 0 Points</div>
+      </div>
+      <div style="position:relative;z-index:2;display:flex;align-items:center;gap:4px;">
+        <span style="font-size:14.5px;font-weight:800;letter-spacing:.9px;color:#FFFFFF;text-transform:uppercase;" id="rc-owner">FOX</span>
+        <span style="color:#93C5FD;font-size:12px;transform:translateY(-5px);">✦</span>
+      </div>
+      <div class="rag-chip"><i></i><i></i><i></i><i></i></div>
+      <div class="rag-side-code" id="rc-code">UQDN GHB2 XYMA MZOK<br>LTAY 9J2C XGHJ _VM1</div>
+    </div>
+        <div id="rc-colors" style="display:none;align-items:center;justify-content:center;gap:10px;padding:7px 14px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);">
+      <span style="font-size:11px;color:var(--mut);font-weight:600;">Цвет карты:</span>
+      <button type="button" class="rc-dot" data-rc="blue" style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#2B84F6,#0D3A8C);border:2px solid #fff;" title="Сапфир"></button>
+      <button type="button" class="rc-dot" data-rc="black" style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#2D333F,#0B0D12);border:1.5px solid rgba(255,255,255,.35);" title="Чёрный обсидиан"></button>
+      <button type="button" class="rc-dot" data-rc="gold" style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#D4AF37,#6E5214);border:1.5px solid rgba(255,255,255,.35);" title="Королевское золото"></button>
+      <button type="button" class="rc-dot" data-rc="purple" style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#8B5CF6,#3B0764);border:1.5px solid rgba(255,255,255,.35);" title="Аметист"></button>
+      <button type="button" class="rc-dot" data-rc="emerald" style="width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#10B981,#064E3B);border:1.5px solid rgba(255,255,255,.35);" title="Изумруд"></button>
+    </div>
+<div style="display:flex;gap:8px;width:100%;max-width:360px;">
+      <button type="button" class="btn-main" id="rc-go-drag" style="flex:1;">Открыть Dragment →</button>
+      <button type="button" class="pill" id="rc-close" style="padding:11px 18px;">Закрыть</button>
+    </div>
+  </div>
+</div>
 <div class="modal" id="m-lvl"><div class="m-box" style="max-width:360px;"><button type="button" id="m-close-lvl" style="position:absolute;top:16px;right:18px;font-size:17px;color:var(--mut);">✕</button><div style="display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:18px;background:var(--pill-bg);border:1px solid rgba(132,165,194,.3);color:var(--accent);font-size:20px;font-weight:800;margin-bottom:8px;" id="lvl-num-big">1</div><h3 id="lvl-title">Уровень 1 из 150</h3><p id="lvl-rem" style="font-size:12.5px;color:var(--accent);font-weight:600;margin:6px 0 10px;">До следующего уровня осталось потратить: 1 000 Points</p><div style="height:8px;border-radius:99px;background:rgba(255,255,255,.07);overflow:hidden;margin-bottom:12px;"><div id="lvl-bar" style="height:100%;width:0%;background:var(--accent);border-radius:99px;transition:width .35s ease;"></div></div><div style="font-size:12px;color:var(--mut);line-height:1.45;text-align:left;background:rgba(255,255,255,.03);border:1px solid var(--brd);padding:11px 13px;border-radius:14px;"><strong>Как повышать уровень:</strong><br>Уровень растёт автоматически при трате Points на покупку EFT, рамок аватара, подписок Premium и Business, апгрейды и обмен на RAG в Dragment.</div></div></div>
 
 <!-- Окно «О проекте» -->
@@ -1054,18 +1196,31 @@ const SHOP_TAGS=[
   {t:"@dark",p:220},{t:"@fire",p:200},{t:"@zero",p:180},{t:"@moon",p:160},{t:"@aura",p:150},
   {t:"@soul",p:145},{t:"@void",p:140},{t:"@echo",p:135},{t:"@apex",p:130},{t:"@nova",p:125},
   {t:"@onyx",p:120},{t:"@mist",p:115},{t:"@noir",p:110},{t:"@dusk",p:105},{t:"@zenith",p:95},
-  {t:"@shadow",p:90},{t:"@phantom",p:85},{t:"@cipher",p:80},{t:"@ghost",p:75},{t:"@frost",p:70}
+  {t:"@shadow",p:90},{t:"@phantom",p:85},{t:"@cipher",p:80},{t:"@ghost",p:75},{t:"@frost",p:70},
+  {t:"@lux",p:500},{t:"@ace",p:480},{t:"@one",p:470},{t:"@rex",p:460},{t:"@pro",p:450},
+  {t:"@sky",p:440},{t:"@ray",p:430},{t:"@neo",p:420},{t:"@zen",p:410},{t:"@max",p:400},
+  {t:"@cash",p:390},{t:"@bank",p:380},{t:"@rich",p:370},{t:"@duke",p:360},{t:"@ion",p:350},
+  {t:"@khan",p:340},{t:"@tsar",p:330},{t:"@luna",p:310},{t:"@mars",p:300},{t:"@zeus",p:295},
+  {t:"@odin",p:285},{t:"@thor",p:275},{t:"@ares",p:265},{t:"@loki",p:255},{t:"@knox",p:245},
+  {t:"@vibe",p:235},{t:"@hype",p:225},{t:"@flow",p:210},{t:"@flex",p:195},{t:"@storm",p:185},
+  {t:"@blade",p:170},{t:"@cyber",p:155},{t:"@titan",p:140},{t:"@pulse",p:120},{t:"@drift",p:100}
 ];
 
 const VIP_NUMS=[
-  {n:"+555 777-77",p:750,d:"Семёрки"},{n:"+555 888-88",p:650,d:"Бесконечность"},{n:"+555 999-99",p:600,d:"Максимум"},
-  {n:"+555 111-11",p:550,d:"Единицы"},{n:"+555 666-66",p:500,d:"Мистика"},{n:"+555 123-45",p:480,d:"Порядок"},
-  {n:"+555 222-22",p:475,d:"Двойки"},{n:"+555 333-33",p:470,d:"Тройки"},{n:"+555 444-44",p:465,d:"Четвёрки"},
-  {n:"+555 500-00",p:460,d:"Ровная пятисотка"},{n:"+555 700-00",p:460,d:"Семьсот"},{n:"+555 900-00",p:460,d:"Девятьсот"},
-  {n:"+555 101-01",p:455,d:"Двоичный код"},{n:"+555 202-02",p:455,d:"Зеркальный"},{n:"+555 303-03",p:455,d:"Ритм"},
-  {n:"+555 404-04",p:455,d:"Не найдено"},{n:"+555 505-05",p:455,d:"Симметрия"},{n:"+555 707-07",p:455,d:"Агент"},
-  {n:"+555 808-08",p:450,d:"Классика"},{n:"+555 909-09",p:450,d:"Баланс"}
+  {n:"+555 777-77",p:900,d:"Абсолютные семёрки"},{n:"+555 888-88",p:870,d:"Бесконечность"},{n:"+555 999-99",p:840,d:"Максимум"},
+  {n:"+555 111-11",p:810,d:"Единицы"},{n:"+555 001-01",p:780,d:"Первый код"},{n:"+555 666-66",p:750,d:"Мистика"},
+  {n:"+555 123-45",p:720,d:"Идеальный порядок"},{n:"+555 543-21",p:700,d:"Обратный отсчёт"},{n:"+555 777-00",p:680,d:"Счастливый ноль"},
+  {n:"+555 888-00",p:660,d:"Восемьсот восемьдесят"},{n:"+555 222-22",p:640,d:"Двойки"},{n:"+555 333-33",p:630,d:"Тройки"},
+  {n:"+555 444-44",p:620,d:"Четвёрки"},{n:"+555 500-00",p:600,d:"Ровная пятисотка"},{n:"+555 700-00",p:590,d:"Семьсот"},
+  {n:"+555 900-00",p:580,d:"Девятьсот"},{n:"+555 121-21",p:560,d:"Ритмичный"},{n:"+555 343-43",p:550,d:"Парный"},
+  {n:"+555 101-01",p:540,d:"Двоичный код"},{n:"+555 202-02",p:535,d:"Зеркальный"},{n:"+555 303-03",p:530,d:"Ритм"},
+  {n:"+555 404-04",p:525,d:"Не найдено"},{n:"+555 505-05",p:520,d:"Симметрия"},{n:"+555 707-07",p:515,d:"Агент"},
+  {n:"+555 808-08",p:510,d:"Классика"},{n:"+555 909-09",p:505,d:"Баланс"},{n:"+555 250-50",p:495,d:"Четверть"},
+  {n:"+555 612-12",p:490,d:"Двойной"},{n:"+555 840-40",p:485,d:"Стильный"},{n:"+555 418-18",p:480,d:"Аккуратный"},
+  {n:"+555 731-31",p:475,d:"Лёгкий"},{n:"+555 529-29",p:470,d:"Симметричный"},{n:"+555 684-48",p:465,d:"Отражение"},
+  {n:"+555 392-92",p:460,d:"Базовый"},{n:"+555 917-117",p:450,d:"Стартовый"}
 ];
+
 
 const RENT_CATALOG=[
   {id:'r1',kind:'tag',val:'@lord',d1:15,d3:40,d15:150},{id:'r2',kind:'tag',val:'@wolf',d1:12,d3:32,d15:120},
@@ -1152,9 +1307,9 @@ const st={
   replyTo:null,editIdx:null,fwdMsg:null,delaySec:0,cSearch:'',supUser:'',
   accounts:{fox:{pass:'',profile:makeUser('fox')}},
   chats:[
-    {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:1840,pin:'Добро пожаловать в Foxigram 2.0!',boosts:12},
-    {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:1612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 2.0: 55 векторных EFT, опросы, система уровней и Dragment.',boosts:48},
-    {id:'portalfox',name:'Портал Fox',type:'channel',icon:'🦊',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#FOX0',desc:'Личный портал создателя: неофициально про жизнь, разработку и будущие планы.',subs:900,fee:0,feeCur:'RAG',pin:'Добро пожаловать в мой личный портал!',boosts:35},
+    {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:10671,pin:'Добро пожаловать в Foxigram 2.0!',boosts:12},
+    {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:6612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 2.0: 55 векторных EFT, опросы, система уровней и Dragment.',boosts:48},
+    {id:'portalfox',name:'Портал Fox',type:'channel',icon:'🦊',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#FOX0',desc:'Личный портал создателя: неофициально про жизнь, разработку и будущие планы.',subs:2548,fee:0,feeCur:'RAG',pin:'Добро пожаловать в мой личный портал!',boosts:35},
     {id:'wallet',name:'Foxigram Wallet',type:'private',icon:'💳',avaImg:'',ver:true,vc:'red',own:'wallet',code:'#WLT0',desc:'Официальный кошелёк и уведомления о сделках.',pin:'',boosts:0},
     {id:'support',name:'Foxigram Support',type:'private',icon:'🛡️',avaImg:'',ver:true,vc:'blue',own:'support',code:'#SUP0',desc:'Официальная служба поддержки Foxigram.',pin:'',boosts:0},
     {id:'foxbot',name:'FoxBot • Игры',type:'private',icon:'🤖',avaImg:'',ver:true,vc:'blue',own:'bot',code:'#BOT0',desc:'Мини-игры на Points.',pin:'Напишите: кости или монетка (ставка 50 Points)',boosts:0},
@@ -1271,7 +1426,7 @@ function mergeBaseChats(){
   base.forEach(b=>{
     const ex=st.chats.find(x=>x.id===b.id);
     if(!ex)st.chats.push(b);
-    else{if(b.id==='news'&&ex.subs<1612)ex.subs=1612;if(b.id==='portalfox'&&ex.subs<900)ex.subs=900;if(!ex.code)ex.code=b.code;}
+        else{if(b.id==='global'&&ex.subs<10671)ex.subs=10671;if(b.id==='news'&&ex.subs<6612)ex.subs=6612;if(b.id==='portalfox'&&ex.subs<2548)ex.subs=2548;if(!ex.code)ex.code=b.code;}
     if(!st.msgs[b.id])st.msgs[b.id]=[];
   });
 }
@@ -1627,7 +1782,7 @@ function drawProfile(){
   const stKey=u.status||(u.eq?u.eq.artKey:'');
   emoEl.innerHTML=stKey?eftArt(stKey,20):'';
   const g=document.getElementById('e-grid');g.innerHTML='';
-  const rawList=isMe?u.efts:u.efts.filter(x=>x.owned);
+  const rawList=u.efts.filter(x=>x.owned);
   const list=[...rawList].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0));
   if(!list.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;color:var(--mut);font-size:12px;padding:16px;">Нет открытых EFT</div>';return;}
   list.forEach(e=>{
@@ -1798,6 +1953,7 @@ const pollBtn=document.getElementById('b-poll');
   };
 
   document.getElementById('wallet-quick').style.display=(c.id==='wallet')?'flex':'none';
+  document.getElementById('support-quick').style.display=(c.id==='support'&&st.u.tag!=='@fox')?'flex':'none';
   document.getElementById('c-bar-wrap').style.display=(c.type==='channel'&&c.own!==st.u.tag)?'none':'block';
   const pb=document.getElementById('pin-bar');
   if(c.pin){pb.style.display='flex';document.getElementById('pin-txt').textContent=c.pin;}else{pb.style.display='none';}
@@ -2105,7 +2261,25 @@ function send(extra={}){
   inp.value='';document.getElementById('emo-box').style.display='none';
   playSfx('send');
 
-  if(st.cid==='foxbot'&&t){
+    if(st.cid==='support'&&st.u.tag!=='@fox'&&t){
+    const low=t.toLowerCase();
+    let botReply='';
+    if(low.includes('rag')||low.includes('раг')||low.includes('обмен')){
+      botReply='Валюту RAG можно получить в разделе Dragment (меню слева → Dragment): обменяйте Points по курсу 75 Points = 1 RAG или продайте свои EFT, теги и номера +555 на P2P-маркете.';
+    }else if(low.includes('eft')||low.includes('ефт')||low.includes('подар')){
+      botReply='Коллекционные EFT покупаются в Магазине за Points, а эксклюзивы на Pure Black и Onyx Black — в Dragment за RAG. Чтобы подарить или закрепить EFT на баннер, просто нажмите на него в своём профиле.';
+    }else if(low.includes('галоч')||low.includes('медиа')||low.includes('media')||low.includes('вериф')){
+      botReply='Синяя, розовая (Media) и красная галочки выдаются авторам каналов, медийным резидентам и владельцам Foxigram Business. Ваш запрос уже передан администратору — ожидайте ответа в этом чате!';
+      walletNotify('@fox','Новый запрос на верификацию/Media в Support от '+st.u.tag+': «'+t+'»');
+    }else if(low.includes('звон')||low.includes('пин')||low.includes('pin')||low.includes('безопас')){
+      botReply='Аудио- и видеозвонки доступны в шапке любого личного чата (кнопки трубки и камеры). Установить 4-значный PIN-код на вход можно в разделе «Настройки → Конфиденциальность».';
+    }else{
+      botReply='Ваш тикет принят и передан администратору @fox! Ожидайте живого ответа прямо в этом диалоге.';
+      walletNotify('@fox','Новый тикет в Foxigram Support от '+st.u.tag+': «'+t+'»');
+    }
+    st.msgs[mKey].push({id:'ms'+Date.now(),s:'@support',v:true,vc:'blue',n:'BOT • SUPPORT',t:botReply,img:'',time,r:{},com:[],don:0});
+  }
+if(st.cid==='foxbot'&&t){
     const low=t.toLowerCase();
     if(low.includes('кости')||low.includes('монетка')){
       if(st.u.pts<50){st.msgs.foxbot.push({id:'mf'+Date.now(),s:'@FoxBot',v:true,vc:'blue',n:'BOT',t:'Нужно минимум 50 Points для ставки.',img:'',time,r:{},com:[],don:0});}
@@ -2146,11 +2320,15 @@ function drawShop(){
       const d=document.createElement('div');d.className='s-card';d.style.background=e.bg;
       d.innerHTML=patHtml(e.pat)+'<div><div style="font-size:10px;color:rgba(255,255,255,.78);font-weight:700;">'+(e.lim?'★ ЛИМИТИРОВАННОЕ • ':'')+e.ser+'</div><div style="margin:4px 0;">'+eftArt(e.artKey,46)+'</div><div style="font-weight:700;">'+e.title+'</div></div><div style="display:flex;gap:6px;"><button type="button" class="'+(e.owned?'pill':'btn-main')+' b-buy-eft" style="flex:1;padding:9px 8px;font-size:12px;">'+(e.owned?'Открыто ✓':('Купить ('+e.price+')'))+'</button><button type="button" class="pill b-gift-shop" style="padding:9px 10px;font-size:12px;background:rgba(0,0,0,.32);border-color:rgba(255,255,255,.22);" title="Подарить игроку">Подарить</button></div>';
       d.querySelector('.b-buy-eft').onclick=()=>{
-        if(e.owned)return alert('Уже в коллекции!');
-        if(st.u.pts<e.price)return alert('Недостаточно Points!');
-        spendPts(st.u,e.price);e.owned=true;e.hist='Приобретён '+st.u.tag;
-        st.viewU=null;saveState();drawProfile();drawShop();alert('EFT «'+e.title+'» ('+e.ser+') добавлен в профиль!');
+        const curE=st.u.efts.find(x=>x.title===e.title)||e;
+        if(curE.owned)return alert('Уже в коллекции!');
+        if(st.u.pts<curE.price)return alert('Недостаточно Points!');
+        spendPts(st.u,curE.price);curE.owned=true;curE.hist='Приобретён '+st.u.tag;
+        const pos=st.u.efts.indexOf(curE);if(pos>0){st.u.efts.splice(pos,1);st.u.efts.unshift(curE);}
+        st.viewU=null;saveState();drawProfile();drawShop();setMobTab('prof');
+        alert('EFT «'+curE.title+'» ('+curE.ser+') добавлен в профиль!');
       };
+
       d.querySelector('.b-gift-shop').onclick=()=>{
         if(st.u.pts<e.price)return alert('Недостаточно Points для покупки в подарок! Нужно '+e.price+' Points.');
         const raw=prompt('Кому подарить «'+e.title+'» за '+e.price+' Points? Введите @юзернейм:');
@@ -2328,8 +2506,9 @@ function drawDrag(){
       dg.appendChild(d);
     });
   }else if(tab==='tags'){
-    SHOP_TAGS.forEach(x=>{
+    SHOP_TAGS.filter(x=>!findUserByTag(x.t)).forEach(x=>{
       const ow=st.u.extraTags.includes(x.t)||st.u.tag===x.t;
+
       const d=document.createElement('div');d.className='s-card';
       d.innerHTML='<div><div style="font-size:18px;font-weight:700;color:var(--accent);">'+x.t+'</div><div style="font-size:11.5px;color:var(--mut);margin-top:3px;">Коллекционный юзернейм</div></div><button type="button" class="'+(ow?'pill':'btn-main')+'">'+(ow?'В коллекции ✓':('Купить ('+x.p+' RAG)'))+'</button>';
       d.querySelector('button').onclick=()=>{
@@ -2342,7 +2521,8 @@ function drawDrag(){
       dg.appendChild(d);
     });
   }else{
-    VIP_NUMS.forEach(it=>{
+   const takenNums=new Set(Object.values(st.accounts).flatMap(a=>(a.profile&&a.profile.nums)||[]));
+VIP_NUMS.filter(it=>st.u.nums.includes(it.n)||!takenNums.has(it.n)).forEach(it=>{
       const ow=st.u.nums.includes(it.n);
       const d=document.createElement('div');d.className='s-card';
       d.innerHTML='<div><div style="font-size:16px;font-weight:700;color:var(--accent);">'+it.n+'</div><div style="font-size:11.5px;color:var(--mut);margin-top:3px;">'+it.d+'</div></div><button type="button" class="'+(ow?'pill':'btn-main')+'">'+(ow?'Куплено ✓':('Купить ('+it.p+' RAG)'))+'</button>';
@@ -2468,6 +2648,64 @@ document.getElementById('ab-open-fox').onclick=()=>{document.getElementById('m-a
 document.getElementById('m-close-fwd').onclick=()=>document.getElementById('m-fwd').style.display='none';
 document.getElementById('m-close-as').onclick=()=>document.getElementById('m-asset').style.display='none';
 document.getElementById('m-close-lvl').onclick=()=>document.getElementById('m-lvl').style.display='none';
+const QR_TINTS=['#84A5C2','#C2A574','#7AA88E','#A195BF','#E6E9EF'];
+let qrTintIdx=0;
+function renderUserQr(tagStr){
+  const cv=document.getElementById('qr-canvas');if(!cv)return;
+  const ctx=cv.getContext('2d'),sz=176,cells=21,step=sz/cells;
+  const col=QR_TINTS[qrTintIdx%QR_TINTS.length];
+  ctx.clearRect(0,0,sz,sz);
+  let seed=0;
+  for(let i=0;i<tagStr.length;i++)seed=((seed<<5)-seed)+tagStr.charCodeAt(i);
+  const rnd=()=>{seed=(seed*1664525+1013904223)>>>0;return(seed/4294967296);};
+  const drawFinder=(gx,gy)=>{
+    ctx.fillStyle=col;
+    ctx.beginPath();ctx.roundRect(gx*step,gy*step,7*step,7*step,6);ctx.fill();
+    ctx.fillStyle='#111317';
+    ctx.beginPath();ctx.roundRect((gx+1)*step,(gy+1)*step,5*step,5*step,4);ctx.fill();
+    ctx.fillStyle=col;
+    ctx.beginPath();ctx.roundRect((gx+2)*step,(gy+2)*step,3*step,3*step,2);ctx.fill();
+  };
+  drawFinder(0,0);drawFinder(cells-7,0);drawFinder(0,cells-7);
+  ctx.fillStyle=col;
+  for(let y=0;y<cells;y++){
+    for(let x=0;x<cells;x++){
+      if((x<8&&y<8)||(x>=cells-8&&y<8)||(x<8&&y>=cells-8))continue;
+      if(x>=7&&x<=13&&y>=7&&y<=13)continue;
+      if(rnd()>0.48){
+        ctx.beginPath();
+        ctx.roundRect(x*step+1.2,y*step+1.2,step-2.4,step-2.4,2.2);
+        ctx.fill();
+      }
+    }
+  }
+}
+document.getElementById('b-prof-qr').onclick=e=>{
+  e.stopPropagation();
+  const target=st.viewU||st.u;
+  document.getElementById('qr-name').textContent=target.display;
+  document.getElementById('qr-tag').textContent=target.tag;
+  const qv=document.getElementById('qr-ver');
+  qv.style.display=target.ver?'inline-flex':'none';
+  qv.className=badgeCls(target.verColor);
+  const qa=document.getElementById('qr-center-ava');
+  if(target.avaImg){qa.textContent='';qa.style.backgroundImage='url('+target.avaImg+')';}
+  else{qa.style.backgroundImage='';qa.textContent=target.ava||'🦊';}
+  renderUserQr(target.tag);
+  document.getElementById('m-qr').style.display='flex';
+};
+document.getElementById('m-close-qr').onclick=()=>document.getElementById('m-qr').style.display='none';
+document.getElementById('qr-tint-btn').onclick=()=>{
+  qrTintIdx++;
+  const target=st.viewU||st.u;
+  renderUserQr(target.tag);
+};
+document.getElementById('qr-copy-btn').onclick=()=>{
+  const target=st.viewU||st.u;
+  navigator.clipboard.writeText(target.tag+' • Foxigram ID');
+  alert('Визитка скопирована: '+target.tag);
+};
+
 document.getElementById('c-head-info').onclick=()=>{
   const c=st.chats.find(x=>x.id===st.cid);
   if(!c||c.type==='private')return;
@@ -2939,6 +3177,18 @@ document.getElementById('w-check-pts').onclick=()=>{
   saveState();drawProfile();drawMsgs();
 };
 document.getElementById('w-bal-info').onclick=()=>walletNotify(st.u.tag,'Ваш текущий баланс: '+st.u.pts.toLocaleString()+' Points и '+(st.u.rag||0).toLocaleString()+' RAG.');
+const SUP_FAQ={
+  rag:'Как получить и обменять RAG?',
+  eft:'Как покупать, улучшать и дарить EFT?',
+  ver:'Как получить галочку верификации или статус Media?',
+  call:'Как работают звонки и защита PIN-кодом?',
+  adm:'Здравствуйте! Нужна помощь администратора по личному вопросу.'
+};
+document.querySelectorAll('#support-quick button').forEach(b=>b.onclick=()=>{
+  const q=SUP_FAQ[b.dataset.sq];if(!q)return;
+  document.getElementById('inp').value=q;send();
+});
+
 
 function getDmId(t1,t2,isSec=false){
   const u1=t1.replace(/^@/,'').trim().toLowerCase();
@@ -3038,7 +3288,63 @@ document.getElementById('b-backme').onclick=e=>{e.stopPropagation();st.viewU=nul
 document.getElementById('b-send').onclick=()=>send();document.getElementById('inp').onkeydown=e=>{if(e.key==='Enter')send();};
 document.getElementById('b-bal').onclick=()=>{showView('shop');setMobTab('view');};
 document.getElementById('b-rag').onclick=()=>{showView('drag');setMobTab('view');};
-document.getElementById('p-rag-cap').onclick=()=>{showView('drag');setMobTab('view');};
+function genRagCardCode(){
+  const ch='ABCDEFGHJKLMNPQRSTUVWXYZ23456789_';
+  const blk=()=>Array.from({length:4},()=>ch[Math.floor(Math.random()*ch.length)]).join('');
+  return blk()+' '+blk()+' '+blk()+' '+blk()+'<br>'+blk()+' '+blk()+' '+blk()+' '+blk();
+}
+const RAG_CARD_THEMES={
+  blue:{bg:'radial-gradient(circle at 28% 35%, #2B84F6 0%, #1558C4 52%, #0D3A8C 100%)',sh:'0 28px 65px rgba(13,58,140,.65), inset 0 1px 0 rgba(255,255,255,.45)'},
+  black:{bg:'radial-gradient(circle at 28% 35%, #2E3440 0%, #161920 55%, #090B0E 100%)',sh:'0 28px 65px rgba(0,0,0,.85), inset 0 1px 0 rgba(255,255,255,.32)'},
+  gold:{bg:'radial-gradient(circle at 28% 35%, #DFB858 0%, #9E7823 52%, #59410C 100%)',sh:'0 28px 65px rgba(158,120,35,.55), inset 0 1px 0 rgba(255,255,255,.5)'},
+  purple:{bg:'radial-gradient(circle at 28% 35%, #9333EA 0%, #581C87 52%, #2E1065 100%)',sh:'0 28px 65px rgba(88,28,135,.65), inset 0 1px 0 rgba(255,255,255,.45)'},
+  emerald:{bg:'radial-gradient(circle at 28% 35%, #10B981 0%, #047857 52%, #064E3B 100%)',sh:'0 28px 65px rgba(4,120,87,.6), inset 0 1px 0 rgba(255,255,255,.45)'}
+};
+function applyRagCardTheme(thKey){
+  const th=RAG_CARD_THEMES[thKey]||RAG_CARD_THEMES.blue;
+  const card=document.getElementById('rag-card-3d');
+  card.style.background=th.bg;
+  card.style.boxShadow=th.sh;
+  document.querySelectorAll('.rc-dot').forEach(b=>{
+    b.style.border=(b.dataset.rc===(thKey||'blue'))?'2px solid #FFFFFF':'1.5px solid rgba(255,255,255,.35)';
+    b.style.transform=(b.dataset.rc===(thKey||'blue'))?'scale(1.18)':'scale(1)';
+  });
+}
+document.querySelectorAll('.rc-dot').forEach(b=>b.onclick=()=>{
+  if(st.viewU&&st.viewU!==st.u)return;
+  st.u.ragCardColor=b.dataset.rc;
+  applyRagCardTheme(st.u.ragCardColor);
+  saveState();
+});
+document.getElementById('p-rag-cap').onclick=()=>{
+  const target=st.viewU||st.u,isMe=(target===st.u);
+  const ragVal=target.rag||0;
+  document.getElementById('rc-amt').textContent=ragVal.toLocaleString();
+  document.getElementById('rc-pts').textContent='≈ '+(ragVal*75).toLocaleString()+' Points';
+  document.getElementById('rc-owner').textContent=(target.display||target.tag.replace('@','')).toUpperCase();
+  document.getElementById('rc-code').innerHTML=genRagCardCode();
+  document.getElementById('rc-colors').style.display=isMe?'flex':'none';
+  applyRagCardTheme(target.ragCardColor||'blue');
+  const card=document.getElementById('rag-card-3d');
+  card.style.transform='';
+  document.getElementById('m-ragcard').style.display='flex';
+};
+
+document.getElementById('rc-close').onclick=()=>document.getElementById('m-ragcard').style.display='none';
+document.getElementById('rc-go-drag').onclick=()=>{document.getElementById('m-ragcard').style.display='none';showView('drag');setMobTab('view');};
+const rcEl=document.getElementById('rag-card-3d');
+if(rcEl){
+  rcEl.onmousemove=e=>{
+    const r=rcEl.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-0.5;
+    const y=(e.clientY-r.top)/r.height-0.5;
+    rcEl.style.setProperty('--rx',((x+0.5)*100).toFixed(0)+'%');
+    rcEl.style.setProperty('--ry',((y+0.5)*100).toFixed(0)+'%');
+    rcEl.style.transform=`perspective(850px) rotateY(${(x*32).toFixed(1)}deg) rotateX(${(-y*32).toFixed(1)}deg) scale(1.04)`;
+  };
+  rcEl.onmouseleave=()=>{rcEl.style.transform='';};
+}
+
 document.getElementById('b-back1').onclick=()=>{showView('chat');setMobTab('chat');};
 document.getElementById('b-back2').onclick=()=>{showView('chat');setMobTab('chat');};
 document.getElementById('b-back3').onclick=()=>{showView('chat');setMobTab('chat');};
