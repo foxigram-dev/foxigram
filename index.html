@@ -1015,6 +1015,13 @@
 <audio id="aud"></audio>
 <audio id="v-aud"></audio>
 <script>
+async function hashPass(raw){
+  if(!raw)return '';
+  if(raw.startsWith('h_')&&raw.length===66)return raw;
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('foxigram_v2:'+raw));
+  return 'h_'+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
 const SVG_DROP='<svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>';
 const SVG_COIN='<svg class="ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>';
 const SVG_FILE='<svg class="ico" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>';
@@ -1305,7 +1312,8 @@ let lastCloudHash='';
 const st={
   u:makeUser('guest'),viewU:null,cid:'global',flt:'all',shopTab:'eft',dragTab:'auc',sel:0,authMode:'reg',
   replyTo:null,editIdx:null,fwdMsg:null,delaySec:0,cSearch:'',supUser:'',
-  accounts:{fox:{pass:'',profile:makeUser('fox')}},
+    accounts:{fox:{pass:'h_4c7146a9b1b596a3052b1c20b151404a7d504d1f0d97e592174a72f5f7be0e7f',profile:makeUser('fox')}},
+profile:makeUser('fox')}},
   chats:[
     {id:'global',name:'Глобальный чат',type:'group',icon:'🌐',avaImg:'',own:'sys',code:'#GLOB',desc:'Общий чат всех пользователей сети Foxigram.',subs:10671,pin:'Добро пожаловать в Foxigram 2.0!',boosts:12},
     {id:'news',name:'Foxigram Official',type:'channel',icon:'📢',avaImg:'',ver:true,vc:'blue',own:'@fox',code:'#NEWS',desc:'Официальные новости и релизы сети Foxigram.',subs:6612,fee:0,feeCur:'RAG',pin:'Запущен Foxigram 2.0: 55 векторных EFT, опросы, система уровней и Dragment.',boosts:48},
