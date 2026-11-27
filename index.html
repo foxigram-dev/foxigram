@@ -1021,6 +1021,33 @@ async function hashPass(raw){
   const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('foxigram_v2:'+raw));
   return 'h_'+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
+const E2E_KEYS={};
+async function getChatAesKey(chatId){
+  if(E2E_KEYS[chatId])return E2E_KEYS[chatId];
+  const base=await crypto.subtle.importKey('raw',new TextEncoder().encode('foxigram_e2e_v2:'+chatId),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:new TextEncoder().encode('fox_salt_2026'),iterations:12000,hash:'SHA-256'},base,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+  E2E_KEYS[chatId]=key;
+  return key;
+}
+async function e2eEncrypt(chatId,plain){
+  if(!plain||plain.startsWith('e2e:'))return plain;
+  const key=await getChatAesKey(chatId);
+  const iv=crypto.getRandomValues(new Uint8Array(12));
+  const enc=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(plain));
+  const b64=arr=>btoa(String.fromCharCode(...new Uint8Array(arr)));
+  return 'e2e:'+b64(iv)+':'+b64(enc);
+}
+async function e2eDecrypt(chatId,cipher){
+  if(!cipher||!cipher.startsWith('e2e:'))return cipher;
+  try{
+    const parts=cipher.split(':');
+    const fromB64=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+    const key=await getChatAesKey(chatId);
+    const dec=await crypto.subtle.decrypt({name:'AES-GCM',iv:fromB64(parts)},key,fromB64(parts));
+    return new TextDecoder().decode(dec);
+  }catch(e){return '[Ошибка расшифровки E2E]';}
+}
+
 
 const SVG_DROP='<svg class="ico-sm" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>';
 const SVG_COIN='<svg class="ico-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>';
@@ -2005,7 +2032,13 @@ const pollBtn=document.getElementById('b-poll');
     else{av.textContent=senderObj?senderObj.ava:(m.s==='@wallet'?'💳':(m.s==='@support'?'🛡️':(m.s==='@FoxBot'?'🤖':'🦊')));}
 
     const d=document.createElement('div');d.className='msg';
-    const safeT=m.t?m.t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
+        let rawMsgTxt=m.t||'';
+    if(rawMsgTxt.startsWith('e2e:')){
+      if(m._dec)rawMsgTxt=m._dec;
+      else{e2eDecrypt(mKey,rawMsgTxt).then(res=>{m._dec=res;drawMsgs();});rawMsgTxt='🔒 Расшифровка...';}
+    }
+    const safeT=rawMsgTxt?rawMsgTxt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'):'';
+
     let txt=safeT?safeT.replace(/\|\|(.*?)\|\|/g,'<span class="spoiler" onclick="this.classList.toggle(`open`)">$1</span>'):'';
     if(txt){txt=txt.replace(/(@[a-zA-Z0-9_]{3,})/g,'<span class="mention-link" data-mtag="$1">$1</span>');}
 
@@ -2171,7 +2204,7 @@ const dc=d.querySelector('.drop-claim');
   box.scrollTop=box.scrollHeight;
   if(markedRead)saveState();
 }
-function send(extra={}){
+async function send(extra={}){
   if(st.u.banned)return alert('Ваш аккаунт заблокирован администратором.');
   if(st.u.frozen)return alert('Ваш аккаунт заморожен. Обратитесь в Foxigram Support.');
   if(st.u.muted)return alert('Администратор ограничил вам отправку сообщений.');
@@ -2239,10 +2272,12 @@ function send(extra={}){
   const senderVer=isSupReply?true:st.u.ver;
   const senderVc=isSupReply?'blue':st.u.verColor;
   const senderNum=isSupReply?'SUPPORT':st.u.num;
+  const isE2E=(mKey.startsWith('dm_')||mKey.startsWith('sec_'));
+  const finalTxt=(isE2E&&t)?(await e2eEncrypt(mKey,t)):t;
 
   st.msgs[mKey].push({
     id:'m'+Date.now()+Math.random(),s:senderTag,v:senderVer,vc:senderVc,n:senderNum,
-    t:t,rep:st.replyTo||null,drop:extra.drop||null,bizAd:extra.bizAd||null,poll:extra.poll||null,
+    t:finalTxt,e2e:isE2E,rep:st.replyTo||null,drop:extra.drop||null,bizAd:extra.bizAd||null,poll:extra.poll||null,
     img:extra.img||'',voice:extra.voice||null,file:extra.file||null,
     time,r:{},com:[],don:0,exp:expAt,read:false,views:cObj&&cObj.type==='channel'?[st.u.tag]:undefined
   });
